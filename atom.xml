@@ -39,22 +39,20 @@
   </entry>
   
   <entry>
-    <title>问题</title>
+    <title>Git常见的问题及解决方案</title>
     <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Git/%E9%97%AE%E9%A2%98/"/>
     <id>http://example.com/wiki/程序技术/Git/问题/</id>
     <published>2021-10-25T11:43:34.168Z</published>
-    <updated>2021-10-25T12:49:03.175Z</updated>
+    <updated>2021-10-25T13:32:12.931Z</updated>
     
-    <content type="html"><![CDATA[<!--编写md文件的时候，需要指明文章名称title,文章分类categroies,文章标签tags--><ul><li><p>当能够正常运行的项目突然无法运行，出现找不到资源文件错误的时候。</p><p>  首先，能运行就标明项目本身并没有问题。对于资源文件找不到，可能就和系统的缓存加载有关。<br>所以这个时候，可以对项目的依赖文件进行重新的审查，如果没有问题，再查看依赖是否有问题。对于Maven项目的依赖问题，<br>可以重新clean被依赖的工程，再重新install被依赖的工程。重新加载资源文件。</p></li></ul>]]></content>
+    <content type="html"><![CDATA[<!--编写md文件的时候，需要指明文章名称title,文章分类categroies,文章标签tags--><h3 id="1-当能够正常运行的项目突然无法运行，出现找不到资源文件错误的时候。"><a href="#1-当能够正常运行的项目突然无法运行，出现找不到资源文件错误的时候。" class="headerlink" title="1. 当能够正常运行的项目突然无法运行，出现找不到资源文件错误的时候。"></a>1. 当能够正常运行的项目突然无法运行，出现找不到资源文件错误的时候。</h3><pre><code>首先，能运行就标明项目本身并没有问题。对于资源文件找不到，可能就和系统的缓存加载有关。</code></pre><p>所以这个时候，可以对项目的依赖文件进行重新的审查，如果没有问题，再查看依赖是否有问题。对于Maven项目的依赖问题，<br>可以重新clean被依赖的工程，再重新install被依赖的工程。重新加载资源文件。</p><h3 id="2-git提交代码到Github时候，出现fatal-unable-to-access-‘https-github-com-zzcpage-zzcpage-github-io-git-39-OpenSSL-SSL-read-Connection-was-reset-errno-10054"><a href="#2-git提交代码到Github时候，出现fatal-unable-to-access-‘https-github-com-zzcpage-zzcpage-github-io-git-39-OpenSSL-SSL-read-Connection-was-reset-errno-10054" class="headerlink" title="2. git提交代码到Github时候，出现fatal: unable to access ‘https://github.com/zzcpage/zzcpage.github.io.git/&#39;: OpenSSL SSL_read: Connection was reset, errno 10054"></a>2. git提交代码到Github时候，出现<font color="red">fatal: unable to access ‘<a href="https://github.com/zzcpage/zzcpage.github.io.git/&#39;">https://github.com/zzcpage/zzcpage.github.io.git/&#39;</a>: OpenSSL SSL_read: Connection was reset, errno 10054</font></h3><p>产生的原因：一般是这是因为服务器的SSL证书没有经过第三方机构的签署，所以才报错。</p><p>解决方法：解除ssl验证后，再次git即可。</p><p>通过<font color="red">git config –global http.sslVerify “false”</font>命令进行解除SSL验证，解除完之后，再次Git即可提交成功。</p>]]></content>
     
     <summary type="html">
     
       
       
         &lt;!--编写md文件的时候，需要指明文章名称title,文章分类categroies,文章标签tags--&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;当能够正常运行的项目突然无法运行，出现找不到资源文件错误的时候。&lt;/p&gt;
-&lt;p&gt;  首先，能运行就标明项目本身并没有问题。对于资源文件找不到，可能
+&lt;h3 id=&quot;1-当能够正常运行的项目突然无法运行，出现找不到资源文件错误的时候。&quot;&gt;&lt;a href=&quot;#1-当能够正常运行的项目突然无法运行，出现找不到资源文件错误的
       
     
     </summary>
@@ -64,9 +62,9 @@
       <category term="Git" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Git/"/>
     
     
-      <category term="centOS" scheme="http://example.com/tags/centOS/"/>
+      <category term="Git" scheme="http://example.com/tags/Git/"/>
     
-      <category term="tomcat" scheme="http://example.com/tags/tomcat/"/>
+      <category term="Bug解决方案" scheme="http://example.com/tags/Bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
     
   </entry>
   

@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/wiki/hello-world/</loc>
+    <loc>http://example.com/wiki/%25E7%25A8%258B%25E5%25BA%258F%25E6%258A%2580%25E6%259C%25AF/Git/%25E9%2597%25AE%25E9%25A2%2598/</loc>
     
-    <lastmod>2021-10-25T12:58:43.801Z</lastmod>
+    <lastmod>2021-10-25T13:32:12.931Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/wiki/%25E7%25A8%258B%25E5%25BA%258F%25E6%258A%2580%25E6%259C%25AF/Git/%25E9%2597%25AE%25E9%25A2%2598/</loc>
+    <loc>http://example.com/wiki/hello-world/</loc>
     
-    <lastmod>2021-10-25T12:49:03.175Z</lastmod>
+    <lastmod>2021-10-25T12:58:43.801Z</lastmod>
     
   </url>
   
