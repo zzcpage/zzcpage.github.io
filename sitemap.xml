@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://example.com/wiki/%25E7%25A8%258B%25E5%25BA%258F%25E6%258A%2580%25E6%259C%25AF/Git/%25E9%2597%25AE%25E9%25A2%2598/</loc>
+    
+    <lastmod>2021-10-25T11:46:21.444Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/about/index.html</loc>
+    
+    <lastmod>2021-10-25T10:00:52.042Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/index.html</loc>
+    
+    <lastmod>2021-10-25T06:06:05.903Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/categories/index.html</loc>
+    
+    <lastmod>2021-10-25T06:06:05.901Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/wiki/hello-world/</loc>
+    
+    <lastmod>2021-10-25T05:11:54.986Z</lastmod>
+    
+  </url>
+  
+</urlset>
