@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-10-25T12:16:17.916Z</updated>
+  <updated>2021-10-26T04:48:30.703Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,68 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>48.旋转数组</title>
+    <link href="http://example.com/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/48.%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84/"/>
+    <id>http://example.com/wiki/算法/Leetcode/数组/48.旋转数组/</id>
+    <published>2021-10-26T04:21:45.745Z</published>
+    <updated>2021-10-26T04:48:30.703Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  通过辅助数组进行实现</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="keyword">int</span>[][] matrix)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span>[][] totataMatrix = <span class="keyword">new</span> <span class="keyword">int</span>[matrix.length][matrix.length] ;</span><br><span class="line">      <span class="keyword">int</span> i = <span class="number">0</span> , j = <span class="number">0</span> , len = matrix.length;</span><br><span class="line">      <span class="keyword">for</span>(i = <span class="number">0</span> ; i &lt; len ; i++)&#123;</span><br><span class="line">          <span class="keyword">for</span>(j = <span class="number">0</span> ; j &lt; len ; j++)&#123;</span><br><span class="line">              totataMatrix[j][len-i-<span class="number">1</span>] = matrix[i][j];</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">for</span>(i = <span class="number">0</span> ; i &lt; len ; i++)&#123;</span><br><span class="line">          <span class="keyword">for</span>(j = <span class="number">0</span> ; j &lt; len ; j++)&#123;</span><br><span class="line">              matrix[i][j] = totataMatrix[i][j];</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果需要原地旋转，那就必须需要考虑数组下标之间的关系，然后进行旋转操作</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rotateTwo</span><span class="params">(<span class="keyword">int</span>[][] matrix)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> i = <span class="number">0</span> , j = <span class="number">0</span> , len = matrix.length;</span><br><span class="line">      <span class="keyword">for</span>(i = <span class="number">0</span> ; i &lt; len / <span class="number">2</span>; i++)&#123;</span><br><span class="line">          <span class="keyword">for</span>(j = <span class="number">0</span> ; j &lt; (len+<span class="number">1</span>) /<span class="number">2</span> ; j++)&#123;</span><br><span class="line">              <span class="keyword">int</span> temp = matrix[i][j] ;</span><br><span class="line">              matrix[i][j] = matrix[len-j-<span class="number">1</span>][i] ;</span><br><span class="line">              matrix[len-j-<span class="number">1</span>][i] = matrix[len-i-<span class="number">1</span>][len-j-<span class="number">1</span>] ;</span><br><span class="line">              matrix[len-i-<span class="number">1</span>][len-j-<span class="number">1</span>] = matrix[j][len-i-<span class="number">1</span>] ;</span><br><span class="line">              matrix[j][len-i-<span class="number">1</span>] = temp ;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 数组选择90度又可以转换为数组翻转问题，首先进行上下翻转，然后再根据主对角线进行翻转。</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rotateThree</span><span class="params">(<span class="keyword">int</span>[][] matrix)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> i = <span class="number">0</span> , j = <span class="number">0</span> , len = matrix.length;</span><br><span class="line">      <span class="keyword">for</span>(i = <span class="number">0</span> ; i &lt; len / <span class="number">2</span>; i++)&#123;</span><br><span class="line">          <span class="keyword">for</span>(j = <span class="number">0</span> ; j &lt; (len+<span class="number">1</span>) /<span class="number">2</span> ; j++)&#123;</span><br><span class="line">              <span class="keyword">int</span> temp = matrix[i][j] ;</span><br><span class="line">              matrix[i][j] = matrix[len-j-<span class="number">1</span>][i] ;</span><br><span class="line">              matrix[len-j-<span class="number">1</span>][i] = matrix[len-i-<span class="number">1</span>][len-j-<span class="number">1</span>] ;</span><br><span class="line">              matrix[len-i-<span class="number">1</span>][len-j-<span class="number">1</span>] = matrix[j][len-i-<span class="number">1</span>] ;</span><br><span class="line">              matrix[j][len-i-<span class="number">1</span>] = temp ;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=
+      
+    
+    </summary>
+    
+      <category term="算法" scheme="http://example.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="Leetcode" scheme="http://example.com/categories/%E7%AE%97%E6%B3%95/Leetcode/"/>
+    
+      <category term="数组" scheme="http://example.com/categories/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/"/>
+    
+    
+      <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>36.有效数独</title>
+    <link href="http://example.com/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/36.%E6%9C%89%E6%95%88%E6%95%B0%E7%8B%AC/"/>
+    <id>http://example.com/wiki/算法/Leetcode/数组/36.有效数独/</id>
+    <published>2021-10-26T02:09:42.061Z</published>
+    <updated>2021-10-26T04:48:10.980Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">public boolean <span class="function"><span class="title">isValidSudokuTwo</span>(<span class="params">char[][] board</span>)</span> &#123;</span><br><span class="line">        int i = <span class="number">0</span> , j = <span class="number">0</span> , k = <span class="number">0</span> , l = <span class="number">0</span> , idx  ;</span><br><span class="line">        HashMap&lt;Integer, HashSet&lt;Character&gt;&gt; area = <span class="keyword">new</span> HashMap&lt;Integer, HashSet&lt;Character&gt;&gt;() ;</span><br><span class="line">        <span class="comment">//判断行列是否符合数独条件</span></span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span> ; i &lt; board.length ; i++)&#123;</span><br><span class="line">            HashMap&lt;Character, Integer&gt; row = <span class="keyword">new</span> HashMap&lt;Character, Integer&gt;() ;</span><br><span class="line">            HashMap&lt;Character, Integer&gt; col = <span class="keyword">new</span> HashMap&lt;Character, Integer&gt;() ;</span><br><span class="line">            <span class="keyword">for</span>(j = <span class="number">0</span> ; j &lt; board.length ; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(board[i][j] != <span class="string">&#x27;.&#x27;</span>)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(row.containsKey(board[i][j]))&#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        row.put(board[i][j],<span class="number">1</span>) ;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(board[j][i] != <span class="string">&#x27;.&#x27;</span>)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(col.containsKey(board[j][i]))&#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        col.put(board[j][i],<span class="number">1</span>) ;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                idx = (i/<span class="number">3</span>)*<span class="number">3</span> + j/<span class="number">3</span> ;</span><br><span class="line">                <span class="keyword">if</span>(!area.containsKey(idx))&#123;</span><br><span class="line">                    area.put(idx,<span class="keyword">new</span> HashSet&lt;Character&gt;()) ;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(area.get(idx).contains(board[i][j]))&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    area.get(idx).add(board[i][j]) ;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>  ;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span 
+      
+    
+    </summary>
+    
+      <category term="算法" scheme="http://example.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="Leetcode" scheme="http://example.com/categories/%E7%AE%97%E6%B3%95/Leetcode/"/>
+    
+      <category term="数组" scheme="http://example.com/categories/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/"/>
+    
+    
+      <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
   
   <entry>
     <title>tets</title>
