@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/wiki/JavaSE/%25E7%25AC%25AC%25E4%25B8%2589%25E7%25AB%25A0-Java%25E5%259F%25BA%25E6%259C%25AC%25E7%25A8%258B%25E5%25BA%258F%25E7%25BB%2593%25E6%259E%2584/java%2520basic%2520statment/</loc>
+    
+    <lastmod>2021-10-27T07:08:44.684Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://example.com/wiki/JavaSE/%25E7%25AC%25AC%25E4%25B8%2589%25E7%25AB%25A0-Java%25E5%259F%25BA%25E6%259C%25AC%25E7%25A8%258B%25E5%25BA%258F%25E7%25BB%2593%25E6%259E%2584/java%2520introduce/</loc>
     
     <lastmod>2021-10-27T06:48:05.223Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://example.com/wiki/JavaSE/%25E7%25AC%25AC%25E4%25B8%2589%25E7%25AB%25A0-Java%25E5%259F%25BA%25E6%259C%25AC%25E7%25A8%258B%25E5%25BA%258F%25E7%25BB%2593%25E6%259E%2584/java%2520controll%2520followe/</loc>
     
     <lastmod>2021-10-27T06:48:04.804Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/wiki/JavaSE/%25E7%25AC%25AC%25E4%25B8%2589%25E7%25AB%25A0-Java%25E5%259F%25BA%25E6%259C%25AC%25E7%25A8%258B%25E5%25BA%258F%25E7%25BB%2593%25E6%259E%2584/java%2520basic%2520statment/</loc>
-    
-    <lastmod>2021-10-27T06:48:04.615Z</lastmod>
     
   </url>
   

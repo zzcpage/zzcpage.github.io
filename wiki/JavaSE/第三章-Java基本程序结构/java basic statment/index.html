@@ -17,7 +17,7 @@
 <meta property="og:description" content="1. Java注释2. Java数据类型3. Java变量4. Java运算符5. Java字符串6. Java输入流7. Java数组8. 大数值一般我们在学习一门语言的时候，总是从hello world入门，所以我们也是从hello world开始入门。 1234567public class FirstSample&amp;#123;    public static void main(Strin">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-10-26T09:21:11.459Z">
-<meta property="article:modified_time" content="2021-10-27T06:48:04.615Z">
+<meta property="article:modified_time" content="2021-10-27T07:08:44.684Z">
 <meta property="article:author" content="ZZC">
 <meta property="article:tag" content="JAVA">
 <meta property="article:tag" content="JAVASE">
@@ -414,7 +414,36 @@
 <blockquote>
 <p>1, 整型</p>
 </blockquote>
-<p>整型也就是常说的整数。用于表示数据为整数。<br>| 类型  | 字长  |      取值      |<br>| :—: | :—: | :————: |<br>| byte  |   1   |    -128-127    |<br>| short |   2   | -2^15-(2^15-1) |<br>|  int  |   4   | -2^31-(2^31-1) |<br>| long  |   8   | -2^63-(2^63-1) |</p>
+<p>整型也就是常说的整数。用于表示数据为整数。</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">字长</th>
+<th align="center">取值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">byte</td>
+<td align="center">1</td>
+<td align="center">-128-127</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">2</td>
+<td align="center">-2^15-(2^15-1)</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">4</td>
+<td align="center">-2^31-(2^31-1)</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">8</td>
+<td align="center">-2^63-(2^63-1)</td>
+</tr>
+</tbody></table>
 <p>示例代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">basicType</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="keyword">byte</span> a ;</span><br><span class="line">       <span class="keyword">short</span> b ;</span><br><span class="line">       <span class="keyword">int</span> c;</span><br><span class="line">       <span class="keyword">long</span> d  ;</span><br><span class="line">       d = <span class="number">10000000L</span> ; <span class="comment">//通过L表示为长整型数据</span></span><br><span class="line">       c = <span class="number">0x123</span> ; <span class="comment">//通过0x表示为十六进制</span></span><br><span class="line">       c = <span class="number">0b1001</span> ; <span class="comment">//通过0b表示二进制数据</span></span><br><span class="line">       c = <span class="number">010</span> ; <span class="comment">//通过0开头，表示为八进制数据。</span></span><br><span class="line">   &#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -422,7 +451,26 @@
 <li>浮点类型</li>
 </ol>
 </blockquote>
-<p>浮点类型的数据也就是我们常说的小数。<br>|  类型  | 字长  |                          取值                           |<br>| :—-: | :—: | :—————————————————–: |<br>| float  |   4   |     大约 ± 3.402 823 47E+38F (有效位数为 6 ~ 7 位）     |<br>| double |   8   | 大约 ± 1.797 693 134 862 315 70E+308 (有效位数为 15 位) |</p>
+<p>浮点类型的数据也就是我们常说的小数。</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">字长</th>
+<th align="center">取值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">float</td>
+<td align="center">4</td>
+<td align="center">大约 ± 3.402 823 47E+38F (有效位数为 6 ~ 7 位）</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">8</td>
+<td align="center">大约 ± 1.797 693 134 862 315 70E+308 (有效位数为 15 位)</td>
+</tr>
+</tbody></table>
 <p>double 表示这种类型的数值精度是 float 类型的两倍（有人称之为双精度数值)。绝大部分应用程序都采用 double 类型。float 类型的数值有一个后缀 F 或 f (例如，3.14F。) 没有后缀 F 的浮点数值（如 3.14 ) 默认为double 类型。当然，也可以在浮点数值后面添加后缀 D 或 d (例如，3.14D)<br>。</p>
 <blockquote>
 <ol start="3">
