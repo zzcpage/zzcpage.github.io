@@ -722,9 +722,9 @@
                     
                     <p><p><img src="/images/%E5%A4%9A%E9%80%9A%E9%81%93%E8%AE%A1%E7%AE%97.PNG" alt="aaa"></p>
 <h3 id="问题介绍"><a href="#问题介绍" class="headerlink" title="问题介绍"></a>问题介绍</h3><p>如果仅仅依靠全连接神经网络来训练模型，则在实际应用中，输入特征会非常多，参数十分复杂，让训练变得非常庞大。所以在实际应用时，会对原始图像进行特征提取再把提取到的特征送给全连接网络。流程如下所示：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    原始图片 --&gt; 若干层特征提取</span><br><span class="line">    若干层特征提取 --&gt; 全连接网络</span><br></pre></td></tr></table></figure>
-
-<p>卷积计算是一种提取图片特征的有效方法。</p>
+<pre class="mermaid">    graph LR
+        原始图片 --> 若干层特征提取
+        若干层特征提取 --> 全连接网络</pre>
 <p>
                 
             
