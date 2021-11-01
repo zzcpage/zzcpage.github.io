@@ -514,9 +514,9 @@
                     
                     <p><!--编写md文件的时候，需要指明文章名称title,文章分类categroies,文章标签tags-->
 <h3 id="1-当能够正常运行的项目突然无法运行，出现找不到资源文件错误的时候。"><a href="#1-当能够正常运行的项目突然无法运行，出现找不到资源文件错误的时候。" class="headerlink" title="1. 当能够正常运行的项目突然无法运行，出现找不到资源文件错误的时候。"></a>1. 当能够正常运行的项目突然无法运行，出现找不到资源文件错误的时候。</h3><pre><code>首先，能运行就标明项目本身并没有问题。对于资源文件找不到，可能就和系统的缓存加载有关。
-</code></pre>
-<p>所以这个时候，可以对项目的依赖文件进行重新的审查，如果没有问题，再查看依赖是否有问题。对于Maven项目的依赖问题，<br>可以重新clean被依赖的工程，再重新install被依赖的工程。重新加载资源文件。</p>
-<h3 id="2-git提交代码到Github时候，出现fatal-unable-to-access-‘https-github-com-zzcpage-zzcpage-github-io-git-39-OpenSSL-SSL-read-Connection-was-reset-errno-10054"><a href="#2-git提交代码到Github时候，出现fatal-unable-to-access-‘https-github-com-zzcpage-zzcpage-github-io-git-39-OpenSSL-SSL-read-Connection-was-reset-errno-10054" class="headerlink" title="2. git提交代码到Github时候，出现fatal: unable to access ‘https://github.com/zzcpage/zzcpage.github.io.git/&#39;: OpenSSL SSL_read: Connection was reset, errno 10054"></a>2. git提交代码到Github时候，出现<font color="red">fatal: unable to access ‘<a target="_blank" rel="noopener" href="https://github.com/zzcpage/zzcpage.github.io.git/&#39;">https://github.com/zzcpage/zzcpage.github.io.git/&#39;</a>: OpenSSL SSL_read: Connection was reset, errno 10054</font></h3><p>产生的原因：一般是这是因为服务器的SSL证书没有经过第三方机构的签署，所以才报错。</p>
+</code></pre><p>所以这个时候，可以对项目的依赖文件进行重新的审查，如果没有问题，再查看依赖是否有问题。对于Maven项目的依赖问题，<br>可以重新clean被依赖的工程，再重新install被依赖的工程。重新加载资源文件。</p>
+<h3 id="2-git提交代码到Github时候，出现fatal-unable-to-access-‘https-github-com-zzcpage-zzcpage-github-io-git-‘-OpenSSL-SSL-read-Connection-was-reset-errno-10054"><a href="#2-git提交代码到Github时候，出现fatal-unable-to-access-‘https-github-com-zzcpage-zzcpage-github-io-git-‘-OpenSSL-SSL-read-Connection-was-reset-errno-10054" class="headerlink" title="2. git提交代码到Github时候，出现fatal: unable to access ‘https://github.com/zzcpage/zzcpage.github.io.git/‘: OpenSSL SSL_read: Connection was reset, errno 10054"></a>2. git提交代码到Github时候，出现<font color="red">fatal: unable to access ‘<a target="_blank" rel="noopener" href="https://github.com/zzcpage/zzcpage.github.io.git/">https://github.com/zzcpage/zzcpage.github.io.git/</a>‘: OpenSSL SSL_read: Connection was reset, errno 10054</font></h3><p>产生的原因：一般是这是因为服务器的SSL证书没有经过第三方机构的签署，所以才报错。</p>
+<p>解决方法：解除ssl验证后，再次git即可。</p>
 <p>
                 
             
@@ -613,9 +613,9 @@
                     
                     <p><p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
 <p>
                 
             
@@ -707,25 +707,11 @@
     
     
         <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true,
-            TeX: {
-                equationNumbers: {
-                  autoNumber: 'AMS'
-                }
-            }
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [ ["$","$"], ["\\(","\\)"] ], skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'], processEscapes: true, TeX: { equationNumbers: { autoNumber: 'AMS' } } } }); MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(); for (var i = 0; i
+    < all.length; ++i) all[i].SourceElement().parentNode.className +=' has-jax' ; }); </script>
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <!-- <script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
     
 
 

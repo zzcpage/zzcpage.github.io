@@ -420,8 +420,8 @@
         
         
             <ul>
-<li><a href="#1-%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0">1. 问题描述</a></li>
-<li><a href="#2-%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF">2. 解题思路</a></li>
+<li><a href="#1-问题描述">1. 问题描述</a></li>
+<li><a href="#2-解题思路">2. 解题思路</a></li>
 </ul>
 <h3 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1. 问题描述"></a>1. 问题描述</h3><p>今天的问题很简单，就是给定两个字符串text和pattern，让你找出在text中是否存在一个序列等于pattern,如果存在就返回true,如果不存在就返回false 。</p>
 <h3 id="2-解题思路"><a href="#2-解题思路" class="headerlink" title="2. 解题思路"></a>2. 解题思路</h3><p>从题目描述上来看，很容易看出这题目是关于字符串匹配的问题，也就是从一段文本中，找出某个模式的全部出现位置的问题。</p>
@@ -535,25 +535,11 @@
     
     
         <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true,
-            TeX: {
-                equationNumbers: {
-                  autoNumber: 'AMS'
-                }
-            }
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [ ["$","$"], ["\\(","\\)"] ], skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'], processEscapes: true, TeX: { equationNumbers: { autoNumber: 'AMS' } } } }); MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(); for (var i = 0; i
+    < all.length; ++i) all[i].SourceElement().parentNode.className +=' has-jax' ; }); </script>
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <!-- <script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
     
 
 
