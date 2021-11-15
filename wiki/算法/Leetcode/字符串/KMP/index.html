@@ -9,19 +9,21 @@
         <meta name="keywords" content="算法,字符串" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="1. 问题描述 2. 解题思路  1. 问题描述今天的问题很简单，就是给定两个字符串text和pattern，让你找出在text中是否存在一个序列等于pattern,如果存在就返回true,如果不存在就返回false 。 2. 解题思路从题目描述上来看，很容易看出这题目是关于字符串匹配的问题，也就是从一段文本中，找出某个模式的全部出现位置的问题。 $\sum{3x^n}$">
+    <meta name="description" content="1. 问题描述 2. 解题思路  1. 问题描述今天的问题很简单，就是给定两个字符串text和pattern，让你找出在text中是否存在一个序列等于pattern,如果存在就返回true,如果不存在就返回false 。 2. 解题思路从题目描述上来看，很容易看出这题目是关于字符串匹配的问题，也就是从一段文本中，找出某个模式的全部出现位置的问题。   朴素的字符串匹配算法   用一个循环找出所有">
 <meta property="og:type" content="article">
 <meta property="og:title" content="KMP算法">
 <meta property="og:url" content="http://example.com/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/KMP/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="1. 问题描述 2. 解题思路  1. 问题描述今天的问题很简单，就是给定两个字符串text和pattern，让你找出在text中是否存在一个序列等于pattern,如果存在就返回true,如果不存在就返回false 。 2. 解题思路从题目描述上来看，很容易看出这题目是关于字符串匹配的问题，也就是从一段文本中，找出某个模式的全部出现位置的问题。 $\sum{3x^n}$">
+<meta property="og:description" content="1. 问题描述 2. 解题思路  1. 问题描述今天的问题很简单，就是给定两个字符串text和pattern，让你找出在text中是否存在一个序列等于pattern,如果存在就返回true,如果不存在就返回false 。 2. 解题思路从题目描述上来看，很容易看出这题目是关于字符串匹配的问题，也就是从一段文本中，找出某个模式的全部出现位置的问题。   朴素的字符串匹配算法   用一个循环找出所有">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/时间复杂度.PNG">
 <meta property="article:published_time" content="2021-10-28T09:15:08.580Z">
-<meta property="article:modified_time" content="2021-10-28T09:48:03.126Z">
+<meta property="article:modified_time" content="2021-11-15T00:55:53.024Z">
 <meta property="article:author" content="ZZC">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="字符串">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/时间复杂度.PNG">
     
 
     
@@ -186,7 +188,7 @@
                             &nbsp;
                             JavaSE
                         </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20introduce/">1. Java介绍</a></li>  <li class="file"><a href="/wiki/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20basic%20statment/">2. Java基本语法</a></li>  <li class="file"><a href="/wiki/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20controll%20followe/">3. Java控制流程</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20introduce/">1. Java介绍</a></li>  <li class="file"><a href="/wiki/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20basic%20statment/">2. Java基本语法</a></li>  <li class="file"><a href="/wiki/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20controll%20followe/">3. Java控制流程</a></li>  <li class="file"><a href="/wiki/JavaSE/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/class/">4. Java对象与类</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -269,6 +271,33 @@
                     </li> 
                      </ul> 
                     </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            软件配置
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/hexo/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">hexo使用问题</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            python配置
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/python/Anaconda/">Anaconda配置</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
                      </ul> 
     </div>
     <script>
@@ -341,7 +370,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title"><span>archives</span></h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">12</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">12</span></li></ul>
         </div>
     </div>
 
@@ -350,7 +379,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title"><span>tags</span></h3>
         <div class="widget">
-            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">Bug解决方案</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVASE/" rel="tag">JAVASE</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow2/" rel="tag">TensorFlow2</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">Bug解决方案</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVASE/" rel="tag">JAVASE</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow2/" rel="tag">TensorFlow2</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/" rel="tag">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%85%8D%E7%BD%AE/" rel="tag">配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -425,7 +454,28 @@
 </ul>
 <h3 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1. 问题描述"></a>1. 问题描述</h3><p>今天的问题很简单，就是给定两个字符串text和pattern，让你找出在text中是否存在一个序列等于pattern,如果存在就返回true,如果不存在就返回false 。</p>
 <h3 id="2-解题思路"><a href="#2-解题思路" class="headerlink" title="2. 解题思路"></a>2. 解题思路</h3><p>从题目描述上来看，很容易看出这题目是关于字符串匹配的问题，也就是从一段文本中，找出某个模式的全部出现位置的问题。</p>
-<p>$\sum{3x^n}$</p>
+<blockquote>
+<ol>
+<li>朴素的字符串匹配算法</li>
+</ol>
+</blockquote>
+<p>用一个循环找出所有有效位移，对text每个字符进行检测，然后匹配pattern，如果匹配成功就返回下标。如果失败，就移动text下一个位置，重复操作。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">strStr</span><span class="params">(String haystack, String needle)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len_h , len_s , i , j = <span class="number">0</span> ;</span><br><span class="line">        len_s = needle.length() ;</span><br><span class="line">        <span class="keyword">if</span>(len_s == <span class="number">0</span> )</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">        len_h = haystack.length() ;</span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span> ; i &lt;= len_h - len_s ; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(haystack.charAt(i)==needle.charAt(j))&#123;</span><br><span class="line">                <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;len_s;j++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(haystack.charAt(i+j)!=needle.charAt(j))</span><br><span class="line">                        <span class="keyword">break</span> ;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(j&gt;=len_s)</span><br><span class="line">                    <span class="keyword">return</span> i ;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    j = <span class="number">0</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span> ;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<ol>
+<li>KMP算法</li>
+</ol>
+</blockquote>
+<p>KMP算法的巧妙之处就是利用已经匹配字符串来确定下一次匹配开始的位置。这就是和朴素字符串匹配算法的区别，朴素字符串匹配算法每次匹配完毕之后，只是从下一个字符开始进行匹配，那么就浪费了已经匹配过字符串的有效信息，所以造成时间上的浪费。如何确定下一字符开始匹配的位置呢？假设已经匹配模式串pattern的位置为j,也就是从text的位置i开始 text[i…..,i+j] = pattern[0……,0+j]</p>
+<blockquote>
+<p>KMP算法的前缀函数(next)</p>
+</blockquote>
+<p>前缀函数 $\pi$(i)(0 $\leq$ i &lt; m)表示s 的子串 s[0:i] 的最长的相等的真前缀与真后缀的长度。特别地，如果不存在符合条件的前后缀，那么 $\pi$(i) = 0。其中真前缀与真后缀的定义为不等于自身的的前缀与后缀。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 求解字符前缀函数</span></span><br><span class="line"><span class="comment"> * /</span></span><br><span class="line"><span class="comment"> public int[] getNext(String s)&#123;</span></span><br><span class="line"><span class="comment">        int len , k ,q ;</span></span><br><span class="line"><span class="comment">        len = s.length() ;</span></span><br><span class="line"><span class="comment">        int[] next = new int[len];</span></span><br><span class="line"><span class="comment">        next[0] = 0 ;</span></span><br><span class="line"><span class="comment">        for(q = 1,k=0 ; q&lt; len ; q++)&#123;  //长字符串的前缀建立在短字符前缀的匹配上。</span></span><br><span class="line"><span class="comment">            while (k&gt;0&amp;&amp;s.charAt(k)!=s.charAt(q))&#123;</span></span><br><span class="line"><span class="comment">                    k = next[k-1] ;</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">            if(s.charAt(q) == s.charAt(k))&#123;</span></span><br><span class="line"><span class="comment">                k = k+1 ;</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">            next[q] = k ;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        return next ;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过前缀函数进行字符串的匹配</span></span><br><span class="line"><span class="comment"> * /</span></span><br><span class="line"><span class="comment">    public int Matcher(String t , String p )&#123;</span></span><br><span class="line"><span class="comment">        int   q , i;</span></span><br><span class="line"><span class="comment">        int n = t.length(), m = p.length();</span></span><br><span class="line"><span class="comment">        if (m == 0) &#123;</span></span><br><span class="line"><span class="comment">            return 0;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        int[] next = getNext(p) ;</span></span><br><span class="line"><span class="comment">        q = 0 ;</span></span><br><span class="line"><span class="comment">        for(i = 0 ,q=0; i &lt; n ;i++)&#123;</span></span><br><span class="line"><span class="comment">            while(q&gt;0&amp;&amp;p.charAt(q)!=t.charAt(i))&#123;  //如果不匹配则移动到下一个位置</span></span><br><span class="line"><span class="comment">                q = next[q-1] ;</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">            if(p.charAt(q) == t.charAt(i))&#123;</span></span><br><span class="line"><span class="comment">                q = q+1 ;</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">            if(q == m)&#123;</span></span><br><span class="line"><span class="comment">                return i-m+1 ;</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        return -1 ;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment"></span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>个人总结</p>
+</blockquote>
+<p>KMP算法主要在于计算前缀函数next，前缀函数的计算依据最长相同前后缀长度为依据来计算。通过next来获取到移动的位置。</p>
+<p>对于next前缀函数的计算过程，patten(q) 和 patten(k) 不等说明了，在前一个（q-1）的最长前后缀匹配的位置，增加一个text(q)后，patten[0-&gt;next(q-1),next(q-1)+1] 和patten[(q-1)-next(q-1)-&gt;q]并不相等(因为新增的最后一个字符和前一个patten(q-1)字符串的最长前后缀并不相等)，所以需要进一步比较next[next(q-1)] 是否满足，patten[0-&gt;k+1] == patten[k-q,q] , 如果相等，则另k+1 , next[q] = k 。<br><img src="/images/时间复杂度.PNG" alt="a6"></p>
 
             </div>
         
