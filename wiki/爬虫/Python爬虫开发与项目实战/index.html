@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Python爬虫与开发项目实战——第一回合 | 个人博客</title>
+    
+    
+        <meta name="keywords" content="Python,爬虫" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="背景介绍&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这一系列主要是对爬虫进一步深入了解,学习之前已经了解过爬虫，并编写过相应的代码，现在阅读书籍，进一步对爬虫的原理进行理解。大家可以通过该系列的开发过程，掌握爬虫的运用，以及进一步了解爬虫的原理。   序列化  把内存中的变量变成可存储或可传输的过程，就是序列化。将内存中的变量序列化之后，可以把序列化后的内容写入磁盘，或者通过网络传输到别的机器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python爬虫与开发项目实战——第一回合">
+<meta property="og:url" content="http://example.com/wiki/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="背景介绍&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这一系列主要是对爬虫进一步深入了解,学习之前已经了解过爬虫，并编写过相应的代码，现在阅读书籍，进一步对爬虫的原理进行理解。大家可以通过该系列的开发过程，掌握爬虫的运用，以及进一步了解爬虫的原理。   序列化  把内存中的变量变成可存储或可传输的过程，就是序列化。将内存中的变量序列化之后，可以把序列化后的内容写入磁盘，或者通过网络传输到别的机器">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/分布式.PNG">
+<meta property="og:image" content="http://example.com/images/Socket类型.PNG">
+<meta property="og:image" content="http://example.com/images/Socket2.PNG">
+<meta property="og:image" content="http://example.com/images/Cookie.PNG">
+<meta property="article:published_time" content="2021-11-15T07:44:24.136Z">
+<meta property="article:modified_time" content="2021-11-17T02:40:05.260Z">
+<meta property="article:author" content="ZZC">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/分布式.PNG">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="个人博客" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">个人博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaSE
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20introduce/">1. Java介绍</a></li>  <li class="file"><a href="/wiki/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20basic%20statment/">2. Java基本语法</a></li>  <li class="file"><a href="/wiki/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20controll%20followe/">3. Java控制流程</a></li>  <li class="file"><a href="/wiki/JavaSE/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/class/">4. Java对象与类</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            深度学习
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            TensorFlow2
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/CNN/">TensorFlow2笔记-CNN(卷积神经网络)</a></li>  <li class="file"><a href="/wiki/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%BD%91%E7%BB%9C%E5%85%AB%E8%82%A1%E6%89%A9%E5%B1%95/">TensorFlow2笔记-第四讲(网络八股扩展)</a></li>  <li class="file"><a href="/wiki/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/NN/">TensorFlow2笔记-NN(全连接)</a></li>  <li class="file"><a href="/wiki/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/%E7%BB%8F%E5%85%B8%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/">TensorFlow2笔记-LeNet(经典卷积网络)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            爬虫
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file active"><a href="/wiki/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">Python爬虫与开发项目实战——第一回合</a></li>  <li class="file"><a href="/wiki/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98-%E7%AC%AC%E4%BA%8C%E5%9B%9E%E5%90%88/">Python爬虫开发与项目实战-第二回合</a></li>  <li class="file"><a href="/wiki/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB2.1/">Python爬虫开发与项目实战-第二回合（实战）</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            程序技术
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Git
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Git/%E9%97%AE%E9%A2%98/">Git常见的问题及解决方案</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/hello-world/">Hello World</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            算法
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Leetcode
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数组
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/36.%E6%9C%89%E6%95%88%E6%95%B0%E7%8B%AC/">36.有效数独</a></li>  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/48.%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84/">48.旋转数组</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            链表
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E9%93%BE%E8%A1%A8/19.%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%BB%93%E7%82%B9/">48.旋转数组</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            经典算法
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/KMP/">KMP算法</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            软件配置
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/hexo/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">hexo使用问题</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            python配置
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/python/Anaconda/">Anaconda配置</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>archives</span></h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">12</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>tags</span></h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">Bug解决方案</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVASE/" rel="tag">JAVASE</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow2/" rel="tag">TensorFlow2</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/" rel="tag">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%85%8D%E7%BD%AE/" rel="tag">配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-爬虫/Python爬虫开发与项目实战" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E7%88%AC%E8%99%AB/">爬虫</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Python/" rel="tag">Python</a>, <a class="tag-link-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">
+            <time datetime="2021-11-15T07:44:24.136Z" itemprop="datePublished">2021-11-15</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/raw/writing/source/_posts/爬虫/Python爬虫开发与项目实战.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/edit/writing/source/_posts/爬虫/Python爬虫开发与项目实战.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/commits/writing/source/_posts/爬虫/Python爬虫开发与项目实战.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Python爬虫与开发项目实战——第一回合
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h5 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h5><font color="red" size=3>&nbsp;&nbsp;&nbsp;&nbsp;这一系列主要是对爬虫进一步深入了解,学习之前已经了解过爬虫，并编写过相应的代码，现在阅读书籍，进一步对爬虫的原理进行理解。大家可以通过该系列的开发过程，掌握爬虫的运用，以及进一步了解爬虫的原理。</font>
+
+<ol>
+<li><h6 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h6></li>
+</ol>
+<p>把内存中的变量变成可存储或可传输的过程，就是序列化。将内存中的变量序列化之后，可以把序列化后的内容写入磁盘，或者通过网络传输到别的机器上，实现程序状态的保存和共享。反过来，把变量内容从序列化的对象重新读取到内存，称为反序列化。</p>
+<blockquote>
+<p>也就是说，序列化就是保存了变量的一个快照(某个时刻的值)。反序列化就是根据保存的快照，将值赋值给变量，这样就回到了那个时刻(因为各个变量的值都一样)。<br>Python对序列化的支持：cPickle和pickle来实现序列化。一般都是先导入cPickle模块。实例代码如下:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 导入序列化模块</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">import</span> cPickle <span class="keyword">as</span> pickle</span><br><span class="line"><span class="keyword">except</span> ImportError:</span><br><span class="line">    <span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    pickle实现序列化主要使用dumps方法或dump方法，</span></span><br><span class="line"><span class="string">    dumps方法可以将任意对象序列化成一个str，然后可以将这个str写入文件进行保存.</span></span><br><span class="line"><span class="string">    dump方法可以将序列化后的对象直接写入到文件中</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    pickle实现反序列化，主要通过loads或load方法，把序列化后的文件从磁盘上读取一个str，然后使用loads方法将str转化位对象</span></span><br><span class="line"><span class="string">    或者直接使用load方法将文件直接反序列化位对象</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment">#dumps</span></span><br><span class="line">d = <span class="built_in">dict</span>(url=<span class="string">&quot;index.html&quot;</span>,title=<span class="string">&quot;首页&quot;</span>,content=<span class="string">&quot;首页&quot;</span>)</span><br><span class="line"><span class="built_in">str</span> = pickle.dumps(d)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#dump</span></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">r&#x27;dump.txt&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">pickle.dump(d,f)</span><br><span class="line">f.close()</span><br><span class="line"></span><br><span class="line"><span class="comment">#通过load方法</span></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">r&#x27;dump.txt&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line">d = pickle.load(f)</span><br><span class="line">f.close()</span><br><span class="line"><span class="built_in">print</span>(d)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<ol>
+<li><h6 id="进程和多进程"><a href="#进程和多进程" class="headerlink" title="进程和多进程"></a>进程和多进程</h6></li>
+</ol>
+<p>python对多进程的方法：一种通过os模块的fork方法(适用于unix和linux操作系统)，一种通过multiprocessing模块(跨平台的实现方式)。这里主要采用Multiprocessing来创建多进程.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#multiprocessing模块创建多进程</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#通过Process类来描述一个进程对象，创建子进程时，只需要传入一个执行函数和函数参数，</span></span><br><span class="line"><span class="comment">#即可完成一个Process实例的创建，用strt()方法启动进程，用join方法实现进程间的同步</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#子进程要执行的代码</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run_proc</span>(<span class="params">name</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Child process %s (%s) Running...&#x27;</span>%(name,os.getpid()))</span><br><span class="line"></span><br><span class="line"><span class="comment">##进程池任务</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run_task</span>(<span class="params">name</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Task %s (pid=%s) is runing...&#x27;</span>%(name,os.getpid()))</span><br><span class="line">    time.sleep(random.random()*<span class="number">3</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Task %s end.&#x27;</span>%name)</span><br><span class="line"><span class="comment">#写数据进程执行的代码</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">proc_write</span>(<span class="params">q,urls</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Process(%s) is writing...&#x27;</span>%os.getpid())</span><br><span class="line">    <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">        q.put(url)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Put %s queue...&#x27;</span>%url)</span><br><span class="line">        time.sleep(random.random())</span><br><span class="line"><span class="comment">#读数据进程执行的代码</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">proc_read</span>(<span class="params">q</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Process(%s) is reading&#x27;</span>%os.getpid())</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        url = q.get(<span class="literal">True</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Get %s from queue.&#x27;</span>%url)</span><br><span class="line"><span class="function"><span class="keyword">def</span> 多进程():</span></span><br><span class="line">    <span class="comment"># print(&#x27;Parent process %s.&#x27;%os.getpid())</span></span><br><span class="line">    <span class="comment"># for i in range(5):</span></span><br><span class="line">    <span class="comment">#     p = Process(target=run_proc,args=(str(i),))#指定子进程要执行的方法，以及传递的参数</span></span><br><span class="line">    <span class="comment">#     print(&#x27;Process will start.&#x27;)</span></span><br><span class="line">    <span class="comment">#     p.start()</span></span><br><span class="line">    <span class="comment"># p.join()</span></span><br><span class="line">    <span class="comment"># print(&#x27;Process end&#x27;)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过进程池创建多个进程</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Current process %s.&#x27;</span> % os.getpid())</span><br><span class="line">    p = Pool(processes=<span class="number">3</span>)  <span class="comment"># 创建进程池，指定进程池中进程的个数，默认位CPU核数</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">        p.apply_async(run_task, args=(i,))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Waiting for all subprocess done ...&#x27;</span>)</span><br><span class="line">    p.close()  <span class="comment"># g关闭进程池，就不能继续向进程池中添加新的任务</span></span><br><span class="line">    p.join()  <span class="comment"># 使用join表示等待所有子进程结束</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 进程通信 通过Queue或者Pipe(一般用于两个进程通信)实现进程通信</span></span><br><span class="line">    <span class="comment"># 通过Queue进行get和put操作，可以设置blocked和timeout两个属性，blocked是设定操作是否阻塞</span></span><br><span class="line">    <span class="comment"># timeout是设置操作的等待时间。</span></span><br><span class="line">    q = Queue()  <span class="comment"># 创建消息队列</span></span><br><span class="line">    proc_write1 = Process(target=proc_write, args=(q, [<span class="string">&#x27;url_1&#x27;</span>, <span class="string">&#x27;url_2&#x27;</span>, <span class="string">&#x27;url_3&#x27;</span>]))</span><br><span class="line">    proc_write2 = Process(target=proc_write, args=(q, [<span class="string">&#x27;url_4&#x27;</span>, <span class="string">&#x27;url_5&#x27;</span>, <span class="string">&#x27;url_6&#x27;</span>]))</span><br><span class="line">    proc_reader = Process(target=proc_read, args=(q,))</span><br><span class="line">    <span class="comment"># 启动子进程proc_writer写入</span></span><br><span class="line">    proc_write1.start()</span><br><span class="line">    proc_write2.start()</span><br><span class="line">    <span class="comment"># 启动子进程读取</span></span><br><span class="line">    proc_reader.start()</span><br><span class="line">    <span class="comment"># 等待写入结束</span></span><br><span class="line">    proc_write1.join()</span><br><span class="line">    proc_write2.join()</span><br><span class="line">    <span class="comment"># 由于读取是死循环，所以只能强行终止</span></span><br><span class="line">    proc_reader.terminate()</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><h6 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h6></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#多线程</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">thread_run</span>(<span class="params">urls</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Current %s is running ...&#x27;</span>%threading.current_thread().name)</span><br><span class="line">    <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;%s ------&gt;&gt;&gt; %s&#x27;</span>%(threading.current_thread().name,url))</span><br><span class="line">        time.sleep(random.random())</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;%s ended.&#x27;</span>% threading.current_thread().name)</span><br><span class="line"></span><br><span class="line"><span class="comment">#继承创建线程类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span>(<span class="params">threading.Thread</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,name,urls</span>):</span></span><br><span class="line">        threading.Thread.__init__(self,name=name)</span><br><span class="line">        self.urls =urls</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Current %s is running ...&#x27;</span> % threading.current_thread().name)</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> self.urls:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;%s ------&gt;&gt;&gt; %s&#x27;</span> % (threading.current_thread().name, url))</span><br><span class="line">            time.sleep(random.random())</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;%s ended.&#x27;</span> % threading.current_thread().name)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;in&#x27;</span>)</span><br><span class="line">    <span class="string">&quot;&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        多线程，线程类似于执行多个不同的程序，多线程可以将允许时间长的任务放到后台处理。</span></span><br><span class="line"><span class="string">        Python对多线程的支持，thread和threading，一般我们使用threading模块</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;%s is running...&#x27;</span>%threading.current_thread().name)</span><br><span class="line">    t1 = threading.Thread(target=thread_run,name=<span class="string">&#x27;Thread_1&#x27;</span>,args=([<span class="string">&#x27;url_1&#x27;</span>,<span class="string">&#x27;url_2&#x27;</span>,<span class="string">&#x27;url_3&#x27;</span>],))</span><br><span class="line">    t2 = threading.Thread(target=thread_run, name=<span class="string">&#x27;Thread_2&#x27;</span>, args=([<span class="string">&#x27;url_4&#x27;</span>, <span class="string">&#x27;url_5&#x27;</span>, <span class="string">&#x27;url_6&#x27;</span>],))</span><br><span class="line">    t1.start()</span><br><span class="line">    t2.start()</span><br><span class="line">    t1.join()</span><br><span class="line">    t2.join()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;%s ended.&#x27;</span>%threading.current_thread().name)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#自定义线程类</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;%s is running...&#x27;</span> % threading.current_thread().name)</span><br><span class="line">    t1 = MyThread(  name=<span class="string">&#x27;Thread_1&#x27;</span>, urls=([<span class="string">&#x27;url_1&#x27;</span>, <span class="string">&#x27;url_2&#x27;</span>, <span class="string">&#x27;url_3&#x27;</span>]))</span><br><span class="line">    t2 = MyThread(  name=<span class="string">&#x27;Thread_2&#x27;</span>, urls=([<span class="string">&#x27;url_4&#x27;</span>, <span class="string">&#x27;url_5&#x27;</span>, <span class="string">&#x27;url_6&#x27;</span>]))</span><br><span class="line">    t1.start()</span><br><span class="line">    t2.start()</span><br><span class="line">    t1.join()</span><br><span class="line">    t2.join()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;%s ended.&#x27;</span> % threading.current_thread().name)</span><br><span class="line"></span><br><span class="line">    <span class="comment">##线程同步</span></span><br><span class="line">    <span class="comment">##一般通过Thread的Lock和RLock实现简单的线程同步，两个对象都有acquire和release方法</span></span><br><span class="line">    mylock = threading.RLock() <span class="comment">#创建一个锁</span></span><br><span class="line">    num = <span class="number">0</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">myThread1</span>(<span class="params">threading.Thread</span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,name</span>):</span></span><br><span class="line">            threading.Thread.__init__(self,name=name)</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self</span>):</span></span><br><span class="line">            <span class="keyword">global</span> num</span><br><span class="line">            <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">                mylock.acquire()</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&#x27;%s locked,Number :%d&#x27;</span>%(threading.current_thread().name,num))</span><br><span class="line">                <span class="keyword">if</span> num &gt;=<span class="number">4</span> :</span><br><span class="line">                    mylock.release()</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;%s released, Number: %s&#x27;</span>%(threading.current_thread().name,num))</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                num += <span class="number">1</span></span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&#x27;%s released Number %s&#x27;</span>%(threading.current_thread().name,num))</span><br><span class="line">                mylock.release()</span><br><span class="line">    thread1 = myThread1(<span class="string">&#x27;Thread_1&#x27;</span>)</span><br><span class="line">    thread2 = myThread1(<span class="string">&#x27;Thread_2&#x27;</span>)</span><br><span class="line">    thread1.start()</span><br><span class="line">    thread2.start()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol>
+<li>协程</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#各个协程执行的任务</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run_task</span>(<span class="params">url</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Visis --&gt; %s&#x27;</span>%url)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        data  = urllib3.connection_from_url(url=url).urlopen(url=url,method=<span class="string">&quot;GET&quot;</span>).data</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;%s bytes received from %s.&#x27;</span>%(<span class="built_in">len</span>(data),url))</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(e)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;in&#x27;</span>)</span><br><span class="line">    <span class="comment"># 协程又称微线程(纤程),用户级的轻量级线程</span></span><br><span class="line">    <span class="comment">#协程能够保留上一次调用时的状态</span></span><br><span class="line">    <span class="comment">#Python对写出的支持通过gevent库，Python通过yield提供对协程的基本支持但是不完全，所以使用</span></span><br><span class="line">    <span class="comment">#gevent更加好</span></span><br><span class="line">    <span class="comment">#gevent实际上是greenlet在实现切换工作。如果出现io阻塞的时候，gevent会自动切换到没有阻塞的代码执行</span></span><br><span class="line">    <span class="comment">#所以gevent一直保持greenlet在允许</span></span><br><span class="line">    urls = [<span class="string">&#x27;https://github.com/&#x27;</span>,<span class="string">&#x27;https://www.python.org/&#x27;</span>,<span class="string">&#x27;http://www.baidu.com/&#x27;</span>] <span class="comment"># 各个协程访问的网址</span></span><br><span class="line">    greenlets = [gevent.spawn(run_task,url) <span class="keyword">for</span> url <span class="keyword">in</span> urls] <span class="comment"># 这里将各个协程加入到greenlets中</span></span><br><span class="line">    gevent.joinall(greenlets=greenlets) <span class="comment">#进行执行各个协程</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol>
+<li>分布式进程</li>
+</ol>
+<p>分布式进程：分布式也就是将计算任务分布到多个计算机上进行运算，然后将结果返回。分布式进程也就是指，将Process进程分不到多台机器，利用多台机器的性能，完成复杂的任务。</p>
+<p>对于分布式进程，通过multiprocessing模块的managers子模块，将多线程分布到多台机器上。</p>
+<p>一般我们通过分布式处理任务，将某块的任务分配给某个机器执行，然后某个功能模块给其他模块执行。将任务分成多个计算机集群进行处理，提高速度。例如爬取图片，可以一个计算机专门爬取图片链接，然后多个计算机专门根据爬取到的图片链接下载图片。<br>将中间处理的结果，让其他机器进程都能访问的过程称为本地队列的网络化。过程如下所示：<br><img src="/images/分布式.PNG" alt="a5"></p>
+<p>两个实现代码</p>
+<p>taskManager.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> queue</span><br><span class="line"><span class="keyword">from</span> multiprocessing.managers <span class="keyword">import</span> BaseManager</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> freeze_support</span><br><span class="line"></span><br><span class="line"><span class="comment">#服务进程</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#任务个数</span></span><br><span class="line">task_number = <span class="number">10</span></span><br><span class="line"><span class="comment">#定义收发队列</span></span><br><span class="line">task_queue = queue.Queue(task_number)</span><br><span class="line">result_queue = queue.Queue(task_number)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_task</span>():</span></span><br><span class="line">    <span class="keyword">return</span> task_queue</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_result</span>():</span></span><br><span class="line">    <span class="keyword">return</span> result_queue</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建类似的QueueManager</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QueueManager</span>(<span class="params">BaseManager</span>):</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">win_run</span>():</span></span><br><span class="line">    <span class="comment">#Windows下绑定调用接口</span></span><br><span class="line">    QueueManager.register(<span class="string">&#x27;get_task_queue&#x27;</span>,<span class="built_in">callable</span>=get_task)</span><br><span class="line">    QueueManager.register(<span class="string">&#x27;get_result_queue&#x27;</span>,<span class="built_in">callable</span>=get_result)</span><br><span class="line">    <span class="comment">#绑定端口并设置验证口令，Windows下需要填写IP地址</span></span><br><span class="line">    manager = QueueManager(address=(<span class="string">&#x27;127.0.0.1&#x27;</span>,<span class="number">8001</span>),authkey=<span class="string">&#x27;qiye&#x27;</span>.encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    <span class="comment">#启动</span></span><br><span class="line">    manager.start()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment">#通过网络获取任务队列和结果队列</span></span><br><span class="line">        task = manager.get_task_queue()</span><br><span class="line">        result = manager.get_result_queue()</span><br><span class="line">        <span class="comment">#添加任务</span></span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> [<span class="string">&#x27;ImageUrl_&#x27;</span>+<span class="built_in">str</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;put task %s...&#x27;</span>%url)</span><br><span class="line">            task.put(url)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;try get result...&#x27;</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;result is %s &#x27;</span>%result.get(timeout=<span class="number">10</span>))</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Manager error&#x27;</span>)</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">            <span class="comment">#一定要关闭，否则会报管道未关闭的错误</span></span><br><span class="line">            manager.shutdown()</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment">#Windows多线程可能有问题，进行缓解</span></span><br><span class="line">    freeze_support()</span><br><span class="line">    win_run()</span><br></pre></td></tr></table></figure></p>
+<p>taskWorker.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> multiprocessing.managers <span class="keyword">import</span>  BaseManager</span><br><span class="line"></span><br><span class="line"><span class="comment">#处理进程</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#创建类似的QueueManager</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QueueManager</span>(<span class="params">BaseManager</span>):</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="comment">#第一步使用Queuemanager注册用于获取Queueu的方法名称</span></span><br><span class="line">QueueManager.register(<span class="string">&#x27;get_task_queue&#x27;</span>)</span><br><span class="line">QueueManager.register(<span class="string">&#x27;get_result_queue&#x27;</span>)</span><br><span class="line"><span class="comment">#第二部连接到服务器</span></span><br><span class="line">server_addr =  <span class="string">&#x27;127.0.0.1&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Connect to server %s...&#x27;</span>%server_addr)</span><br><span class="line"><span class="comment">#端口哦和验证口令</span></span><br><span class="line">m = QueueManager(address=(server_addr,<span class="number">8001</span>),authkey=<span class="string">&#x27;qiye&#x27;</span>.encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line"><span class="comment">#从网络链接</span></span><br><span class="line">m.connect()</span><br><span class="line"><span class="comment">#第三步获取Queue的对象</span></span><br><span class="line">task = m.get_task_queue()</span><br><span class="line">result = m.get_result_queue()</span><br><span class="line"><span class="comment">#第四步，从task队列获取任务，把结果写入到result队列</span></span><br><span class="line"><span class="keyword">while</span>(<span class="keyword">not</span> task.empty()):</span><br><span class="line">    image_url = task.get(<span class="literal">True</span>,timeout=<span class="number">5</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;run task download %s...&#x27;</span>%image_url)</span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line">    result.put(<span class="string">&quot;%s---&gt;success&quot;</span>%image_url)</span><br><span class="line"><span class="comment">#处理结束</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;worker exit .&#x27;</span>)</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>网络编程</li>
+</ol>
+<p>两台计算机之间的通信，实际上是两台计算机，端口之间的通信。当在浏览器浏览网页的时候，实际上就是本地计算机的一个端口进程和服务器的某个端口进程建立了连接，并进行通信。</p>
+<p>一般通过Socket（套接字）,描述通信。Socket由ip+端口组成。Python提供了两个Socket模块。<br>Socket：提供了标准的BSD Sockets API<br>SocketServer: 提供了服务器中心类，可以简化网络服务器的开发。</p>
+<blockquote>
+<p>Socket类型<br>套接字格式为：socket(family,type[,protocal]),使用给定的地址族，套接字类型，协议编号（默认为0）来创建套接字。<br>套接字类型如下所示：<br><img src="/images/Socket类型.PNG" alt="a6"></p>
+<p>Socket常用函数<br><img src="/images/Socket2.PNG" alt="a61"></p>
+<p>TCP编程</p>
+</blockquote>
+<p>TCP-Server.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 网络编程包含两个部分：服务端和客户端</span></span><br><span class="line"><span class="comment"># TCP是面向连接的通信方式</span></span><br><span class="line"><span class="comment"># 主动发起连接的叫做客户端</span></span><br><span class="line"><span class="comment"># 被动响应连接的叫服务端</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建TCP服务端</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">1. 创建Socket,绑定Socket到本地IP与端口</span></span><br><span class="line"><span class="string">2. 开始监听连接</span></span><br><span class="line"><span class="string">3. 进入循环，不断接收客户端的连接请求</span></span><br><span class="line"><span class="string">4.接收传来的数据，并发送给对方数据</span></span><br><span class="line"><span class="string">5.传输完毕后，关闭Socket</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dealClient</span>(<span class="params">sock,addr</span>):</span></span><br><span class="line">    <span class="comment"># 第四步：接收传来的数据，并发送给对方数据</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Accept new connection from %s:%s...&#x27;</span>%(sock,addr))</span><br><span class="line">    sock.send(<span class="string">b&#x27;Hello,I am server!&#x27;</span>)<span class="comment">#发送数据</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        data = sock.recv(<span class="number">1024</span>) <span class="comment">#接收数据</span></span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> data <span class="keyword">or</span> data.decode(<span class="string">&#x27;utf-8&#x27;</span>) == <span class="string">&#x27;exit&#x27;</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;----&gt;&gt;&gt;%s!&#x27;</span>%data.decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">        sock.send((<span class="string">&#x27;Loop_Msg:%s!&#x27;</span>%data.decode(<span class="string">&#x27;utf-8&#x27;</span>)).encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    <span class="comment">#关闭Socket</span></span><br><span class="line">    sock.close()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Connection from %s:%s closed.&#x27;</span>%(sock,addr))</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment">#第一步：创建基于IPv4和TCP协议的Socket</span></span><br><span class="line">    <span class="comment">#Socket绑定IP（127.0.0.1为本机IP）与端口</span></span><br><span class="line">    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">    s.bind((<span class="string">&#x27;127.0.0.1&#x27;</span>,<span class="number">9999</span>))</span><br><span class="line">    <span class="comment">#第二步：监听连接</span></span><br><span class="line">    s.listen(<span class="number">5</span>)<span class="comment">#最大连接数量</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Waiting for connection...&#x27;</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="comment">#第三步: 接收一个新连接</span></span><br><span class="line">        sock,addr = s.accept()</span><br><span class="line">        <span class="comment">#创建新线程来处理TCP连接</span></span><br><span class="line">        t = threading.Thread(target=dealClient,args=(sock,addr,))</span><br><span class="line">        t.start()</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>TCP-Client.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#TCP客户端</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">1.创建Socket，连接远端地址</span></span><br><span class="line"><span class="string">2.连接后发送数据和接收数据</span></span><br><span class="line"><span class="string">3.传输完毕后，关闭Socket</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="comment">#初始化Socket</span></span><br><span class="line">s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line"><span class="comment">#连接目标的ip和端口</span></span><br><span class="line">s.connect((<span class="string">&#x27;127.0.0.1&#x27;</span>,<span class="number">9999</span>))</span><br><span class="line"><span class="comment">#接收消息</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;---&gt;&gt;&gt;&#x27;</span>+s.recv(<span class="number">1024</span>).decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line"><span class="comment">#发送消息</span></span><br><span class="line">s.send(<span class="string">b&#x27;Hello,I am Client&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;---&gt;&#x27;</span>+s.recv(<span class="number">1024</span>).decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">s.send(<span class="string">b&#x27;exit&#x27;</span>)</span><br><span class="line"><span class="comment">#关闭Socket</span></span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>UDP编程</p>
+</blockquote>
+<p>UDP-Server.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># UDP 服务器端</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">UDP是面向无连接的协议。使用UDP协议时，不需要建立连接，只需要直到对方的IP地址和端口号，就可以直接发数据包。</span></span><br><span class="line"><span class="string">并不关心能够到达目的端。对于不要求可靠到达的数据，就可以使用UDP协议。</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">服务端创建过程：</span></span><br><span class="line"><span class="string">    1. 创建Socket，绑定指定的ip和端口</span></span><br><span class="line"><span class="string">    2. 直接发送数据和接收数据</span></span><br><span class="line"><span class="string">    3. 关闭Socket</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建Socket,绑定指定IP和端口</span></span><br><span class="line"><span class="comment"># SOCK_DGRAM指定了这个Socket的类型是UDP，绑定端口和TCP示例一样</span></span><br><span class="line">s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span><br><span class="line">s.bind((<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Bind UDP on 9999...&#x27;</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="comment"># 直接发送数据和接收数据</span></span><br><span class="line">    data, addr = s.recvfrom(<span class="number">1024</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Received from %s:%s. &#x27;</span> %(addr,data.decode(<span class="string">&#x27;utf-8&#x27;</span>)))</span><br><span class="line">    s.sendto(<span class="string">b&#x27;Hello,!&#x27;</span>, addr)</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>DUP-Client.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#UDP的客户端</span></span><br><span class="line"><span class="comment"># UDP客户端，创建Socket即可与服务器数据交换。</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</span><br><span class="line"><span class="keyword">for</span> data <span class="keyword">in</span> [<span class="string">b&#x27;Hello&#x27;</span>,<span class="string">b&#x27;World&#x27;</span>]:</span><br><span class="line">    <span class="comment">#发送数据</span></span><br><span class="line">    s.sendto(data,(<span class="string">&#x27;127.0.0.1&#x27;</span>,<span class="number">9999</span>))</span><br><span class="line">    <span class="comment">#接收数据</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="built_in">print</span>(s.recv(<span class="number">1024</span>).decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>小结</p>
+</blockquote>
+<p>两个计算机之间的通信是端口进程之间的通信。端口属于应用层。对于应用层之间的数据，通过运输层提供相应的数据。运输层的协议，有TCP和UDP传输协议。</p>
+<p>对于TCP协议，是面向连接的，所以在使用tcp协议传送数据的时候，需要保证两个通信的主机建立了连接，然后再进行数据的传输。<br>&gt;</p>
+<blockquote>
+<p>  所以对于TCP而言，服务器和客户端的连接步骤<br>对于TCP服务器：</p>
+<ol>
+<li>创建Socket，绑定到对应端口</li>
+<li>监听端口，检测是否有连接</li>
+<li>如果有客户端连接，接收客户端连接，可以获得客户端的套接字</li>
+<li>建立连接后，可以循环监听接收客户端发送的数据，也可发送数据给客户端</li>
+<li>会话完毕，就可以关闭连接</li>
+</ol>
+<p>对于TCP客户端</p>
+<ol>
+<li>创建Socket</li>
+<li>连接到服务器，然后建立连接</li>
+<li>发送，接收数据</li>
+<li>会话完毕，关闭连接</li>
+</ol>
+</blockquote>
+<p>对于UDP协议，是面向无连接的，所以在使用UDP协议的时候，并不需要确定双方是否建立了连接，直接向对应的（地址，端口号），发送数据即可，不关心是否发送成功。同理，接收数据也是直接接收即可。因为发送的时候就是直接发到对应主机，然后接收直接接收即可。</p>
+<blockquote>
+<p>对于UDP服务器</p>
+<ol>
+<li>创建Socket,绑定端口</li>
+<li>监听端口，查看是否有数据</li>
+<li>接收到数据（data,addr），可以发送给数据到指定的addr</li>
+</ol>
+<p>对于UDP客户端</p>
+<ol>
+<li>创建Socket</li>
+<li>向服务器(addr,post)发送数据</li>
+<li>可以监听自己的计算机，是否有其他计算机发送的数据</li>
+</ol>
+<p>总结</p>
+</blockquote>
+<p>从上面TCP/UDP客户端和服务器的创建过程可以比较出，TCP需要确定连接，而对于UDP而言不需要确定是否连接成功。</p>
+<ol>
+<li>WEB前端基础</li>
+</ol>
+<blockquote>
+<p>W3C标准</p>
+</blockquote>
+<p>W3C即万维网联盟，W3C标准是一系列标准的集合。</p>
+<p>一个网页由三部分组成：结构(Structure),表现(Presentation),行为(Behavior)。对应</p>
+<p>结构化标准语言：XHTML，XML<br>表现标准语言：CSS<br>行为标准：对象模型(如W3C DOM)，ECMAScript等。</p>
+<p>HTML（超文本标记语言），也就是是一种标签语言。</p>
+<p>CSS(层叠样式表): 用于解决内容和表现的分离。CSS主要由选择器+属性构成。选择器用于指定渲染元素，属性用于指定渲染效果。</p>
+<p>JavaScript（轻量级脚本语言）</p>
+<p>XPath: 一门在XML文档中查找信息的语言。</p>
+<p>JSON：JavaScript对象表示法，用于存储和交换文本信息。</p>
+<p>HTTP协议(超文本传输协议)，用于从www服务区传输超文本到本地浏览器的传送协议。HTTP协议永远都是客户端发起请求，服务器会送响应。</p>
+<p>HTTP协议是一个无状态协议，同一个客户端的这次请求和上次请求没有对应关系。</p>
+<p>HTTP状态码：</p>
+<p>200—请求成功<br>301—资源网页被永久转移到其他URL<br>404—请求的资源不存在<br>500—内部服务器错误</p>
+<p>1开头一般表示服务器收到请求，需要请求者继续执行操作<br>2开头一般表示请求操作成功<br>3开头一般表示重定向<br>4开头一般表示客户端错误<br>5开头一般表示服务器错误</p>
+<blockquote>
+<p>Cookie和Session都用于保存状态信息，Cookie保存在客户端，Session保存在服务器端。</p>
+</blockquote>
+<p>Cookie：服务器给每个Session分配一个唯一的JSESSIONID，并通过Cookie发送给客户端，当客户端发起新的请求的时候，将在Cookie头中携带JSESSIONID。这样服务器就能够找到这个客户端对应的Session。</p>
+<p><img src="/images/Cookie.PNG" alt="a7"></p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98-%E7%AC%AC%E4%BA%8C%E5%9B%9E%E5%90%88/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Python爬虫开发与项目实战-第二回合
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/JavaSE/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/class/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">4. Java对象与类</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    
+        <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+        <script>
+            if (window.mermaid) {
+                mermaid.initialize({
+                    theme: 'forest'
+                });
+            }
+        </script>
+        
+            <div class="outer">
+                <div id="footer-info" class="inner">
+                    ZZC &copy;
+                        2021
+                            <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+                            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a target="_blank" rel="noopener" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+                            
+                                <br>
+                                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                                &nbsp;|&nbsp;
+                                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+                                
+                </div>
+            </div>
+</footer>
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [ ["$","$"], ["\\(","\\)"] ], skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'], processEscapes: true, TeX: { equationNumbers: { autoNumber: 'AMS' } } } }); MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(); for (var i = 0; i
+    < all.length; ++i) all[i].SourceElement().parentNode.className +=' has-jax' ; }); </script>
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <!-- <script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
