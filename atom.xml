@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-11-25T08:57:44.790Z</updated>
+  <updated>2021-11-25T09:06:37.133Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/wiki/%E7%88%AC%E8%99%AB/selenium%E5%8F%8D%E7%88%AC/"/>
     <id>http://example.com/wiki/爬虫/selenium反爬/</id>
     <published>2021-11-25T08:16:51.544Z</published>
-    <updated>2021-11-25T08:57:44.790Z</updated>
+    <updated>2021-11-25T09:06:37.133Z</updated>
     
     <content type="html"><![CDATA[<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><font size=2>&nbsp;&nbsp;&nbsp;最近在学习爬虫的过程中碰到一个奇怪的现象，当我在正常的浏览器页面访问网站的时候，能够正常访问到网页的数据。然而，当我通过selenium进行爬取网页数据的时候，出现服务器异常的提醒。正常访问能够访问，而通过selenium访问的时候却报错，这是为什么呢？通过查阅相关资料，可以得出，碰上反爬虫了。</font><blockquote><p>分析</p></blockquote><font size=2>为什么可以得出碰上反爬虫了呢？通常我们通过selenium进行爬取网页的时候，可以通过 window.navigator.webdriver检测是否使用了webdriver。我们可以试一下。在正常访问的网页中输入 window.navigator.webdriver，通常返回的是false或undifine，而当我们通过selenium访问浏览器的时候，在网页控制台输入 window.navigator.webdriver，会返回true。假如我是网页的设计者，我就会先在网页加载的时候写下这么一行代码 :</font><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.navigator.webdriver)&#123;</span><br><span class="line">    alert(<span class="string">&quot;爬虫爬的好，牢饭吃到饱&quot;</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    alert(<span class="string">&quot;正常页面&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><font size=2>所以，当我们爬取网页出现上述情况的时候，很大可能浏览器存在反selenium。下面介绍一下如何解决反爬，常见的反反爬方案包含：设置参数 excludeSwitches、mitmproxy 拦截过滤、cdp 命令。</font><h3 id="2-解决方案"><a href="#2-解决方案" class="headerlink" title="2. 解决方案"></a>2. 解决方案</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;要想解决上述的问题，我们可以让window.navigator.webdriver返回false即可。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">options = webdriver.ChromeOptions()</span><br><span class="line">options.add_experimental_option(<span class="string">&#x27;excludeSwitches&#x27;</span>, [<span class="string">&#x27;enable-automation&#x27;</span>])</span><br><span class="line">driver = webdriver.Chrome(executable_path=<span class="string">&#x27;E:\codeEverment\python\chromedriver.exe&#x27;</span>, options=options) <span class="comment"># chrome驱动 </span></span><br><span class="line">                                 </span><br><span class="line"></span><br><span class="line">script = <span class="string">&quot;Object.defineProperty(navigator, &#x27;webdriver&#x27;, &#123; get: () =&gt; undefined&#125;)&quot;</span></span><br><span class="line">    </span><br><span class="line">driver.execute_cdp_cmd(<span class="string">&quot;Page.addScriptToEvaluateOnNewDocument&quot;</span>, &#123;<span class="string">&quot;source&quot;</span>: script&#125;)</span><br></pre></td></tr></table></figure><br>要见检查是否避免浏览器对webdriver的检测，可以通过selenium访问<a href="https://intoli.com/blog/not-possible-to-block-chrome-headless/chrome-headless-test.html">https://intoli.com/blog/not-possible-to-block-chrome-headless/chrome-headless-test.html</a>,如果页面显示全绿，那么就表明避免成功，反之失败。</p>]]></content>
     
@@ -34,7 +34,7 @@
     
     </summary>
     
-      <category term="python" scheme="http://example.com/categories/python/"/>
+      <category term="爬虫" scheme="http://example.com/categories/%E7%88%AC%E8%99%AB/"/>
     
     
       <category term="Python" scheme="http://example.com/tags/Python/"/>
