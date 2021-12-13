@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Python爬虫开发与项目实战-第二回合 | 个人博客</title>
+    
+    
+        <meta name="keywords" content="Python,爬虫" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="网络爬虫：是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。 网络爬虫可以分为：   通用网络爬虫   通过搜索引擎搜索关键词，然后从搜索引擎返回的数据中，爬取想要的数据。   聚焦网络爬虫   有针对性的爬取指定的网页链接。定向爬取相关页面。   增量式网络爬虫   也就是爬取新的数据，而对于之前爬取过的数据，不会再进行爬取。   深层网络爬虫   也就是爬取一些不能通过静态链接获取的，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python爬虫开发与项目实战-第二回合">
+<meta property="og:url" content="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98-%E7%AC%AC%E4%BA%8C%E5%9B%9E%E5%90%88/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="网络爬虫：是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。 网络爬虫可以分为：   通用网络爬虫   通过搜索引擎搜索关键词，然后从搜索引擎返回的数据中，爬取想要的数据。   聚焦网络爬虫   有针对性的爬取指定的网页链接。定向爬取相关页面。   增量式网络爬虫   也就是爬取新的数据，而对于之前爬取过的数据，不会再进行爬取。   深层网络爬虫   也就是爬取一些不能通过静态链接获取的，">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/爬虫流程.PNG">
+<meta property="article:published_time" content="2021-11-17T02:40:35.328Z">
+<meta property="article:modified_time" content="2021-11-17T08:30:36.279Z">
+<meta property="article:author" content="ZZC">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/爬虫流程.PNG">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="个人博客" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">个人博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaEE
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaWeb/%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%87%BA/">JavaWeb后端数据导出</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaSE
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20introduce/">1. Java介绍</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20basic%20statment/">2. Java基本语法</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20controll%20followe/">3. Java控制流程</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/class/">4. Java对象与类</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaWeb
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaWeb/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/">Web项目部署</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Python
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">Python常见问题</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/CV2/">CV2的常用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            抖店
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E6%8A%96%E5%BA%97API%E5%BC%80%E5%8F%91/%E8%AE%A2%E5%8D%95%E5%AF%BC%E5%87%BA/">抖店开发--订单导出之信息获取</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            深度学习
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            TensorFlow2
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/CNN/">TensorFlow2笔记-CNN(卷积神经网络)</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%BD%91%E7%BB%9C%E5%85%AB%E8%82%A1%E6%89%A9%E5%B1%95/">TensorFlow2笔记-第四讲(网络八股扩展)</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/NN/">TensorFlow2笔记-NN(全连接)</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/%E7%BB%8F%E5%85%B8%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/">TensorFlow2笔记-LeNet(经典卷积网络)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            爬虫
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">Python爬虫与开发项目实战——第一回合</a></li>  <li class="file active"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98-%E7%AC%AC%E4%BA%8C%E5%9B%9E%E5%90%88/">Python爬虫开发与项目实战-第二回合</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB2.1/">Python爬虫开发与项目实战-第二回合（实战）</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB-%E4%B8%AD%E7%BA%A7/">Python爬虫-中级</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/selenium%E5%8F%8D%E7%88%AC/">selenium+Chrome(79版本以上)反爬</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB-Scrapy%E8%BF%9B%E9%98%B6/">Python爬虫-Scrapy进阶</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/debug%E5%8F%8D%E7%88%AC/">debug反爬</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/%E5%8F%8D%E7%88%AC%E6%8A%80%E5%B7%A7/">反爬技巧</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/%E6%BB%91%E5%9D%97%E7%A0%B4%E8%A7%A3/">滑块验证码破解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            程序技术
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Git
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Git/%E9%97%AE%E9%A2%98/">Git常见的问题及解决方案</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Java
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JAVA-Json/">Java中对JSON的操作</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Python
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            爬虫
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Untitled-1/"></a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            算法
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Leetcode
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数组
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/36.%E6%9C%89%E6%95%88%E6%95%B0%E7%8B%AC/">36.有效数独</a></li>  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/48.%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84/">48.旋转数组</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            链表
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E9%93%BE%E8%A1%A8/19.%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%BB%93%E7%82%B9/">48.旋转数组</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            经典算法
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/KMP/">KMP算法</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            软件配置
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/hexo/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">hexo使用问题</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            python配置
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/python/Anaconda/">Anaconda配置</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/hello-world/">Hello World</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>archives</span></h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">12</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>tags</span></h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">Bug解决方案</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVASE/" rel="tag">JAVASE</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow2/" rel="tag">TensorFlow2</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/" rel="tag">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag">图像处理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%85%8D%E7%BD%AE/" rel="tag">配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-程序技术/Python/爬虫/Python爬虫开发与项目实战-第二回合" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E7%88%AC%E8%99%AB/">爬虫</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Python/" rel="tag">Python</a>, <a class="tag-link-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98-%E7%AC%AC%E4%BA%8C%E5%9B%9E%E5%90%88/">
+            <time datetime="2021-11-17T02:40:35.328Z" itemprop="datePublished">2021-11-17</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/raw/writing/source/_posts/程序技术/Python/爬虫/Python爬虫开发与项目实战-第二回合.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/edit/writing/source/_posts/程序技术/Python/爬虫/Python爬虫开发与项目实战-第二回合.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/commits/writing/source/_posts/程序技术/Python/爬虫/Python爬虫开发与项目实战-第二回合.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Python爬虫开发与项目实战-第二回合
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <p>网络爬虫：是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。</p>
+<p>网络爬虫可以分为：</p>
+<blockquote>
+<ol>
+<li>通用网络爬虫</li>
+</ol>
+</blockquote>
+<p>通过搜索引擎搜索关键词，然后从搜索引擎返回的数据中，爬取想要的数据。</p>
+<blockquote>
+<ol>
+<li>聚焦网络爬虫</li>
+</ol>
+</blockquote>
+<p>有针对性的爬取指定的网页链接。定向爬取相关页面。</p>
+<blockquote>
+<ol>
+<li>增量式网络爬虫</li>
+</ol>
+</blockquote>
+<p>也就是爬取新的数据，而对于之前爬取过的数据，不会再进行爬取。</p>
+<blockquote>
+<ol>
+<li>深层网络爬虫</li>
+</ol>
+</blockquote>
+<p>也就是爬取一些不能通过静态链接获取的，需要用户操作后才能访问获取的Web页面。</p>
+<h6 id="网络爬虫结构"><a href="#网络爬虫结构" class="headerlink" title="网络爬虫结构"></a>网络爬虫结构</h6><p>爬虫的一般流程：</p>
+<ol>
+<li>需要爬取页面的URL</li>
+<li>读取URL，获取到网页数据</li>
+<li>从网页数据提取有用数据</li>
+<li>抽取网页需要进一步爬取URL，进行再次爬取</li>
+</ol>
+<p><img src="/images/爬虫流程.PNG" alt="1.1"></p>
+<h6 id="Request库"><a href="#Request库" class="headerlink" title="Request库"></a>Request库</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Python对HTTP请求的支持：通过urllib2和urllib或者通过request模块。</span></span><br><span class="line"><span class="string">一般通过request实现http请求。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    #发送get请求</span></span><br><span class="line"><span class="string">    r = requests.get(&#x27;&#x27;)</span></span><br><span class="line"><span class="string">    # 对于带有参数的url，可以通过建立一个map作为参数进行请求</span></span><br><span class="line"><span class="string">    payload = &#123;&#x27;keywords&#x27;:&#x27;blog:qiyeboy&#x27;,&#x27;pageindex&#x27;:1&#125;</span></span><br><span class="line"><span class="string">    r = requests.get(&#x27;&#x27;,params=payload) #通过map提供参数</span></span><br><span class="line"><span class="string">    #发送post请求</span></span><br><span class="line"><span class="string">    r = requests.post(&#x27;&#x27;)</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="comment">#chardet是用于检测文本编码</span></span><br><span class="line"><span class="keyword">import</span> chardet</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">requestTemp</span>():</span></span><br><span class="line">    r = requests.get(<span class="string">&#x27;www.baidu.com&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(r.content) <span class="comment"># 返回字节类型的数据</span></span><br><span class="line">    <span class="built_in">print</span>(r.text) <span class="comment"># 返回文本形式的html</span></span><br><span class="line">    <span class="built_in">print</span>(r.encoding) <span class="comment"># 返回网页编码格式</span></span><br><span class="line">    r.encoding = <span class="string">&#x27;utf-8&#x27;</span> <span class="comment"># 可以自定义编码格式。然后再读取网页文本数据，这样就不会乱码</span></span><br><span class="line">    <span class="built_in">print</span>(r.text) <span class="comment"># 这是在utf-8编码下的文本数据</span></span><br><span class="line">    <span class="comment">#通过chardet进行解码</span></span><br><span class="line">    r.encoding = chardet.detect(r.content)[<span class="string">&#x27;encoding&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment">### 我们可以对请求头headers进行处理,即对请求设置请求头,设置Cookie</span></span><br><span class="line">    <span class="comment">### 对于请求头，我们可以通过f12查看请求头格式</span></span><br><span class="line">    user_agent = <span class="string">&#x27;Mozilla/4.0&#x27;</span></span><br><span class="line">    headers = &#123;<span class="string">&#x27;User-Agent&#x27;</span>:user_agent&#125; <span class="comment">#设置请求头</span></span><br><span class="line">    <span class="comment">#自定义Cookie</span></span><br><span class="line">    cookies = <span class="built_in">dict</span>(name=<span class="string">&#x27;qiye&#x27;</span>,age=<span class="string">&#x27;10&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    r = requests.get(<span class="string">&#x27;www.baidu.com&#x27;</span>,headers=headers,cookies=cookies)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取响应的Cookie值</span></span><br><span class="line">    <span class="keyword">for</span> cookie <span class="keyword">in</span> r.cookies.keys():</span><br><span class="line">        <span class="built_in">print</span>(r.cookies.get(cookie))</span><br><span class="line"></span><br><span class="line">    <span class="comment">### 获取返回状态编码，判断请求是否成功</span></span><br><span class="line">    <span class="keyword">if</span> r.status_code == requests.codes.ok :</span><br><span class="line">        <span class="built_in">print</span>(r.status_code)</span><br><span class="line">        <span class="built_in">print</span>(r.headers.get(<span class="string">&#x27;content-type&#x27;</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        r.raise_for_status() <span class="comment">#通过raise_for_status可以抛出一个异常。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">###自动处理Cookie方法 , 通过session，每次都可以将Cookie值带上</span></span><br><span class="line">    s = requests.Session()</span><br><span class="line">    r = s.get(<span class="string">&quot;wwww.baidu.com&quot;</span>,allow_redirects=<span class="literal">True</span>)</span><br><span class="line">    datas = &#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&#x27;qiyi&#x27;</span>,<span class="string">&#x27;passwd&#x27;</span>:<span class="string">&#x27;123&#x27;</span>&#125;</span><br><span class="line">    <span class="comment"># 通过Session机制，可以保证每次都加上了cookie的值，进行请求</span></span><br><span class="line">    r = s.post(<span class="string">&#x27;wwww.baidu.com&#x27;</span>,data=datas,allow_redirects=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># 通过allow_redirects可以设置是否允许重定向</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过r.history可以获取到历史信息，也就是访问成功之前的所有请求跳转信息</span></span><br><span class="line">    <span class="built_in">print</span>(r.history)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#设置超时参数，Timeout</span></span><br><span class="line">    r = requests.get(<span class="string">&#x27;www.baidu.com&#x27;</span>,timeout=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#代理设置，使用代理Proxy,可以为任意请求方法通过设置proxies参数来配置单个请求</span></span><br><span class="line">    proxies = &#123;</span><br><span class="line">        <span class="string">&quot;http&quot;</span>:<span class="string">&quot;http://0.10.1.10:3128&quot;</span>,</span><br><span class="line">        <span class="string">&quot;https&quot;</span>:<span class="string">&quot;http://10.10.1.10:1080&quot;</span>,</span><br><span class="line">        <span class="comment">#&quot;http&quot;:&quot;http://user:pass@10.10.1.10:3128&quot; #这是代理中身份认证的用户名和密码，来设置代理</span></span><br><span class="line">    &#125;</span><br><span class="line">    requests.get(<span class="string">&quot;www.baidu.com&quot;</span>,proxies=proxies) <span class="comment">#设置代理ip</span></span><br></pre></td></tr></table></figure>
+<h6 id="网页解析"><a href="#网页解析" class="headerlink" title="网页解析"></a>网页解析</h6><p>我们通过requets可以下载网页中的文本，那么我们怎么通过下载的文本获取到想要的信息呢？这里就需要使用到文本解析技术了，常用的方法有很多，我们这里采用BeautifulSoup库进行解决。BeautifulSoup具备的解析器如下所示：</p>
+<p>BeautifulSoup将HTML文档转换成一个复杂的树形结构，每个节点都是一个python对象，所有对象可以归纳为四种。</p>
+<blockquote>
+<ol>
+<li>Tag</li>
+<li>NavigableString</li>
+<li>BeautifulSoup</li>
+<li>Comment</li>
+</ol>
+</blockquote>
+<p>BeautifulSoup对网页的解析，主要是搜索指定标签，遍历标签元素，提取标签内容。对于解析文本的方法，可以参考如下代码，本质上就是调用API定位到要爬取到的数据信息。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">正则表达式：</span></span><br><span class="line"><span class="string">\b: 匹配单词的开始或结束</span></span><br><span class="line"><span class="string">^:  匹配字符串的开始</span></span><br><span class="line"><span class="string">$:  匹配字符串的结束</span></span><br><span class="line"><span class="string">\w: 匹配字母，数字，下划线或汉字</span></span><br><span class="line"><span class="string">\s: 匹配任意空白字符</span></span><br><span class="line"><span class="string">\d: 匹配数字</span></span><br><span class="line"><span class="string">. : 匹配除换行符以外的任意字符</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">字符串转义: 通过\进行转义</span></span><br><span class="line"><span class="string">数量匹配：</span></span><br><span class="line"><span class="string">*：零次或多次</span></span><br><span class="line"><span class="string">+： 一次或多次</span></span><br><span class="line"><span class="string">？：零次或一次</span></span><br><span class="line"><span class="string">&#123;n&#125;: n次</span></span><br><span class="line"><span class="string">&#123;n,&#125;: n次或更多次</span></span><br><span class="line"><span class="string">&#123;n,m&#125; 重复n-m次</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">分支条件：</span></span><br><span class="line"><span class="string">正则表达式通过 | 表示或的关系。</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    这里采用BeautifulSoup(美味汁)进行文本解析</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">r = requests.get(<span class="string">&quot;http://www.baidu.com&quot;</span>)</span><br><span class="line">r.encoding = <span class="string">&#x27;utf-8&#x27;</span></span><br><span class="line">html = r.text</span><br><span class="line"><span class="comment"># 可以直接打开，不知道解析器，一般采用lxml解析器</span></span><br><span class="line">soup = BeautifulSoup(html,<span class="string">&#x27;lxml&#x27;</span>,from_encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> 获取对象属性():</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#Tag 对象</span></span><br><span class="line">    <span class="comment">#Tag对象就像html标签一样，直接通过soup.标签名进行对象的提取</span></span><br><span class="line">    <span class="comment">#要获取tag对象的属性，通过标签.name获取标签的名称 ， 并且可以设置标签的名称</span></span><br><span class="line">    <span class="comment">#如果需要获取标签的属性，如href和class之类的属性，则通过标签.get(属性名)</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(soup.a) <span class="comment"># 根据标签获取</span></span><br><span class="line">    <span class="built_in">print</span>(soup.a.name) <span class="comment">#获取标签名称</span></span><br><span class="line">    <span class="built_in">print</span>(soup.a.get(<span class="string">&#x27;href&#x27;</span>)) <span class="comment"># 获取属性名称</span></span><br><span class="line">    <span class="built_in">print</span>(soup.a.attrs) <span class="comment"># 获取标签中的所有属性</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果要修改标签中的属性，怎么获取也同样可以怎么设置</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># BeautifulSoup用NavigableString类来包装Tag中的字符串，通过标签.string就可以获取到标签内部的文字</span></span><br><span class="line">    <span class="built_in">print</span>(soup.a.string)</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(soup.a.string))</span><br><span class="line"></span><br><span class="line">    <span class="comment">#BeautifulSoup对象表示的是一个文档的全部内容。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> 遍历():</span></span><br><span class="line">    <span class="comment">### 遍历操作， beautiful soup 对文档树的遍历</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    1. contents</span></span><br><span class="line"><span class="string">    2.  children</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># contents属性，可以将tag的子节点列表输出</span></span><br><span class="line">    <span class="built_in">print</span>(soup.head.contents)</span><br><span class="line">    <span class="comment"># children属性返回的是一个生成器。可以对Tag的子节点进行循环</span></span><br><span class="line">    <span class="comment"># 也就是通过children可以迭代遍历节点的所有子节点.</span></span><br><span class="line">    <span class="keyword">for</span> child <span class="keyword">in</span> soup.head.children:</span><br><span class="line">        <span class="built_in">print</span>(child)</span><br><span class="line">    <span class="comment"># 如果要递归遍历所有标签的孙子结点，则通过desendants属性，对所有tag的子孙节点进行循环</span></span><br><span class="line">    <span class="comment"># 标签的内容也属于标签的子节点</span></span><br><span class="line">    <span class="keyword">for</span> child <span class="keyword">in</span> soup.head.descendants:</span><br><span class="line">        <span class="built_in">print</span>(child)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取结点的内容</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># stirng , 如果标记唯一就返回标记的内容，而如果标记不唯一，可能返回None</span></span><br><span class="line">    <span class="built_in">print</span>(soup.a.string)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># strings属性主要用于tag中包含多个字符串的情况，可以循环遍历</span></span><br><span class="line">    <span class="keyword">for</span> string <span class="keyword">in</span> soup.strings:</span><br><span class="line">        <span class="built_in">print</span>(string)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># stripped_strings 可以去掉输出字符串包含的空格或空行</span></span><br><span class="line">    <span class="keyword">for</span> string <span class="keyword">in</span> soup.stripped_strings:</span><br><span class="line">        <span class="built_in">print</span>(string)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取父节点，通过parent属性</span></span><br><span class="line">    <span class="built_in">print</span>(soup.a.parent)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取节点的所有父辈节点，通过parents属性</span></span><br><span class="line">    <span class="keyword">for</span> parent <span class="keyword">in</span> soup.a.parents:</span><br><span class="line">        <span class="keyword">if</span> parent <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="built_in">print</span>(parent)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(parent.name)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取节点的兄弟节点,空白或换行也可也被视作一个节点</span></span><br><span class="line">    <span class="comment"># next_sibling获取下一个兄弟节点</span></span><br><span class="line">    <span class="built_in">print</span>(soup.a.next_sibling)</span><br><span class="line">    <span class="comment"># previous_sibling获取上一个兄弟节点</span></span><br><span class="line">    <span class="built_in">print</span>(soup.a.previous_sibling)</span><br><span class="line">    <span class="comment"># 通过next_siblings或者previous_siblings可以对当前兄弟节点迭代输出</span></span><br><span class="line">    <span class="keyword">for</span> sibling <span class="keyword">in</span> soup.a.next_siblings:</span><br><span class="line">        <span class="built_in">print</span>(sibling)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取节点的前后节点。前后节点是不区分层次结构的前后关系，如&lt;div&gt;&lt;a&gt;&lt;div&gt;,div的后一个节点就是a</span></span><br><span class="line">    <span class="comment"># next_element,previous_element,</span></span><br><span class="line">    <span class="built_in">print</span>(soup.a)</span><br><span class="line">    <span class="built_in">print</span>(soup.a.next_element)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果想遍历所有前后节点，通过next_elements和previous_elements进行遍历</span></span><br><span class="line">    <span class="keyword">for</span> element <span class="keyword">in</span> soup.a.next_elements:</span><br><span class="line">        <span class="built_in">print</span>(element)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 搜索文档树，搜索指定的内容</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> 搜索():</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># find_all()方法，搜索当前tag的所有tag子节点，判断是否满足搜索条件</span></span><br><span class="line">    <span class="comment"># find_add(name,attrs,recursive,txext,**kwargs)</span></span><br><span class="line">    <span class="comment"># name参数可以查找所有名字为name的标记,返回列表.一般用这个来找指定的标签</span></span><br><span class="line">    <span class="comment"># name参数可以是单独的字符，也可以是字符列表。</span></span><br><span class="line">    <span class="comment"># 可以自定义过滤器，用于匹配指定规则的标签</span></span><br><span class="line">    <span class="built_in">print</span>(soup.find_all(<span class="string">&#x27;a&#x27;</span>))</span><br><span class="line">    <span class="built_in">print</span>(soup.find_all([<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>]))</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hasClass_Id</span>(<span class="params">tag</span>):</span></span><br><span class="line">        <span class="keyword">return</span> tag.has_attr(<span class="string">&#x27;class&#x27;</span>) <span class="keyword">and</span> tag.has_attr(<span class="string">&#x27;id&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(soup.find_all(hasClass_Id)) <span class="comment"># 寻找满足匹配规则的标签</span></span><br><span class="line">    <span class="comment"># 多条件过滤标签</span></span><br><span class="line">    <span class="comment"># 可以在find_all()中根据属性搜索指定的标签，并且可以将正则表达式作为搜索条件</span></span><br><span class="line">    <span class="built_in">print</span>(soup.find_all(<span class="string">&#x27;a&#x27;</span>,href=re.<span class="built_in">compile</span>(<span class="string">&#x27;elsie&#x27;</span>),<span class="built_in">id</span>=<span class="string">&#x27;12&#x27;</span>,class_=<span class="string">&#x27;sister&#x27;</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment">#如果要限制搜索数目，则通过limit参数进行限制</span></span><br><span class="line">    <span class="built_in">print</span>(soup.find_all(<span class="string">&#x27;a&#x27;</span>,limit=<span class="number">5</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 限制只搜索直接节点，而不搜索子孙节点，设置recursive = False</span></span><br><span class="line">    <span class="built_in">print</span>(soup.find_all(<span class="string">&#x27;a&#x27;</span>,limit=<span class="number">5</span>),recursive=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># CSS选择器</span></span><br><span class="line">    <span class="comment"># 通过元素的CSS属性定位元素的位置</span></span><br><span class="line">    <span class="comment"># 根据name属性通过.class值 , 根据id属性通过#id值</span></span><br><span class="line">    <span class="comment"># 返回类型为list</span></span><br><span class="line">    <span class="comment">#找到所有a标签</span></span><br><span class="line">    soup.select(<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">    <span class="comment">#找到a标签，id为1</span></span><br><span class="line">    soup.select(<span class="string">&#x27;a#1&#x27;</span>)</span><br><span class="line">    <span class="comment">#根据name查询</span></span><br><span class="line">    soup.select(<span class="string">&#x27;.classs&#x27;</span>)</span><br><span class="line">    <span class="comment">#通过判断是否存在某个属性进行查找</span></span><br><span class="line">    soup.select(<span class="string">&#x27;a[href]&#x27;</span>)</span><br><span class="line">    <span class="comment">#通过属性值查找 ， test可以是待查找的字符串，可以通过正则表达式查询</span></span><br><span class="line">    <span class="comment">#href^= &quot;&quot; , href$= , href*= , 进行正则判断。</span></span><br><span class="line">    soup.select(<span class="string">&#x27;a[href=&quot;test&quot;]&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB2.1/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Python爬虫开发与项目实战-第二回合（实战）
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Python爬虫与开发项目实战——第一回合</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    
+        <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+        <script>
+            if (window.mermaid) {
+                mermaid.initialize({
+                    theme: 'forest'
+                });
+            }
+        </script>
+        
+            <div class="outer">
+                <div id="footer-info" class="inner">
+                    ZZC &copy;
+                        2021
+                            <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+                            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a target="_blank" rel="noopener" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+                            
+                                <br>
+                                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                                &nbsp;|&nbsp;
+                                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+                                
+                </div>
+            </div>
+</footer>
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [ ["$","$"], ["\\(","\\)"] ], skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'], processEscapes: true, TeX: { equationNumbers: { autoNumber: 'AMS' } } } }); MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(); for (var i = 0; i
+    < all.length; ++i) all[i].SourceElement().parentNode.className +=' has-jax' ; }); </script>
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <!-- <script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
