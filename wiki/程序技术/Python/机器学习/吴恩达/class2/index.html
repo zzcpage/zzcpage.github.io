@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>吴恩达-深度学习——二 | 个人博客</title>
+    
+    
+        <meta name="keywords" content="深度学习" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="1. 逻辑回归（Logistic Regression）逻辑回归就是二分类问题，假设y的结果为0或1，那么逻辑回归就是寻找一个函数，根据输入x确定y是1的概率。也就是f(x) &#x3D; P(y&#x3D;1|x) 。其中x是$R^{n_x}$(也就是$n_x$维向量)，y是{0，1}。 通常在做法是将$w^Tx+b$作为x的线性函数，并将结果标准化到0-1之间。  Sigmoid 函数  Sigmoid函数原型:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="吴恩达-深度学习——二">
+<meta property="og:url" content="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE/class2/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="1. 逻辑回归（Logistic Regression）逻辑回归就是二分类问题，假设y的结果为0或1，那么逻辑回归就是寻找一个函数，根据输入x确定y是1的概率。也就是f(x) &#x3D; P(y&#x3D;1|x) 。其中x是$R^{n_x}$(也就是$n_x$维向量)，y是{0，1}。 通常在做法是将$w^Tx+b$作为x的线性函数，并将结果标准化到0-1之间。  Sigmoid 函数  Sigmoid函数原型:">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/deep/梯度更新参数.PNG">
+<meta property="article:published_time" content="2021-12-27T14:22:41.825Z">
+<meta property="article:modified_time" content="2021-12-29T14:24:33.071Z">
+<meta property="article:author" content="ZZC">
+<meta property="article:tag" content="深度学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/deep/梯度更新参数.PNG">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="个人博客" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">个人博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Bug
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/Pycharm/">Pycharm问题集锦</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/cv2/">CV2问题集锦</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaEE
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaWeb/%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%87%BA/">JavaWeb后端数据导出</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaSE
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20introduce/">1. Java介绍</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20basic%20statment/">2. Java基本语法</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20controll%20followe/">3. Java控制流程</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/class/">4. Java对象与类</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaWeb
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaWeb/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/">Web项目部署</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Python
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">Python常见问题</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/CV2/">CV2的常用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Python数据处理
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0(%E4%B8%80)/">Python数据处理-阅读笔记一——数据处理介绍</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0(%E4%BA%8C)/">Python数据处理-阅读笔记二——数据获取和存储</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0(%E4%B8%89)/">Python数据处理-阅读笔记二——数据清洗之匹配与格式化</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E4%BA%8C%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%8C%96%E5%92%8C%E8%84%9A%E6%9C%AC%E5%8C%96/">Python数据处理-阅读笔记二——标准化和脚本化</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E4%B8%89/">Python数据处理-阅读笔记三——数据分析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            抖店
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E6%8A%96%E5%BA%97API%E5%BC%80%E5%8F%91/%E8%AE%A2%E5%8D%95%E5%AF%BC%E5%87%BA/">抖店开发--订单导出之信息获取</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            深度学习
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            TensorFlow2
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/CNN/">TensorFlow2笔记-CNN(卷积神经网络)</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%BD%91%E7%BB%9C%E5%85%AB%E8%82%A1%E6%89%A9%E5%B1%95/">TensorFlow2笔记-第四讲(网络八股扩展)</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/NN/">TensorFlow2笔记-NN(全连接)</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/%E7%BB%8F%E5%85%B8%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/">TensorFlow2笔记-LeNet(经典卷积网络)</a></li>  </ul> 
+                    </li> 
+                     <li class="file active"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE/class2/">吴恩达-深度学习——二</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            爬虫
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">Python爬虫与开发项目实战——第一回合</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98-%E7%AC%AC%E4%BA%8C%E5%9B%9E%E5%90%88/">Python爬虫开发与项目实战-第二回合</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB2.1/">Python爬虫开发与项目实战-第二回合（实战）</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB-%E4%B8%AD%E7%BA%A7/">Python爬虫-中级</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/selenium%E5%8F%8D%E7%88%AC/">selenium+Chrome(79版本以上)反爬</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB-Scrapy%E8%BF%9B%E9%98%B6/">Python爬虫-Scrapy进阶</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/debug%E5%8F%8D%E7%88%AC/">debug反爬</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/%E5%8F%8D%E7%88%AC%E6%8A%80%E5%B7%A7/">反爬技巧</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/%E6%BB%91%E5%9D%97%E7%A0%B4%E8%A7%A3/">滑块验证码破解</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98-Scrapy%E5%AE%9E%E6%88%98/">Python爬虫开发与项目实战-Scrapy实战</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            程序技术
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            BUG集锦
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            python
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/%E7%88%AC%E8%99%AB/"></a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/%E5%B8%B8%E8%A7%81/"></a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/idea/"></a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/vsnode/"></a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Git
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Git/%E9%97%AE%E9%A2%98/">Git常见的问题及解决方案</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Java
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JAVA-Json/">Java中对JSON的操作</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Python
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            机器学习
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            吴恩达
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE/class3/">吴恩达-class(三)-如何构建一个神经网络</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            深度学习
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%BD%91%E7%AB%99/"></a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            爬虫
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Untitled-1/"></a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            算法
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Leetcode
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数组
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/36.%E6%9C%89%E6%95%88%E6%95%B0%E7%8B%AC/">36.有效数独</a></li>  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/48.%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84/">48.旋转数组</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            链表
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E9%93%BE%E8%A1%A8/19.%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%BB%93%E7%82%B9/">48.旋转数组</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            经典算法
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/KMP/">KMP算法</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            软件配置
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/hexo/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">hexo使用问题</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            python配置
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/python/Anaconda/">Anaconda配置</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/hello-world/">Hello World</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>archives</span></h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">24</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">12</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>tags</span></h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/" rel="tag">Bug</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">Bug解决方案</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVASE/" rel="tag">JAVASE</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow2/" rel="tag">TensorFlow2</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/" rel="tag">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag">图像处理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">数据处理</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%85%8D%E7%BD%AE/" rel="tag">配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-程序技术/Python/机器学习/吴恩达/class2" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE/class2/">
+            <time datetime="2021-12-27T14:22:41.825Z" itemprop="datePublished">2021-12-27</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/raw/writing/source/_posts/程序技术/Python/机器学习/吴恩达/class2.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/edit/writing/source/_posts/程序技术/Python/机器学习/吴恩达/class2.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/commits/writing/source/_posts/程序技术/Python/机器学习/吴恩达/class2.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            吴恩达-深度学习——二
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h4 id="1-逻辑回归（Logistic-Regression）"><a href="#1-逻辑回归（Logistic-Regression）" class="headerlink" title="1. 逻辑回归（Logistic Regression）"></a>1. 逻辑回归（Logistic Regression）</h4><p>逻辑回归就是二分类问题，假设y的结果为0或1，那么逻辑回归就是寻找一个函数，根据输入x确定y是1的概率。也就是f(x) = P(y=1|x) 。<br>其中x是$R^{n_x}$(也就是$n_x$维向量)，y是{0，1}。</p>
+<p>通常在做法是将$w^Tx+b$作为x的线性函数，并将结果标准化到0-1之间。</p>
+<blockquote>
+<p>Sigmoid 函数</p>
+</blockquote>
+<p>Sigmoid函数原型:$\sigma(z) = \frac{1}{1+e^{-z}}$。<br>通过Sigmoid函数就可以将结果标准化到0-1之间。</p>
+<p>从上面可以看出，如果要实现逻辑回归，最主要的是学习参数$w^T$和b,用于更好的对结果为1的概率进行预测。</p>
+<blockquote>
+<p>损失函数/误差函数</p>
+</blockquote>
+<p>损失函数用于训练参数$W^T$和b，可以衡量算法的运行情况。损失函数可以用于观察预测结果和实际结果的差距多少。<br>损失函数衡量的是单个训练样本的预测情况。</p>
+<ol>
+<li>通过预测结果和实际值差的平方作为损失函数</li>
+</ol>
+<blockquote>
+<p>$\zeta(y_{预测},y_{标准})=\frac{1}{2}(y_{预测}-y_{标准})^2$<br>并不推荐使用这种方法</p>
+</blockquote>
+<ol>
+<li>通过 $\zeta(y_{预测},y_{标准})=-(ylogy_{预测}+(1-y)log(1-y_{预测}))$作为损失函数。</li>
+</ol>
+<p>其中y_{预测}是经过Sigmoid后的结果。<br>通过这个损失函数，可以使得当y=1的时候，让y预测接近1，当y=0时，让y预测接近0。</p>
+<blockquote>
+<p>成本函数（Cost function）</p>
+</blockquote>
+<p>成本函数衡量的是全体训练样本的情况。<br>成本函数J（w,b） = $\frac{1}{m}\sum^m_{i=1}\zeta(y_{预测},y_{标准}}})$</p>
+<p>推到过程:假设 y=1的概率为a,y=0的概率为1-a，那么对于函数p(y|x)就可以写成：<br>p(y|x) = a^y<em>(1-a)^(1-y);将y=1和y=0带入即可验证。然后根据log函数的单调递增性，对p(y|x)求对数。得到 logp(y|x) = -1</em>$\zeta(y_{预测},y_{标准})$.由于log函数单增，所以要找到p(y|x)最值，也就是找到$\zeta(y_{预测},y_{标准})$的最小值。然后根据极大似然估计，得到成本函数：J（w,b） = $\frac{1}{m}\sum^m_{i=1}\zeta(y_{预测},y_{标准}}})$。</p>
+<p>这个成本函数是凸的</p>
+<blockquote>
+<h3 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h3><ol>
+<li>如果定义损失函数为$\zeta(y_{预测},y_{标准})=\frac{1}{2}(y_{预测}-y_{标准})^2$</li>
+</ol>
+</blockquote>
+<p>这样会导致无法找到全局最优解，只能找到局部的最优解。</p>
+<h4 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h4><p>逻辑回归的工作就是要找到合适的w,b使得成本函数J（w,b）达到最小值。</p>
+<blockquote>
+<p>凸函数</p>
+</blockquote>
+<p>这里的凸函数和国定定义的凹凸性定义相反（也就是实际上等同于高数中的凹U的形状）。<br>凸函数是一个定义在某个向量空间的凸子集C上的实值函数f，而且对于凸子集C中任意两个向量$x_1,x_2$、有$f((x1+x2)/2)&lt;=(f(x1)+f(x2))/2$成立。<br>凸函数有一个重要的性质：对于凸函数来说，局部最小值就是全局最小值。</p>
+<p>logistic回归采用J（w,b）作为成本函数就是因为这个函数J（w,b）是凸函数，由于凸函数的局部最小值就是全局最小值，所以能够保证所得到的结果是最优的。<br>而如果不是凸函数，则可能得到的结果只是局部最优的。</p>
+<blockquote>
+<p>梯度下降法</p>
+</blockquote>
+<p>梯度下降法也就是随机初始一个w,b。然后在每一次迭代的过程中，沿着下降速度最快的方向下降。由高等数学知识可知，方向导数最大的方向称为梯度。所以也就是沿着梯度方向下降，这样就能保证下降的方向最快。</p>
+<blockquote>
+<p>执行流程</p>
+</blockquote>
+<p>不断执行下面的权值和偏置的更新过程，以达到最优解。</p>
+<p>w = w - $\alpha\frac{\phi_{J(w,b)}}{\phi_{w}}$</p>
+<p>b = b - $\alpha\frac{\phi_{J(w,b)}}{\phi_{b}}$</p>
+<p>$\alpha$: 学习率(learning rate)<br>$\phi$: 偏导符号，读作round</p>
+<h4 id="计算图"><a href="#计算图" class="headerlink" title="计算图"></a>计算图</h4><p>前向传播：forward<br>反向传播: backpropagation</p>
+<p>简单介绍一下梯度下降求解的过程:<br>假设输入x = [x1,x2], w = [w1,w2],b。<br>逻辑回归函数：<br>    $z = w^T*x+b $ , $y_{预测}=\sigma(z)=a$,$L(a,y_{标准})=-(yloga+(1-y)log(1-a))$</p>
+<p>反向传播计算梯度的过程：</p>
+<blockquote>
+<ol>
+<li>计算损失函数对a的偏导</li>
+</ol>
+</blockquote>
+<p>$d_a = d_{L(a,b)}/d_a$ = $-y/a+(1-y)/(1-a)$</p>
+<blockquote>
+<ol>
+<li>计算损失函数对z的偏导</li>
+</ol>
+</blockquote>
+<p>这里根据链式求导规则，可以得出$d_L/d_z$ = $(d_L/d_a)*(d_a/d_z)$,由此可得：$d_L/d_z$=a(1-a).</p>
+<blockquote>
+<ol>
+<li>求损失函数对各个变量的偏导</li>
+</ol>
+</blockquote>
+<p>$\phi_L/\phi_{w1}=d_{w_1} =x_1d_z $<br>以此类推可以得出对各个变量的偏导。</p>
+<blockquote>
+<ol>
+<li>根据求出的偏导，进行更新参数</li>
+</ol>
+</blockquote>
+<p>x = x - $\alpha*d$</p>
+<h4 id="向量化技术"><a href="#向量化技术" class="headerlink" title="向量化技术"></a>向量化技术</h4><p>向量化技术用于加速运算速度，摆脱for循环(使用for循环，效率会很低)。</p>
+<blockquote>
+<p>什么是向量化技术？</p>
+</blockquote>
+<p>简单的说就是通过矩阵进行运算(向量可以看成一个1 x n 维的矩阵)，然后进行矩阵运算就可以快速进行若干次的操作。<br>就以 $z = w^T*x+b $为例，正常是通过双重for循环进行遍历w和t进行求和运算，现在只需要通过矩阵的乘法运算一次性可以得出结果。<br>在计算机内部有专门的矩阵运算器，用于处理矩阵的运算，所以通过矩阵运算可以提高运算速度。</p>
+<p>向量化能够加快运算速度，一般情况下，不要用显示的循环解决问题。能不用就不用，尽量寻找其他方法进行解决(通常这种方法可以并行运算，提高运行速度)。</p>
+<p>在利用Python实现向量化技术的时候，我们可以借助numpy库的许多函数和方法，来完成向量的运算。</p>
+<h4 id="利用python实现Logistic回归前向传播和反向传播"><a href="#利用python实现Logistic回归前向传播和反向传播" class="headerlink" title="利用python实现Logistic回归前向传播和反向传播"></a>利用python实现Logistic回归前向传播和反向传播</h4><p><img src="/images/deep/梯度更新参数.PNG" alt="梯度"></p>
+<p>$Z = w^TX+b=np.dot(w^T,X)+b$<br>$A=\sigma(Z)$<br>$d_z = A-Y$<br>$d_w=\frac{1}{m}Xd_{z^T}$<br>$d_b=\frac{1}{m}np.sum(d_z)$</p>
+<h4 id="Python和Numpy中的广播（broadcasting）"><a href="#Python和Numpy中的广播（broadcasting）" class="headerlink" title="Python和Numpy中的广播（broadcasting）"></a>Python和Numpy中的广播（broadcasting）</h4><p>简单的说，假设有一个矩阵是mXn，如果需要这个矩阵和一个实数R或者1Xn或者mX1的矩阵进行操作。Python会自动的将实数R变为mXn的矩阵，以及将1 Xn或mX1的矩阵变成mXn的矩阵(复制m或复制n次)，用于操作。</p>
+<p>举一个简单的例子：加入有个1X3的矩阵A,有个3X1的矩阵B，在Python中A+B的结果是一个3X3的矩阵。<br>他会把A复制3次变为3X3的矩阵，然后将B复制3次变为3X3的矩阵。</p>
+<p>如何避免发生由于广播而产生的错误：</p>
+<blockquote>
+<ol>
+<li>不使用秩为1的数组 ， 也就是shape(s1,)的数组<br>尽量创建shape为(1,n)或(n,1)的列或行向量。</li>
+<li>确保自己的向量是自己需要的shape,可以通过reshape或assert等方法来确保在程序的运行过程中，矩阵是自己想要的shape</li>
+</ol>
+</blockquote>
+<h4 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h4><p>GPU: 图像处理单元（Graphics Processing Unit）</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE/class3/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    吴恩达-class(三)-如何构建一个神经网络
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E4%B8%89/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Python数据处理-阅读笔记三——数据分析</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    
+        <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+        <script>
+            if (window.mermaid) {
+                mermaid.initialize({
+                    theme: 'forest'
+                });
+            }
+        </script>
+        
+            <div class="outer">
+                <div id="footer-info" class="inner">
+                    ZZC &copy;
+                        2022
+                            <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+                            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a target="_blank" rel="noopener" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+                            
+                                <br>
+                                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                                &nbsp;|&nbsp;
+                                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+                                
+                </div>
+            </div>
+</footer>
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [ ["$","$"], ["\\(","\\)"] ], skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'], processEscapes: true, TeX: { equationNumbers: { autoNumber: 'AMS' } } } }); MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(); for (var i = 0; i
+    < all.length; ++i) all[i].SourceElement().parentNode.className +=' has-jax' ; }); </script>
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <!-- <script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
