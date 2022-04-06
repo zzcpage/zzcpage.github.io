@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>TensorFlow2笔记-LeNet(经典卷积网络) | 个人博客</title>
+    
+    
+        <meta name="keywords" content="TensorFlow2,CNN" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="介绍这里主要介绍卷积神经网络的经典网络，然后通过tensorflow进行实现（以上章的卷积神经网络实现代码为基础，进行实现）。 统计卷积网络神经网络层数一般只统计卷积计算层和全连接计算层。  ImageNet  ImageNet 是一个计算机视觉系统识别项目,是目前世界上图像识别最大的数据库。是美国斯坦福的计算机科学家，模拟人类的识别系统建立的。能够从图片识别物体。ImageNet是一个非常有前景">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow2笔记-LeNet(经典卷积网络)">
+<meta property="og:url" content="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/%E7%BB%8F%E5%85%B8%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="介绍这里主要介绍卷积神经网络的经典网络，然后通过tensorflow进行实现（以上章的卷积神经网络实现代码为基础，进行实现）。 统计卷积网络神经网络层数一般只统计卷积计算层和全连接计算层。  ImageNet  ImageNet 是一个计算机视觉系统识别项目,是目前世界上图像识别最大的数据库。是美国斯坦福的计算机科学家，模拟人类的识别系统建立的。能够从图片识别物体。ImageNet是一个非常有前景">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/LeNet.PNG">
+<meta property="og:image" content="http://example.com/images/AlexNet.PNG">
+<meta property="og:image" content="http://example.com/images/VGGnet.PNG">
+<meta property="og:image" content="http://example.com/images/inter.PNG">
+<meta property="og:image" content="http://example.com/images/ResNet块.PNG">
+<meta property="og:image" content="http://example.com/images/两种ResNet块.PNG">
+<meta property="og:image" content="http://example.com/images/ResNet.PNG">
+<meta property="article:published_time" content="2021-11-01T02:11:58.082Z">
+<meta property="article:modified_time" content="2021-11-02T02:56:20.465Z">
+<meta property="article:author" content="ZZC">
+<meta property="article:tag" content="TensorFlow2">
+<meta property="article:tag" content="CNN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/LeNet.PNG">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="个人博客" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">个人博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Bug
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/Pycharm/">Pycharm问题集锦</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/cv2/">CV2问题集锦</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaEE
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaWeb/%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%87%BA/">JavaWeb后端数据导出</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaSE
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20introduce/">1. Java介绍</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20basic%20statment/">2. Java基本语法</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20controll%20followe/">3. Java控制流程</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/class/">4. Java对象与类</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaWeb
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaWeb/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/">Web项目部署</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Python
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">Python常见问题</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/CV2/">CV2的常用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Python数据处理
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0(%E4%B8%80)/">Python数据处理-阅读笔记一——数据处理介绍</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0(%E4%BA%8C)/">Python数据处理-阅读笔记二——数据获取和存储</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0(%E4%B8%89)/">Python数据处理-阅读笔记二——数据清洗之匹配与格式化</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E4%BA%8C%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%8C%96%E5%92%8C%E8%84%9A%E6%9C%AC%E5%8C%96/">Python数据处理-阅读笔记二——标准化和脚本化</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E4%B8%89/">Python数据处理-阅读笔记三——数据分析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            抖店
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E6%8A%96%E5%BA%97API%E5%BC%80%E5%8F%91/%E8%AE%A2%E5%8D%95%E5%AF%BC%E5%87%BA/">抖店开发--订单导出之信息获取</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            深度学习
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            TensorFlow2
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/CNN/">TensorFlow2笔记-CNN(卷积神经网络)</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%BD%91%E7%BB%9C%E5%85%AB%E8%82%A1%E6%89%A9%E5%B1%95/">TensorFlow2笔记-第四讲(网络八股扩展)</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/NN/">TensorFlow2笔记-NN(全连接)</a></li>  <li class="file active"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/%E7%BB%8F%E5%85%B8%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/">TensorFlow2笔记-LeNet(经典卷积网络)</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE/class2/">吴恩达-深度学习——二</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            爬虫
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">Python爬虫与开发项目实战——第一回合</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98-%E7%AC%AC%E4%BA%8C%E5%9B%9E%E5%90%88/">Python爬虫开发与项目实战-第二回合</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB2.1/">Python爬虫开发与项目实战-第二回合（实战）</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB-%E4%B8%AD%E7%BA%A7/">Python爬虫-中级</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/selenium%E5%8F%8D%E7%88%AC/">selenium+Chrome(79版本以上)反爬</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB-Scrapy%E8%BF%9B%E9%98%B6/">Python爬虫-Scrapy进阶</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/debug%E5%8F%8D%E7%88%AC/">debug反爬</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/%E5%8F%8D%E7%88%AC%E6%8A%80%E5%B7%A7/">反爬技巧</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/%E6%BB%91%E5%9D%97%E7%A0%B4%E8%A7%A3/">滑块验证码破解</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98-Scrapy%E5%AE%9E%E6%88%98/">Python爬虫开发与项目实战-Scrapy实战</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            程序技术
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            BUG集锦
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            python
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/%E7%88%AC%E8%99%AB/"></a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/%E5%B8%B8%E8%A7%81/"></a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/idea/"></a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/vsnode/"></a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Git
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Git/%E9%97%AE%E9%A2%98/">Git常见的问题及解决方案</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Java
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JAVA-Json/">Java中对JSON的操作</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Python
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            机器学习
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            吴恩达
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE/class3/">吴恩达-class(三)-如何构建一个神经网络</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            深度学习
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%BD%91%E7%AB%99/"></a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            爬虫
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Untitled-1/"></a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            算法
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Leetcode
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数组
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/36.%E6%9C%89%E6%95%88%E6%95%B0%E7%8B%AC/">36.有效数独</a></li>  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/48.%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84/">48.旋转数组</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            链表
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E9%93%BE%E8%A1%A8/19.%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%BB%93%E7%82%B9/">48.旋转数组</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            经典算法
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/KMP/">KMP算法</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            软件配置
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/hexo/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">hexo使用问题</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            python配置
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/python/Anaconda/">Anaconda配置</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/hello-world/">Hello World</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>archives</span></h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">24</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">12</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>tags</span></h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/" rel="tag">Bug</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">Bug解决方案</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVASE/" rel="tag">JAVASE</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow2/" rel="tag">TensorFlow2</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/" rel="tag">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag">图像处理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">数据处理</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%85%8D%E7%BD%AE/" rel="tag">配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-程序技术/Python/机器学习/Tensorflow笔记/经典卷积网络" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/TensorFlow2/">TensorFlow2</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/CNN/" rel="tag">CNN</a>, <a class="tag-link-link" href="/tags/TensorFlow2/" rel="tag">TensorFlow2</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/%E7%BB%8F%E5%85%B8%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/">
+            <time datetime="2021-11-01T02:11:58.082Z" itemprop="datePublished">2021-11-01</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/raw/writing/source/_posts/程序技术/Python/机器学习/Tensorflow笔记/经典卷积网络.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/edit/writing/source/_posts/程序技术/Python/机器学习/Tensorflow笔记/经典卷积网络.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/commits/writing/source/_posts/程序技术/Python/机器学习/Tensorflow笔记/经典卷积网络.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            TensorFlow2笔记-LeNet(经典卷积网络)
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>这里主要介绍卷积神经网络的经典网络，然后通过tensorflow进行实现（以上章的卷积神经网络实现代码为基础，进行实现）。</p>
+<p>统计卷积网络神经网络层数一般只统计卷积计算层和全连接计算层。</p>
+<blockquote>
+<p>ImageNet</p>
+</blockquote>
+<p>ImageNet 是一个计算机视觉系统识别项目,是目前世界上图像识别最大的数据库。是美国斯坦福的计算机科学家，模拟人类的识别系统建立的。能够从图片识别物体。ImageNet是一个非常有前景的研究项目，未来用在机器人身上，就可以直接辨认物品和人了。</p>
+<h3 id="经典卷积网络"><a href="#经典卷积网络" class="headerlink" title="经典卷积网络"></a>经典卷积网络</h3><pre class="mermaid">   graph LR
+    A(LeNet 1998) --> B(AlexNet 2012)
+    B --> C(VGGNet 2014) 
+    C --> D(Inception Net 2014) 
+    D --> E(ResNet 2015)</pre>
+
+<h4 id="LeNet"><a href="#LeNet" class="headerlink" title="LeNet"></a>LeNet</h4><p>由Yann LeCun于1998年提出，卷积网络开篇之作。通过共享卷积核减少了网络的参数。LeNet如下所示(C5画错了是F5)</p>
+<p><img src="/images/LeNet.PNG" alt="aaa"></p>
+<p>LeNet提出的时候还没提出BN和Dropout层，所以LeNet网络不具有BN和Dropout层。</p>
+<p>根据上图实现LeNet代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyLeNet</span>(<span class="params">Model</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(MyLeNet, self).__init__()</span><br><span class="line">        self.c1 = Conv2D(filters=<span class="number">6</span>,kernel_size=(<span class="number">5</span>,<span class="number">5</span>),activation=<span class="string">&#x27;sigmoid&#x27;</span>)</span><br><span class="line">        self.p1 = MaxPool2D(pool_size=(<span class="number">2</span>,<span class="number">2</span>),strides=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        self.c2 = Conv2D(filters=<span class="number">16</span>,kernel_size=(<span class="number">5</span>,<span class="number">5</span>),activation=<span class="string">&#x27;sigmoid&#x27;</span>)</span><br><span class="line">        self.p2 = MaxPool2D(pool_size=(<span class="number">2</span>,<span class="number">2</span>),strides=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        self.flatten = Flatten()</span><br><span class="line">        self.f1 = Dense(<span class="number">120</span>,activation=<span class="string">&#x27;sigmoid&#x27;</span>)</span><br><span class="line">        self.f2 = Dense(<span class="number">84</span>,activation=<span class="string">&#x27;sigmoid&#x27;</span>)</span><br><span class="line">        self.f3 = Dense(<span class="number">10</span>,activation=<span class="string">&#x27;softmax&#x27;</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span>(<span class="params">self,x</span>):</span></span><br><span class="line">        x = self.c1(x)</span><br><span class="line">        x = self.p1(x)</span><br><span class="line">        x = self.c2(x)</span><br><span class="line">        x = self.p2(x)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 提取的特征作为神经网络的输入特征</span></span><br><span class="line">        x = self.flatten(x)</span><br><span class="line">        x = self.f1(x)</span><br><span class="line">        x = self.f2(x)</span><br><span class="line">        y = self.f3(x)</span><br><span class="line">        <span class="keyword">return</span> y</span><br></pre></td></tr></table></figure>
+<h4 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h4><p>AlexNet网络诞生于2012年，是Hinton代表作之一。使用relu激活函数，提升训练速度，使用Dropout缓解过拟合。<br><img src="/images/AlexNet.PNG" alt="a2"><br>AlexNet实现代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AlexNet</span>(<span class="params">Model</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(AlexNet, self).__init__()</span><br><span class="line">        <span class="comment"># 第一层</span></span><br><span class="line">        self.c1 = Conv2D(filters=<span class="number">96</span>,kernel_size=(<span class="number">3</span>,<span class="number">3</span>))</span><br><span class="line">        self.b1 = BatchNormalization()</span><br><span class="line">        self.a1 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">        self.p1 = MaxPool2D(pool_size=(<span class="number">3</span>,<span class="number">3</span>),strides=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#第二层</span></span><br><span class="line">        self.c2 = Conv2D(filters=<span class="number">256</span>,kernel_size=(<span class="number">3</span>,<span class="number">3</span>))</span><br><span class="line">        self.b2 = BatchNormalization()</span><br><span class="line">        self.a2 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">        self.p2 = MaxPool2D(pool_size=(<span class="number">3</span>,<span class="number">3</span>),strides=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#第三层</span></span><br><span class="line">        self.c3 = Conv2D(filters=<span class="number">384</span>,kernel_size=(<span class="number">3</span>,<span class="number">3</span>),padding=<span class="string">&#x27;same&#x27;</span>,activation=<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#第四层</span></span><br><span class="line">        self.c4 = Conv2D(filters=<span class="number">384</span>,kernel_size=(<span class="number">3</span>,<span class="number">3</span>),padding=<span class="string">&#x27;same&#x27;</span>,activation=<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#第五层</span></span><br><span class="line">        self.c5 = Conv2D(filters=<span class="number">256</span>,kernel_size=(<span class="number">3</span>,<span class="number">3</span>),padding=<span class="string">&#x27;same&#x27;</span>,activation=<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">        self.p3 = MaxPool2D(pool_size=(<span class="number">3</span>,<span class="number">3</span>),strides=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#神经网络计算层</span></span><br><span class="line">        self.flatten = Flatten()</span><br><span class="line">        self.f1 = Dense(<span class="number">2048</span>,activation=<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">        self.d1 = Dropout(<span class="number">0.5</span>)</span><br><span class="line">        self.f2 = Dense(<span class="number">84</span>,activation=<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">        self.d1 = Dropout(<span class="number">0.5</span>)</span><br><span class="line">        self.f3 = Dense(<span class="number">10</span>,activation=<span class="string">&#x27;softmax&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span>(<span class="params">self,x</span>):</span></span><br><span class="line">        x = self.c1(x)</span><br><span class="line">        x = self.b1(x)</span><br><span class="line">        x = self.a1(x)</span><br><span class="line">        x = self.p1(x)</span><br><span class="line"></span><br><span class="line">        x = self.c2(x)</span><br><span class="line">        x = self.b2(x)</span><br><span class="line">        x = self.a2(x)</span><br><span class="line">        x = self.p2(x)</span><br><span class="line"></span><br><span class="line">        x = self.c3(x)</span><br><span class="line"></span><br><span class="line">        x = self.c4(x)</span><br><span class="line"></span><br><span class="line">        x = self.c5(x)</span><br><span class="line">        x = self.p3(x)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 提取的特征作为神经网络的输入特征</span></span><br><span class="line">        x = self.flatten(x)</span><br><span class="line">        x = self.f1(x)</span><br><span class="line">        x = self.d1(x)</span><br><span class="line">        x = self.f2(x)</span><br><span class="line">        x = self.d2(x)</span><br><span class="line">        y = self.f3(x)</span><br><span class="line">        <span class="keyword">return</span> y</span><br></pre></td></tr></table></figure>
+<h4 id="VGGNet"><a href="#VGGNet" class="headerlink" title="VGGNet"></a>VGGNet</h4><p>CGGNet诞生于2014年，当年ImageNet竞赛的亚军。使用小尺寸卷积核，在减少的参数的同时，提高了识别准确率。VGGNet网络结构框图如下所示。<br><img src="/images/VGGnet.PNG" alt="a3"></p>
+<p>VGGNet的网络结构是：两次CBA，CBAPD，三次CBA , CBA,CBAPD。<br>实现代码如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">VGGNet</span>(<span class="params">Model</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(VGGNet, self).__init__()</span><br><span class="line">        <span class="comment"># 首先重复两次CBA CBAPD</span></span><br><span class="line">        <span class="comment">#1</span></span><br><span class="line">        self.c1 = Conv2D(filters=<span class="number">64</span>,kernel_size=(<span class="number">3</span>,<span class="number">3</span>),padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.b1 = BatchNormalization()</span><br><span class="line">        self.a1 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        self.c2 = Conv2D(filters=<span class="number">64</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.b2 = BatchNormalization()</span><br><span class="line">        self.a2 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">        self.p1 = MaxPool2D(pool_size=(<span class="number">2</span>,<span class="number">2</span>),strides=<span class="number">2</span>,padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.d1 = Dropout(<span class="number">0.2</span>)</span><br><span class="line">        <span class="comment">#2</span></span><br><span class="line">        self.c3 = Conv2D(filters=<span class="number">128</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.b3 = BatchNormalization()</span><br><span class="line">        self.a3 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        self.c4 = Conv2D(filters=<span class="number">128</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.b4 = BatchNormalization()</span><br><span class="line">        self.a4 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">        self.p2 = MaxPool2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>), strides=<span class="number">2</span>, padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.d2 = Dropout(<span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 再重复三次 CBA CBA CBAPD</span></span><br><span class="line">        <span class="comment"># 1</span></span><br><span class="line">        self.c5 = Conv2D(filters=<span class="number">256</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.b5 = BatchNormalization()</span><br><span class="line">        self.a5 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        self.c6 = Conv2D(filters=<span class="number">256</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.b6 = BatchNormalization()</span><br><span class="line">        self.a6 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        self.c7 = Conv2D(filters=<span class="number">256</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.b7 = BatchNormalization()</span><br><span class="line">        self.a7 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">        self.p3 = MaxPool2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>), strides=<span class="number">2</span>, padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.d3 = Dropout(<span class="number">0.2</span>)</span><br><span class="line">        <span class="comment"># 2</span></span><br><span class="line">        self.c8 = Conv2D(filters=<span class="number">512</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.b8 = BatchNormalization()</span><br><span class="line">        self.a8 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        self.c9 = Conv2D(filters=<span class="number">512</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.b9 = BatchNormalization()</span><br><span class="line">        self.a9 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        self.c10 = Conv2D(filters=<span class="number">512</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.b10 = BatchNormalization()</span><br><span class="line">        self.a10 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">        self.p4 = MaxPool2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>), strides=<span class="number">2</span>, padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.d4 = Dropout(<span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 3</span></span><br><span class="line">        self.c11 = Conv2D(filters=<span class="number">512</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.b11 = BatchNormalization()</span><br><span class="line">        self.a11 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        self.c12 = Conv2D(filters=<span class="number">512</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.b12 = BatchNormalization()</span><br><span class="line">        self.a12 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        self.c13 = Conv2D(filters=<span class="number">512</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.b13 = BatchNormalization()</span><br><span class="line">        self.a13 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">        self.p5 = MaxPool2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>), strides=<span class="number">2</span>, padding=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line">        self.d5 = Dropout(<span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 三个全连接层</span></span><br><span class="line">        self.flatten = Flatten()</span><br><span class="line">        self.f1 = Dense(<span class="number">512</span>,activation=<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">        self.d6 = Dropout(<span class="number">0.2</span>)</span><br><span class="line">        self.f2 = Dense(<span class="number">512</span>,activation=<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">        self.d6 = Dropout(<span class="number">0.2</span>)</span><br><span class="line">        self.f3 = Dense(<span class="number">10</span>,activation=<span class="string">&#x27;softmax&#x27;</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span>(<span class="params">self,x</span>):</span></span><br><span class="line">        <span class="comment"># 两次CBA CBAPD</span></span><br><span class="line">        <span class="comment">#1</span></span><br><span class="line">        x = self.c1(x)</span><br><span class="line">        x = self.b1(x)</span><br><span class="line">        x = self.a1(x)</span><br><span class="line"></span><br><span class="line">        x = self.c2(x)</span><br><span class="line">        x = self.b2(x)</span><br><span class="line">        x = self.a2(x)</span><br><span class="line">        x = self.p1(x)</span><br><span class="line">        x = self.d1(x)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#2</span></span><br><span class="line">        x = self.c3(x)</span><br><span class="line">        x = self.b3(x)</span><br><span class="line">        x = self.a3(x)</span><br><span class="line"></span><br><span class="line">        x = self.c4(x)</span><br><span class="line">        x = self.b4(x)</span><br><span class="line">        x = self.a4(x)</span><br><span class="line">        x = self.p2(x)</span><br><span class="line">        x = self.d2(x)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#三次 CBA CBA CBAPD</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 1</span></span><br><span class="line">        x = self.c5(x)</span><br><span class="line">        x = self.b5(x)</span><br><span class="line">        x = self.a5(x)</span><br><span class="line"></span><br><span class="line">        x = self.c6(x)</span><br><span class="line">        x = self.b6(x)</span><br><span class="line">        x = self.a6(x)</span><br><span class="line"></span><br><span class="line">        x = self.c7(x)</span><br><span class="line">        x = self.b7(x)</span><br><span class="line">        x = self.a7(x)</span><br><span class="line">        x = self.p3(x)</span><br><span class="line">        x = self.d3(x)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 2</span></span><br><span class="line">        x = self.c8(x)</span><br><span class="line">        x = self.b8(x)</span><br><span class="line">        x = self.a8(x)</span><br><span class="line"></span><br><span class="line">        x = self.c9(x)</span><br><span class="line">        x = self.b9(x)</span><br><span class="line">        x = self.a9(x)</span><br><span class="line"></span><br><span class="line">        x = self.c10(x)</span><br><span class="line">        x = self.b10(x)</span><br><span class="line">        x = self.a10(x)</span><br><span class="line">        x = self.p4(x)</span><br><span class="line">        x = self.d4(x)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 3</span></span><br><span class="line"></span><br><span class="line">        x = self.c11(x)</span><br><span class="line">        x = self.b11(x)</span><br><span class="line">        x = self.a11(x)</span><br><span class="line"></span><br><span class="line">        x = self.c12(x)</span><br><span class="line">        x = self.b12(x)</span><br><span class="line">        x = self.a12(x)</span><br><span class="line"></span><br><span class="line">        x = self.c13(x)</span><br><span class="line">        x = self.b13(x)</span><br><span class="line">        x = self.a13(x)</span><br><span class="line">        x = self.p5(x)</span><br><span class="line">        x = self.d5(x)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 提取的特征作为神经网络的输入特征</span></span><br><span class="line">        x = self.flatten(x)</span><br><span class="line">        x = self.f1(x)</span><br><span class="line">        x = self.d5(x)</span><br><span class="line">        x = self.f2(x)</span><br><span class="line">        x = self.d6(x)</span><br><span class="line">        y = self.f3(x)</span><br><span class="line">        <span class="keyword">return</span> y</span><br></pre></td></tr></table></figure></p>
+<h4 id="Inception-Net"><a href="#Inception-Net" class="headerlink" title="Inception Net"></a>Inception Net</h4><p>InceptionNet诞生于2014年。当年ImageNet冠军。Inception引入了Inception结构快。<br>同一层网络使用不同尺寸的卷积核，提升了模型感知力，使用了批标准化，缓解了梯度消失。</p>
+<blockquote>
+<p>Inception结构快如图所示</p>
+</blockquote>
+<p><img src="/images/inter.PNG" alt="a14"></p>
+<p>从图中可以看出，Inception包含四个卷积过程，分成四个不同的卷积核进行卷积操作。</p>
+<blockquote>
+<ol>
+<li>1×1的卷积核</li>
+<li>1×1的卷积核+3×3的卷积核</li>
+<li>1×1的卷积核+5×5的卷积核</li>
+<li>3×3的最大池+1×1的卷积核</li>
+<li>最后将四个部分的输出结果，按照深度方向堆叠在一起，作为一个Inception结构快输出。</li>
+</ol>
+</blockquote>
+<h4 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h4><p>ResNet（何凯明）于2015年提出，是当时的ImageNet竞赛冠军。ResNet提出了层间残差跳连，引入了前方信息，缓解梯度消失，使神经网络层数增加称为可能。</p>
+<blockquote>
+<p>单纯堆叠神经网络层数，会使神经网络模型退化，以致于后面的特征丢失了前边特征的原本模样。</p>
+</blockquote>
+<p>ResNet块的结构如下所示：<br><img src="/images/ResNet块.PNG" alt="ar"></p>
+<p>ResNet的输出值包括两部分组成，一部分是由卷积过程提取出的特征输出F(x)，另一部分是直接由输入X得到的恒等映射X组成。将F(x)和x的对应元素相加得到输出特征H(x)。这样可以缓解神经网络堆叠导致的退化。使得神经网络层数增加称为可能。</p>
+<p>对于X到跳过卷积层直接到输出特征有两种处理方式。</p>
+<p><img src="/images/两种ResNet块.PNG" alt="ar1"></p>
+<blockquote>
+<ol>
+<li>不做任何处理<br>H(x) = F(x) + x<br>由于不做任何处理，所以维度没有改变。</li>
+<li>通过函数W(x)进行处理，其中W是1×1的卷积操作，用于调整X的维度。<br>H(x) = F(x) + W(x)<br>其中通过卷积步长可以改变输出特征图尺寸，通过卷积核的个数可以改变特征图的深度（类似Inception结构，多个卷积核，该变深度）。</li>
+</ol>
+</blockquote>
+<p>ResNet网络结构如下所示：</p>
+<p><img src="/images/ResNet.PNG" alt="ar1"></p>
+<p>实现代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ResentBlock</span>(<span class="params">Model</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,filters,strides=<span class="number">1</span>,residual_path=<span class="literal">False</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>(ResentBlock, self).__init__()</span><br><span class="line">        self.filters = filters</span><br><span class="line">        self.strides = strides</span><br><span class="line">        self.residual_path = residual_path</span><br><span class="line"></span><br><span class="line">        self.c1 = Conv2D(filters,(<span class="number">3</span>,<span class="number">3</span>),strides=strides,padding=<span class="string">&#x27;same&#x27;</span>,use_bias=<span class="literal">False</span>)</span><br><span class="line">        self.b1 = BatchNormalization()</span><br><span class="line">        self.a1 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        self.c2 = Conv2D(filters,(<span class="number">3</span>,<span class="number">3</span>),strides=<span class="number">1</span>,padding=<span class="string">&#x27;same&#x27;</span>,use_bias=<span class="literal">False</span>)</span><br><span class="line">        self.b2 = BatchNormalization()</span><br><span class="line"></span><br><span class="line">        <span class="comment">#fesiders_path 为True时候，对输入进行采样，都用1×1的卷积核做卷积操作，保证x能和F(x)维度相同，顺利相加</span></span><br><span class="line">        <span class="keyword">if</span> residual_path:</span><br><span class="line">            self.down_c1 = Conv2D(filters,(<span class="number">1</span>,<span class="number">1</span>),strides=strides,padding=<span class="string">&#x27;same&#x27;</span>,use_bias=<span class="literal">False</span>)</span><br><span class="line">            self.down_b1 = BatchNormalization()</span><br><span class="line">        self.a2 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span>(<span class="params">self,inputs</span>):</span></span><br><span class="line">        residual = inputs <span class="comment"># residual等于输入本身</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">#将输入通过卷积层，BN层，激活层计算F(x)</span></span><br><span class="line">        x = self.c1(inputs)</span><br><span class="line">        x = self.b1(x)</span><br><span class="line">        x = self.a1(x)</span><br><span class="line"></span><br><span class="line">        x = self.c2(x)</span><br><span class="line">        y = self.b2(x)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.residual_path:</span><br><span class="line">            residual = self.down_c1(inputs)</span><br><span class="line">            residual = self.down_b1(residual)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 最后输出是两部分的和，即F(x)+x或F(x)+W(x),然后再过激活函数。</span></span><br><span class="line">        out = self.a2(y + residual)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"><span class="comment"># 由一层卷积网络+八个ResNet块组成</span></span><br><span class="line"><span class="comment"># 神经网络由一个全连接层构成</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ResNet</span>(<span class="params">Model</span>):</span></span><br><span class="line">    <span class="comment"># block_list表示每个block有几个卷积层</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,block_list,initial_filters=<span class="number">64</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>(ResNet, self).__init__()</span><br><span class="line">        self.num_blocks = <span class="built_in">len</span>(block_list)</span><br><span class="line">        self.block_list = block_list</span><br><span class="line">        self.out_filters = initial_filters</span><br><span class="line">        <span class="comment"># 对应图中第一个卷几层</span></span><br><span class="line">        self.c1 = Conv2D(self.out_filters,(<span class="number">3</span>,<span class="number">3</span>),strides=<span class="number">1</span>,padding=<span class="string">&#x27;same&#x27;</span>,use_bias=<span class="literal">False</span>,kernel_initializer=<span class="string">&#x27;he_normal&#x27;</span>)</span><br><span class="line">        self.b1 = BatchNormalization()</span><br><span class="line">        self.a1 = Activation(<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">        self.blocks = tf.keras.models.Sequential()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 对应图中的八个ResNet块</span></span><br><span class="line">        <span class="comment">#构建ResNet网络结构 4*2 = 8</span></span><br><span class="line">        <span class="keyword">for</span> block_id <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(block_list)):<span class="comment">#第几个resnet block</span></span><br><span class="line">            <span class="keyword">for</span> layer_id <span class="keyword">in</span> <span class="built_in">range</span>(block_list[block_id]):<span class="comment"># 第几个卷层</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> block_id != <span class="number">0</span> <span class="keyword">and</span> layer_id == <span class="number">0</span> : <span class="comment">#对除第一个block以外的每个Block的输入进行采样</span></span><br><span class="line">                    block = ResentBlock(self.out_filters,strides=<span class="number">2</span>,residual_path=<span class="literal">True</span>)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    block = ResentBlock(self.out_filters,residual_path=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">                self.blocks.add(block)  <span class="comment"># 将构建好的blcok加入到renset</span></span><br><span class="line">            self.out_filters *=<span class="number">2</span>  <span class="comment">#下一个block卷积核数是上一个block的两倍</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 平均池</span></span><br><span class="line">        self.p1 = tf.keras.layers.GlobalAveragePooling2D()</span><br><span class="line">        <span class="comment"># 全连接层</span></span><br><span class="line">        self.f1 = tf.keras.layers.Dense(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span>(<span class="params">self,inputs</span>):</span></span><br><span class="line">        x = self.c1(inputs)</span><br><span class="line">        x = self.b1(x)</span><br><span class="line">        x = self.a1(x)</span><br><span class="line">        x = self.blocks(x)</span><br><span class="line">        x = self.p1(x)</span><br><span class="line">        y = self.f1(x)</span><br><span class="line">        <span class="keyword">return</span> y</span><br><span class="line"></span><br><span class="line">model = ResNet([<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>])</span><br></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>LeNet<br>通过共享卷积核，减少网络参数</li>
+<li>AlexNet<br> 通过使用relu激活函数，提升训练速度。<br> 使用Dropout缓解过拟合。</li>
+<li>VGGNet<br> 小尺寸卷积核减少参数，网络结构规整，适合并行加速。</li>
+<li>InceptionNet<br> 一层内使用不同尺寸卷积核，提升感知力。使用批标准化，缓解梯度消失。</li>
+<li>ResNet<br> 层间残差跳连，引入前方信息，缓解模型退化，使神经网络层数加深成为可能。</li>
+</ol>
+<blockquote>
+<p>训练优化</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;一些训练方法和超参数的设定对模型训练结果的影响是相当显著的，如数据增强（对训练集图像进行旋转、偏移、翻转等多种操作，目的是增强训练集的随机性）、学习率策略（一般的策略是在训练过程中逐步减小学习率）、Batch size 的大小设置（每个 batch 包含训练集图片的数量）、模型参数初始化的方式等等。。所以，在神经网络的训练中，除了选择合适的模型以外，如何更好地训练一个模型也是一个非常值得探究的问题。</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/hexo/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    hexo使用问题
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/NN/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">TensorFlow2笔记-NN(全连接)</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    
+        <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+        <script>
+            if (window.mermaid) {
+                mermaid.initialize({
+                    theme: 'forest'
+                });
+            }
+        </script>
+        
+            <div class="outer">
+                <div id="footer-info" class="inner">
+                    ZZC &copy;
+                        2022
+                            <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+                            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a target="_blank" rel="noopener" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+                            
+                                <br>
+                                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                                &nbsp;|&nbsp;
+                                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+                                
+                </div>
+            </div>
+</footer>
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [ ["$","$"], ["\\(","\\)"] ], skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'], processEscapes: true, TeX: { equationNumbers: { autoNumber: 'AMS' } } } }); MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(); for (var i = 0; i
+    < all.length; ++i) all[i].SourceElement().parentNode.className +=' has-jax' ; }); </script>
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <!-- <script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>

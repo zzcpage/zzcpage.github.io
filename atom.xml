@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-10-25T12:16:17.916Z</updated>
+  <updated>2022-01-04T03:01:56.780Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,77 +17,531 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>tets</title>
-    <link href="http://example.com/wiki/tets/"/>
-    <id>http://example.com/wiki/tets/</id>
-    <published>2021-10-25T12:10:40.000Z</published>
-    <updated>2021-10-25T12:16:17.916Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="14.jpg" alt="aaa"></p>]]></content>
+    <title>Python爬虫开发与项目实战-Scrapy实战</title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98-Scrapy%E5%AE%9E%E6%88%98/"/>
+    <id>http://example.com/wiki/程序技术/Python/爬虫/Python爬虫开发与项目实战-Scrapy实战/</id>
+    <published>2022-01-04T03:01:33.627Z</published>
+    <updated>2022-01-04T03:01:56.780Z</updated>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;&lt;img src=&quot;14.jpg&quot; alt=&quot;aaa&quot;&gt;&lt;/p&gt;
-
-      
-    
     </summary>
     
+      <category term="爬虫" scheme="http://example.com/categories/%E7%88%AC%E8%99%AB/"/>
+    
+    
+      <category term="Python" scheme="http://example.com/tags/Python/"/>
+    
+      <category term="爬虫" scheme="http://example.com/tags/%E7%88%AC%E8%99%AB/"/>
     
   </entry>
   
   <entry>
-    <title>问题</title>
-    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Git/%E9%97%AE%E9%A2%98/"/>
-    <id>http://example.com/wiki/程序技术/Git/问题/</id>
-    <published>2021-10-25T11:43:34.168Z</published>
-    <updated>2021-10-25T12:49:03.175Z</updated>
+    <title>吴恩达-class(三)-如何构建一个神经网络</title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE/class3/"/>
+    <id>http://example.com/wiki/程序技术/Python/机器学习/吴恩达/class3/</id>
+    <published>2021-12-30T12:40:53.935Z</published>
+    <updated>2021-12-31T03:02:36.159Z</updated>
     
-    <content type="html"><![CDATA[<!--编写md文件的时候，需要指明文章名称title,文章分类categroies,文章标签tags--><ul><li><p>当能够正常运行的项目突然无法运行，出现找不到资源文件错误的时候。</p><p>  首先，能运行就标明项目本身并没有问题。对于资源文件找不到，可能就和系统的缓存加载有关。<br>所以这个时候，可以对项目的依赖文件进行重新的审查，如果没有问题，再查看依赖是否有问题。对于Maven项目的依赖问题，<br>可以重新clean被依赖的工程，再重新install被依赖的工程。重新加载资源文件。</p></li></ul>]]></content>
+    <content type="html"><![CDATA[<p><img src="/images/deep/神经网络.png" alt="神经网络"></p><h4 id="神经网络层"><a href="#神经网络层" class="headerlink" title="神经网络层"></a>神经网络层</h4><p>Input layer: 输入层 。用于输入数据的特征值。<br>Hidden layer:隐藏层。位于隐藏层的数据在训练集是不可见的。<br>Output layer:输出层。神经网络的输出结果</p><h4 id="神经网络层数"><a href="#神经网络层数" class="headerlink" title="神经网络层数"></a>神经网络层数</h4><p>神经网络层数 = 总的神经网络层数-输入层，也就是总层数-1.</p><h4 id="神经网络计算过程"><a href="#神经网络计算过程" class="headerlink" title="神经网络计算过程"></a>神经网络计算过程</h4><p><img src="/images/deep/神经网络计算过程.png" alt="神经网络计算过程"></p><blockquote><h4 id="Tags"><a href="#Tags" class="headerlink" title="Tags"></a>Tags</h4></blockquote><p>Layer:层</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;!--编写md文件的时候，需要指明文章名称title,文章分类categroies,文章标签tags--&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;当能够正常运行的项目突然无法运行，出现找不到资源文件错误的时候。&lt;/p&gt;
-&lt;p&gt;  首先，能运行就标明项目本身并没有问题。对于资源文件找不到，可能
+        &lt;p&gt;&lt;img src=&quot;/images/deep/神经网络.png&quot; alt=&quot;神经网络&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;神经网络层&quot;&gt;&lt;a href=&quot;#神经网络层&quot; class=&quot;headerlink&quot; title=&quot;神经网络层&quot;&gt;&lt;/a&gt;神经网络层&lt;/h4&gt;&lt;p&gt;Input 
       
     
     </summary>
     
       <category term="程序技术" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="Git" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Git/"/>
+      <category term="Python" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/"/>
     
+      <category term="机器学习" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-      <category term="centOS" scheme="http://example.com/tags/centOS/"/>
+      <category term="吴恩达" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE/"/>
     
-      <category term="tomcat" scheme="http://example.com/tags/tomcat/"/>
     
   </entry>
   
   <entry>
-    <title>Hello World</title>
-    <link href="http://example.com/wiki/hello-world/"/>
-    <id>http://example.com/wiki/hello-world/</id>
-    <published>2021-10-25T08:23:20.423Z</published>
-    <updated>2021-10-25T12:58:43.801Z</updated>
+    <title>吴恩达-深度学习——二</title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE/class2/"/>
+    <id>http://example.com/wiki/程序技术/Python/机器学习/吴恩达/class2/</id>
+    <published>2021-12-27T14:22:41.825Z</published>
+    <updated>2021-12-29T14:24:33.071Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p><!--绝对路径进行图片的访问--><p><img src="/images/14.jpg" alt="aaa"><br><img src="/images/14.jpg"/></p><!--相对路径需要再posts里面创建相同的文件夹，然后在引用文件夹里面的图片路径-->]]></content>
+    <content type="html"><![CDATA[<h4 id="1-逻辑回归（Logistic-Regression）"><a href="#1-逻辑回归（Logistic-Regression）" class="headerlink" title="1. 逻辑回归（Logistic Regression）"></a>1. 逻辑回归（Logistic Regression）</h4><p>逻辑回归就是二分类问题，假设y的结果为0或1，那么逻辑回归就是寻找一个函数，根据输入x确定y是1的概率。也就是f(x) = P(y=1|x) 。<br>其中x是$R^{n_x}$(也就是$n_x$维向量)，y是{0，1}。</p><p>通常在做法是将$w^Tx+b$作为x的线性函数，并将结果标准化到0-1之间。</p><blockquote><p>Sigmoid 函数</p></blockquote><p>Sigmoid函数原型:$\sigma(z) = \frac{1}{1+e^{-z}}$。<br>通过Sigmoid函数就可以将结果标准化到0-1之间。</p><p>从上面可以看出，如果要实现逻辑回归，最主要的是学习参数$w^T$和b,用于更好的对结果为1的概率进行预测。</p><blockquote><p>损失函数/误差函数</p></blockquote><p>损失函数用于训练参数$W^T$和b，可以衡量算法的运行情况。损失函数可以用于观察预测结果和实际结果的差距多少。<br>损失函数衡量的是单个训练样本的预测情况。</p><ol><li>通过预测结果和实际值差的平方作为损失函数</li></ol><blockquote><p>$\zeta(y_{预测},y_{标准})=\frac{1}{2}(y_{预测}-y_{标准})^2$<br>并不推荐使用这种方法</p></blockquote><ol><li>通过 $\zeta(y_{预测},y_{标准})=-(ylogy_{预测}+(1-y)log(1-y_{预测}))$作为损失函数。</li></ol><p>其中y_{预测}是经过Sigmoid后的结果。<br>通过这个损失函数，可以使得当y=1的时候，让y预测接近1，当y=0时，让y预测接近0。</p><blockquote><p>成本函数（Cost function）</p></blockquote><p>成本函数衡量的是全体训练样本的情况。<br>成本函数J（w,b） = $\frac{1}{m}\sum^m_{i=1}\zeta(y_{预测},y_{标准}}})$</p><p>推到过程:假设 y=1的概率为a,y=0的概率为1-a，那么对于函数p(y|x)就可以写成：<br>p(y|x) = a^y<em>(1-a)^(1-y);将y=1和y=0带入即可验证。然后根据log函数的单调递增性，对p(y|x)求对数。得到 logp(y|x) = -1</em>$\zeta(y_{预测},y_{标准})$.由于log函数单增，所以要找到p(y|x)最值，也就是找到$\zeta(y_{预测},y_{标准})$的最小值。然后根据极大似然估计，得到成本函数：J（w,b） = $\frac{1}{m}\sum^m_{i=1}\zeta(y_{预测},y_{标准}}})$。</p><p>这个成本函数是凸的</p><blockquote><h3 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h3><ol><li>如果定义损失函数为$\zeta(y_{预测},y_{标准})=\frac{1}{2}(y_{预测}-y_{标准})^2$</li></ol></blockquote><p>这样会导致无法找到全局最优解，只能找到局部的最优解。</p><h4 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h4><p>逻辑回归的工作就是要找到合适的w,b使得成本函数J（w,b）达到最小值。</p><blockquote><p>凸函数</p></blockquote><p>这里的凸函数和国定定义的凹凸性定义相反（也就是实际上等同于高数中的凹U的形状）。<br>凸函数是一个定义在某个向量空间的凸子集C上的实值函数f，而且对于凸子集C中任意两个向量$x_1,x_2$、有$f((x1+x2)/2)&lt;=(f(x1)+f(x2))/2$成立。<br>凸函数有一个重要的性质：对于凸函数来说，局部最小值就是全局最小值。</p><p>logistic回归采用J（w,b）作为成本函数就是因为这个函数J（w,b）是凸函数，由于凸函数的局部最小值就是全局最小值，所以能够保证所得到的结果是最优的。<br>而如果不是凸函数，则可能得到的结果只是局部最优的。</p><blockquote><p>梯度下降法</p></blockquote><p>梯度下降法也就是随机初始一个w,b。然后在每一次迭代的过程中，沿着下降速度最快的方向下降。由高等数学知识可知，方向导数最大的方向称为梯度。所以也就是沿着梯度方向下降，这样就能保证下降的方向最快。</p><blockquote><p>执行流程</p></blockquote><p>不断执行下面的权值和偏置的更新过程，以达到最优解。</p><p>w = w - $\alpha\frac{\phi_{J(w,b)}}{\phi_{w}}$</p><p>b = b - $\alpha\frac{\phi_{J(w,b)}}{\phi_{b}}$</p><p>$\alpha$: 学习率(learning rate)<br>$\phi$: 偏导符号，读作round</p><h4 id="计算图"><a href="#计算图" class="headerlink" title="计算图"></a>计算图</h4><p>前向传播：forward<br>反向传播: backpropagation</p><p>简单介绍一下梯度下降求解的过程:<br>假设输入x = [x1,x2], w = [w1,w2],b。<br>逻辑回归函数：<br>    $z = w^T*x+b $ , $y_{预测}=\sigma(z)=a$,$L(a,y_{标准})=-(yloga+(1-y)log(1-a))$</p><p>反向传播计算梯度的过程：</p><blockquote><ol><li>计算损失函数对a的偏导</li></ol></blockquote><p>$d_a = d_{L(a,b)}/d_a$ = $-y/a+(1-y)/(1-a)$</p><blockquote><ol><li>计算损失函数对z的偏导</li></ol></blockquote><p>这里根据链式求导规则，可以得出$d_L/d_z$ = $(d_L/d_a)*(d_a/d_z)$,由此可得：$d_L/d_z$=a(1-a).</p><blockquote><ol><li>求损失函数对各个变量的偏导</li></ol></blockquote><p>$\phi_L/\phi_{w1}=d_{w_1} =x_1d_z $<br>以此类推可以得出对各个变量的偏导。</p><blockquote><ol><li>根据求出的偏导，进行更新参数</li></ol></blockquote><p>x = x - $\alpha*d$</p><h4 id="向量化技术"><a href="#向量化技术" class="headerlink" title="向量化技术"></a>向量化技术</h4><p>向量化技术用于加速运算速度，摆脱for循环(使用for循环，效率会很低)。</p><blockquote><p>什么是向量化技术？</p></blockquote><p>简单的说就是通过矩阵进行运算(向量可以看成一个1 x n 维的矩阵)，然后进行矩阵运算就可以快速进行若干次的操作。<br>就以 $z = w^T*x+b $为例，正常是通过双重for循环进行遍历w和t进行求和运算，现在只需要通过矩阵的乘法运算一次性可以得出结果。<br>在计算机内部有专门的矩阵运算器，用于处理矩阵的运算，所以通过矩阵运算可以提高运算速度。</p><p>向量化能够加快运算速度，一般情况下，不要用显示的循环解决问题。能不用就不用，尽量寻找其他方法进行解决(通常这种方法可以并行运算，提高运行速度)。</p><p>在利用Python实现向量化技术的时候，我们可以借助numpy库的许多函数和方法，来完成向量的运算。</p><h4 id="利用python实现Logistic回归前向传播和反向传播"><a href="#利用python实现Logistic回归前向传播和反向传播" class="headerlink" title="利用python实现Logistic回归前向传播和反向传播"></a>利用python实现Logistic回归前向传播和反向传播</h4><p><img src="/images/deep/梯度更新参数.PNG" alt="梯度"></p><p>$Z = w^TX+b=np.dot(w^T,X)+b$<br>$A=\sigma(Z)$<br>$d_z = A-Y$<br>$d_w=\frac{1}{m}Xd_{z^T}$<br>$d_b=\frac{1}{m}np.sum(d_z)$</p><h4 id="Python和Numpy中的广播（broadcasting）"><a href="#Python和Numpy中的广播（broadcasting）" class="headerlink" title="Python和Numpy中的广播（broadcasting）"></a>Python和Numpy中的广播（broadcasting）</h4><p>简单的说，假设有一个矩阵是mXn，如果需要这个矩阵和一个实数R或者1Xn或者mX1的矩阵进行操作。Python会自动的将实数R变为mXn的矩阵，以及将1 Xn或mX1的矩阵变成mXn的矩阵(复制m或复制n次)，用于操作。</p><p>举一个简单的例子：加入有个1X3的矩阵A,有个3X1的矩阵B，在Python中A+B的结果是一个3X3的矩阵。<br>他会把A复制3次变为3X3的矩阵，然后将B复制3次变为3X3的矩阵。</p><p>如何避免发生由于广播而产生的错误：</p><blockquote><ol><li>不使用秩为1的数组 ， 也就是shape(s1,)的数组<br>尽量创建shape为(1,n)或(n,1)的列或行向量。</li><li>确保自己的向量是自己需要的shape,可以通过reshape或assert等方法来确保在程序的运行过程中，矩阵是自己想要的shape</li></ol></blockquote><h4 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h4><p>GPU: 图像处理单元（Graphics Processing Unit）</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for
+        &lt;h4 id=&quot;1-逻辑回归（Logistic-Regression）&quot;&gt;&lt;a href=&quot;#1-逻辑回归（Logistic-Regression）&quot; class=&quot;headerlink&quot; title=&quot;1. 逻辑回归（Logistic Regression）&quot;&gt;&lt;/a&gt;1. 逻
       
     
     </summary>
     
+      <category term="深度学习" scheme="http://example.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="深度学习" scheme="http://example.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python数据处理-阅读笔记三——数据分析</title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E4%B8%89/"/>
+    <id>http://example.com/wiki/程序技术/Python/数据处理/python数据处理/Python数据处理-阅读笔记三/</id>
+    <published>2021-12-16T07:58:56.459Z</published>
+    <updated>2021-12-17T09:21:39.070Z</updated>
+    
+    <content type="html"><![CDATA[<p>agate是Python中的一个数据分析库，这里将使用agate对数据进行分析。<br>agate接受三个参数，表格数据，数据列标题，数据列类型。<br>所以创建一个agate需要提供以上三个参数。<br>例如：table = agate.Table(country_rows , titles, types)。其中country_rows就是数据，titles就是每列的标题，types就是每列的数据类型。</p><p>agate有如下几种数据类型：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">text_type = agate.Text()</span><br><span class="line">number_type = agate.Number()</span><br><span class="line">boolean_type = agate.Boolean()</span><br><span class="line">data_type = agate.Date()</span><br></pre></td></tr></table></figure><br>对于Excel，如果要获取列的数据类型，可以根据映射表进行获取，Excel的映射表为ctype_text。获取实例如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">types = []</span><br><span class="line"><span class="keyword">for</span> v <span class="keyword">in</span> example_row:  <span class="comment"># 获取每列元素的类型</span></span><br><span class="line">    value_type = ctype_text[v.ctype]  <span class="comment"># 根据映射表获取类型</span></span><br><span class="line">    <span class="keyword">if</span> value_type == <span class="string">&#x27;text&#x27;</span>:</span><br><span class="line">        types.append(text_type)</span><br><span class="line">    <span class="keyword">elif</span> value_type == <span class="string">&#x27;number&#x27;</span>:</span><br><span class="line">        types.append(number_type)</span><br><span class="line">    <span class="keyword">elif</span> value_type == <span class="string">&#x27;xldate&#x27;</span>:</span><br><span class="line">        types.append(data_type)</span><br><span class="line">    <span class="keyword">else</span>:  <span class="comment"># 其它类型都以文本类型处理</span></span><br><span class="line">        types.append(text_type)</span><br></pre></td></tr></table></figure></p><h4 id="agate的常用方法"><a href="#agate的常用方法" class="headerlink" title="agate的常用方法"></a>agate的常用方法</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#agate的内置方法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#1. 获取表属性</span></span><br><span class="line"><span class="built_in">print</span>(table.column_names) <span class="comment">#获取列名称</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2. 数据显示</span></span><br><span class="line">table.print_table(max_columns=<span class="number">7</span>)</span><br><span class="line">table.print_json()</span><br><span class="line">table.print_csv()</span><br><span class="line"></span><br><span class="line"><span class="comment">#3. 排序方法</span></span><br><span class="line"><span class="comment"># 显示根据列Total (%) 最高值的前十个数据</span></span><br><span class="line">most_egregious = table.order_by(<span class="string">&#x27;Total (%)&#x27;</span>,reverse=<span class="literal">True</span>).limit(<span class="number">10</span>)</span><br><span class="line"><span class="keyword">for</span> r <span class="keyword">in</span> most_egregious:</span><br><span class="line">    <span class="built_in">print</span>(r)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;The max rate in Female&#x27;</span>)</span><br><span class="line">most_females = table.order_by(<span class="string">&#x27;Female&#x27;</span>,reverse=<span class="literal">True</span>).limit(<span class="number">10</span>)</span><br><span class="line"><span class="keyword">for</span> r <span class="keyword">in</span> most_females:</span><br><span class="line">    <span class="built_in">print</span>(r)</span><br><span class="line"></span><br><span class="line"><span class="comment">#4. 条件搜索</span></span><br><span class="line">female_data = table.where(<span class="keyword">lambda</span> r:r[<span class="string">&#x27;Female&#x27;</span>] <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>)<span class="comment">#通过where条件搜索</span></span><br><span class="line">most_females = female_data.order_by(<span class="string">&#x27;Female&#x27;</span>,reverse=<span class="literal">True</span>).limit(<span class="number">10</span>)</span><br><span class="line"><span class="keyword">for</span> r <span class="keyword">in</span> most_females:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;&#123;&#125;: &#123;&#125;%&#x27;</span>.<span class="built_in">format</span>(r[<span class="string">&#x27;Countries and areas&#x27;</span>], r[<span class="string">&#x27;Female&#x27;</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment">#查找,通过find方法,查找第一个匹配的数据</span></span><br><span class="line">has_por = table.where(<span class="keyword">lambda</span> r:r[<span class="string">&#x27;Rural&#x27;</span>] <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>)</span><br><span class="line">first_match = has_por.find(<span class="keyword">lambda</span> x:x[<span class="string">&#x27;Rural&#x27;</span>]&gt;<span class="number">50</span>)</span><br><span class="line"><span class="built_in">print</span>(first_match[<span class="string">&#x27;Countries and areas&#x27;</span>])</span><br><span class="line"><span class="comment"># 5. 统计学方法</span></span><br><span class="line"><span class="comment"># 计算平均值的方法</span></span><br><span class="line"><span class="comment">#agate.Mean() 统计学方法和列名称来返回列的数学均值。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#has_por的作用（去除空列，计算剩下数据的平均值）</span></span><br><span class="line">has_por = table.where(<span class="keyword">lambda</span> r:r[<span class="string">&#x27;Place of residence (%) Urban&#x27;</span>] <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>)</span><br><span class="line"><span class="built_in">print</span>(has_por.aggregate(agate.Mean(<span class="string">&#x27;Place of residence (%) Urban&#x27;</span>)))</span><br><span class="line"><span class="comment">#计算最大值</span></span><br><span class="line"><span class="built_in">print</span>(has_por.aggregate(agate.Max(<span class="string">&#x27;Place of residence (%) Urban&#x27;</span>)))</span><br><span class="line"><span class="comment">#计算最小值</span></span><br><span class="line"><span class="built_in">print</span>(has_por.aggregate(agate.Min(<span class="string">&#x27;Place of residence (%) Urban&#x27;</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#6. 计算新的排序列,计算排名</span></span><br><span class="line"><span class="comment"># 通过compute和agate.Rank()方法</span></span><br><span class="line"><span class="comment">#，compute 是一个非常好用的工具，它基于一个数据列（或多个数据列）来计算一个新的数据列。</span></span><br><span class="line"><span class="comment">#这里创建新的表格，表格包含Total Child Labor Rank和Total (%)两个字段，根据Total (%)列进行排序</span></span><br><span class="line">ranked = table.compute([(<span class="string">&#x27;Total Child Labor Rank&#x27;</span>,agate.Rank(<span class="string">&#x27;Total (%)&#x27;</span>,reverse=<span class="literal">True</span>)),])</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> ranked.order_by(<span class="string">&#x27;Total (%)&#x27;</span>,reverse=<span class="literal">True</span>).limit(<span class="number">20</span>).rows:</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(row[<span class="string">&#x27;Total (%)&#x27;</span>])+<span class="string">&quot; &quot;</span>+<span class="built_in">str</span>(row[<span class="string">&#x27;Total Child Labor Rank&#x27;</span>]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#自定义排序方法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverse_percent</span>(<span class="params">row</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">100</span>-row[<span class="string">&#x27;Total (%)&#x27;</span>]</span><br><span class="line"></span><br><span class="line">ranked = table.compute([(<span class="string">&#x27;Children not working (%)&#x27;</span>,agate.Formula(number_type,reverse_percent)),])</span><br><span class="line"></span><br><span class="line">ranked = ranked.compute([(<span class="string">&#x27;Total Child Labor Rank&#x27;</span>,agate.Rank(<span class="string">&#x27;Children not working (%)&#x27;</span>)),])</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> ranked.order_by(<span class="string">&#x27;Total (%)&#x27;</span>,reverse=<span class="literal">True</span>).limit(<span class="number">20</span>).rows:</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(row[<span class="string">&#x27;Total (%)&#x27;</span>])+<span class="string">&quot; &quot;</span>+<span class="built_in">str</span>(row[<span class="string">&#x27;Total Child Labor Rank&#x27;</span>]))</span><br><span class="line"></span><br></pre></td></tr></table></figure><h4 id="联结"><a href="#联结" class="headerlink" title="联结"></a>联结</h4><p>agate联结表的方法：join。join类似于SQL中的联结，包括左外联结，右外联结，内联结，全外连接。如果要联结B，并且保证不丢失A的数据：joined_table = A.join(B,’A-_COL’,’B_COL’)。如果要使用内联结，只保留匹配项，则可以设置inner=True。</p><h4 id="识别数据的相关性"><a href="#识别数据的相关性" class="headerlink" title="识别数据的相关性"></a>识别数据的相关性</h4><p>对于数据集相关性的分析，可以使用的工具库有agate,pandas,numpy,scipy等。</p><p>相关系数可以告诉我们数据是否关联，以及一个因子是否会影响另一个因子。</p><blockquote><p>皮尔森相关系数：皮尔森相关系数在-1到1之间波动，0意味着无相关性，-1和1意味着相关性很强。</p></blockquote><p>对于导入：import agatestats的问题。</p><blockquote><p>pip install agate-stats进行下载</p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#利用Numpy计算童工雇佣率和政府腐败指数之间的相关性</span></span><br><span class="line"><span class="comment">#这里通过皮尔森系数进行参考</span></span><br><span class="line">rs = numpy.corrcoef([<span class="built_in">float</span>(t) <span class="keyword">for</span> t <span class="keyword">in</span> cpi_and_cl.columns[<span class="string">&#x27;Total (%)&#x27;</span>].values()],</span><br><span class="line">               [<span class="built_in">float</span>(t) <span class="keyword">for</span> t <span class="keyword">in</span> cpi_and_cl.columns[<span class="string">&#x27;CPI 2013 Score&#x27;</span>].values()])[<span class="number">0</span>,<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 由结果数据，可以得到两个系数之间的相关性</span></span><br><span class="line"><span class="built_in">print</span>(rs)</span><br><span class="line"></span><br></pre></td></tr></table></figure><h4 id="识别离散数据"><a href="#识别离散数据" class="headerlink" title="识别离散数据"></a>识别离散数据</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#找出离群值</span></span><br><span class="line"><span class="comment">#找出离群值的方法：一是使用标准差，另一种是使用绝对中位差。</span></span><br><span class="line"><span class="comment">#agatestats.patch()</span></span><br><span class="line">std_dev_outliers = cpi_and_cl.stdev_outliers(</span><br><span class="line">    <span class="string">&#x27;Total (%)&#x27;</span>,deviations=<span class="number">3</span>,reject=<span class="literal">False</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(std_dev_outliers))</span><br><span class="line">std_dev_outliers = cpi_and_cl.stdev_outliers(</span><br><span class="line">    <span class="string">&#x27;Total (%)&#x27;</span>,deviations=<span class="number">10</span>,reject=<span class="literal">False</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(std_dev_outliers))</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用平均绝对偏差检查Total(%)列数据的偏差</span></span><br><span class="line">mad = cpi_and_cl.mad_outliers(<span class="string">&#x27;Total (%)&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> r <span class="keyword">in</span> mad.rows:</span><br><span class="line">    <span class="built_in">print</span>(r[<span class="string">&#x27;Country / Territory&#x27;</span>],r[<span class="string">&#x27;Total (%)&#x27;</span>])</span><br></pre></td></tr></table></figure><h4 id="分组和聚合"><a href="#分组和聚合" class="headerlink" title="分组和聚合"></a>分组和聚合</h4><p>分组和聚合主要是针对从属关系的数据。例如县市和省份的关系，国家和大洲的关系。通常通过分组和聚合对这些数据进行处理。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建分组</span></span><br><span class="line">country_json = json.loads(<span class="built_in">open</span>(<span class="string">r&#x27;G:\Temp\data-wrangling-master\data\chp9\earth-cleaned.json&#x27;</span>).read())</span><br><span class="line"><span class="built_in">print</span>(country_json)</span><br><span class="line">country_dict = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">dict</span> <span class="keyword">in</span> country_json:</span><br><span class="line">    country_dict[<span class="built_in">dict</span>[<span class="string">&#x27;name&#x27;</span>]] = <span class="built_in">dict</span>[<span class="string">&#x27;parent&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_country</span>(<span class="params">county_row</span>):</span></span><br><span class="line">    <span class="keyword">return</span> country_dict.get(county_row[<span class="string">&#x27;Country / Territory&#x27;</span>].lower())</span><br><span class="line"><span class="comment"># 创建新的列，continent，沿用相同的表名称</span></span><br><span class="line"></span><br><span class="line">cpi_and_cl = cpi_and_cl.compute([(<span class="string">&#x27;continent&#x27;</span>,agate.Formula(agate.Text(),get_country)),])</span><br><span class="line"><span class="keyword">for</span> r <span class="keyword">in</span> cpi_and_cl.rows:</span><br><span class="line">    <span class="built_in">print</span>(r[<span class="string">&#x27;continent&#x27;</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;is eof&#x27;</span>)</span><br><span class="line"><span class="comment"># 这是检测结果为None的数据项</span></span><br><span class="line">no_continent = cpi_and_cl.where(<span class="keyword">lambda</span> x:x[<span class="string">&#x27;continent&#x27;</span>] <span class="keyword">is</span> <span class="literal">None</span>)</span><br><span class="line"><span class="keyword">for</span> r <span class="keyword">in</span> no_continent.rows:</span><br><span class="line">    <span class="built_in">print</span>(r[<span class="string">&#x27;Country / Territory&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分组代码</span></span><br><span class="line"><span class="comment"># 借助group_by进行分组,group_by返回一个字典，键是大洲名称，值是一个新表，包含所有州的行记录。</span></span><br><span class="line">grp_by_cont = cpi_and_cl.group_by(<span class="string">&#x27;continent&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(grp_by_cont)</span><br><span class="line"><span class="comment"># 获取各个州的国家</span></span><br><span class="line"><span class="keyword">for</span> cont,table <span class="keyword">in</span> grp_by_cont.items():</span><br><span class="line">    <span class="built_in">print</span>(cont,<span class="built_in">len</span>(table))</span><br><span class="line"><span class="comment">#聚合,借助aggregate方法</span></span><br><span class="line">agg = grp_by_cont.aggregate([</span><br><span class="line">    (<span class="string">&#x27;cl_mean&#x27;</span>,agate.Mean(<span class="string">&#x27;Total (%)&#x27;</span>)),</span><br><span class="line">    (<span class="string">&#x27;cl_max&#x27;</span>,agate.Max(<span class="string">&#x27;Total (%)&#x27;</span>)),</span><br><span class="line">    (<span class="string">&#x27;cpi_median&#x27;</span>,agate.Median(<span class="string">&#x27;CPI 2013 Score&#x27;</span>)),</span><br><span class="line">    (<span class="string">&#x27;cpi_min&#x27;</span>,agate.Min(<span class="string">&#x27;CPI 2013 Score&#x27;</span>))</span><br><span class="line">])</span><br><span class="line">agg.print_table()</span><br><span class="line">agg.print_bars(<span class="string">&#x27;continent&#x27;</span>,<span class="string">&#x27;cl_max&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure><h4 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h4><p>数据探索和数据分析之间有哪些不同？当分析数据时，我们提出问题并且尝<br>试使用已有的数据回答这些问题。我们可能会对数据集进行组合和分组，以<br>构建一个统计可用的样本。而在数据探索中，我们只是想要研究数据集的一<br>些趋势和属性，不尝试去回答特定的问题或得出确定的结论。</p><blockquote><ol><li>分离和聚焦数据</li></ol></blockquote><p>将需要研究的数据对象从数据集中分离，对研究对象进行单独分析。</p><blockquote><ol><li></li></ol></blockquote><h4 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h4><p>agate-stat 库有一些有趣的统计方法我们还没有探索过。你可以通过 GitHub 跟踪最新的<br>发布和功能（<a href="https://github.com/onyxfish/agate-stats）。">https://github.com/onyxfish/agate-stats）。</a><br>除此之外，我们建议你继续探索 numpy。你可以使用 numpy 来计算百分位数值（<a href="https://docs">https://docs</a>.<br>scipy.org/doc/numpy-dev/reference/generated/numpy.percentile.html）。你同样可以更深入地<br>使用 scipy，使用 z 得分统计方法来确定离群值（<a href="https://docs.scipy.org/doc/scipy/reference/">https://docs.scipy.org/doc/scipy/reference/</a><br>generated/scipy.stats.mstats.zscore.html）。<br>如果你有时间敏感的数据，numpy 能够计算数据之间列与列的变化，从而探索随时间推移数<br>据的变化（<a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.diff.html）。agate">https://docs.scipy.org/doc/numpy/reference/generated/numpy.diff.html）。agate</a> 同样<br>可以计算时间相关数据中列的变化（<a href="http://agate.readthedocs.io/en/1.0.0/tutorial.html#computing-new-columns）。不要忘记在组成时间列的时候使用时间类型，因为这样做你能够在时间上做">http://agate.readthedocs.io/en/1.0.0/tutorial.html#computing-new-columns）。不要忘记在组成时间列的时候使用时间类型，因为这样做你能够在时间上做</a><br>一些有趣的分析（例如随时间变化的百分比变化或一系列时间变化的映射）。<br>如果你想要通过更多的统计方法来探索数据，可安装 latimes-calculate 库（<a href="http://latimes-calculate.readthedocs.io/en/latest/index.html）。这个库有很多计算方法，同样还有一些有趣的">http://latimes-calculate.readthedocs.io/en/latest/index.html）。这个库有很多计算方法，同样还有一些有趣的</a><br>地理数据分析工具。如果你获取了一些地理数据，这个库可以提供一些有价值的工具来帮<br>你更好地理解、映射和分析数据。<br>如果你想要更深入进行数理计算和分析，我们强烈推荐 Wes McKinney 的《利用 Python 进<br>行数据分析》一书。这本书介绍了一些更健壮的数据分析库，包括 pandas、numpy 和 scipy<br>系列的库等</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;agate是Python中的一个数据分析库，这里将使用agate对数据进行分析。&lt;br&gt;agate接受三个参数，表格数据，数据列标题，数据列类型。&lt;br&gt;所以创建一个agate需要提供以上三个参数。&lt;br&gt;例如：table = agate.Table(country_row
+      
+    
+    </summary>
+    
+      <category term="Python数据处理" scheme="http://example.com/categories/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="Python" scheme="http://example.com/tags/Python/"/>
+    
+      <category term="数据处理" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python数据处理-阅读笔记二——标准化和脚本化</title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E4%BA%8C%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%8C%96%E5%92%8C%E8%84%9A%E6%9C%AC%E5%8C%96/"/>
+    <id>http://example.com/wiki/程序技术/Python/数据处理/python数据处理/Python数据处理-阅读笔记二——标准化和脚本化/</id>
+    <published>2021-12-16T07:06:03.485Z</published>
+    <updated>2021-12-16T07:54:00.141Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="数据归一化和标准化"><a href="#数据归一化和标准化" class="headerlink" title="数据归一化和标准化"></a>数据归一化和标准化</h4><p>数据归一化：归一化通常需要对数据集进行计算，使得数据都位于一个特定的范围。<br>简单的说归一化达到的效果可以使得结果数据归一化到0-1区间。举个例子，要分析一个班级分数的分布情况，<br>那么我们可以对成绩归一化，横坐标0-1，最高分100对应1，也就是说以(分数/100,得分人数)作为坐标，分析得分情况。</p><p>数据标准化：</p><blockquote><p>借助数据归一化和标准化，能够使使用者确定数据的分布，明白该分布对后续研究或计算的含义。</p></blockquote><p>数据标准化和归一化有时还需要删除离群值，这样你才能更好地发现数据的规律和分布。也就是说对于异常数据<br>的去除。例如偶然因素出现的黑马，所以根据实际情况，剔除离群值的可以根据具体情况进行抉择。</p><h4 id="数据清洗脚本化"><a href="#数据清洗脚本化" class="headerlink" title="数据清洗脚本化"></a>数据清洗脚本化</h4><p>对于清洗代码具有固定规律，不太可能发生变化，则可以将整个清洗过程脚本化。</p><p>脚本化（scripting）的意思是，确定代码的结构，用于后续使用、学<br>习和分享。<br>Python 之禅不仅适用于编写代码，还适用于组织代码，函数、变量和类的命名，等等。最<br>好在选择命名上花点时间，判断哪些名字可以让你和他人都一目了然。注释和文档可以帮<br>助理解，但代码本身也应该具有较强的可读性。</p><p>通俗讲脚本化就是让代码能够长时间使用，过了若干时间后，依然奏效。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;数据归一化和标准化&quot;&gt;&lt;a href=&quot;#数据归一化和标准化&quot; class=&quot;headerlink&quot; title=&quot;数据归一化和标准化&quot;&gt;&lt;/a&gt;数据归一化和标准化&lt;/h4&gt;&lt;p&gt;数据归一化：归一化通常需要对数据集进行计算，使得数据都位于一个特定的范围。&lt;br&gt;简
+      
+    
+    </summary>
+    
+      <category term="Python数据处理" scheme="http://example.com/categories/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="Python" scheme="http://example.com/tags/Python/"/>
+    
+      <category term="数据处理" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python数据处理-阅读笔记二——数据清洗之匹配与格式化</title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0(%E4%B8%89)/"/>
+    <id>http://example.com/wiki/程序技术/Python/数据处理/python数据处理/python数据处理-阅读笔记(三)/</id>
+    <published>2021-12-15T06:54:21.574Z</published>
+    <updated>2021-12-17T07:17:06.146Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="为什么要清洗数据"><a href="#为什么要清洗数据" class="headerlink" title="为什么要清洗数据"></a>为什么要清洗数据</h4><p>数据清洗可以让数据更容易存储，搜索和复用。通常我们获取到的数据可能会存在格式不一致的问题，由其是当数据来源于多个数据集的时候，需要对数据进行格式化处理。</p><h4 id="什么是数据清洗"><a href="#什么是数据清洗" class="headerlink" title="什么是数据清洗"></a>什么是数据清洗</h4><p>数据清洗也就是修改数据使其满足新的标准化数据格式。</p><h4 id="数据清洗过程"><a href="#数据清洗过程" class="headerlink" title="数据清洗过程"></a>数据清洗过程</h4><blockquote><ol><li>简单的目视分析，观察文件的结构</li></ol></blockquote><p>观察数据字段，寻找不一致的地方。</p><blockquote><ol><li>数据格式化</li></ol></blockquote><p>将杂乱无章的数据转化为可读性较强的格式。</p><blockquote><ol><li>找出离群值和不良数据</li></ol></blockquote><ol><li>离群值：也就是指和数据集不一致的数据。</li></ol><p>判断数据的有效性，通过过数据的来源来判断数据的偏差。对于获取的数据集，检查数据是否有不一致的地方？也就是说数据值里面是否存在错误。可以通过过遍历数据集，判断数据类型是否匹配，是否缺失数据。</p><p>离群值出现在个别的数据明显有别于数据集其他部分的时候。离群值会告诉我们数据的一部分情况。有时候，去掉它们会展现出一个明显的趋势；有些时候，离群值本身会透露出很多信息</p><blockquote><p>类型离群值（type outlier）：如果存在数据的类型不匹配，则出现了类型离群值。如果要判断数据集中的类型离群情况，则可以对对应的字段进行分析，然后统计各个类型出现的次数，用于分析比对。</p></blockquote><ol><li>重复值：重复的原始数据</li></ol><p>对于重复的数据一般需要删除。删除的方法可以考虑如下方法：</p><blockquote><ol><li><p>通过set集合进行去重</p></li><li><p>模糊匹配</p></li></ol></blockquote><p>通过模糊匹配进行寻找和合并重复值。脏数据可以是用户输入时粗心所造成的拼写和语法错误。<br>可以借助fuzzywuzzy库进行模糊匹配。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提供模糊匹配</span></span><br><span class="line"><span class="keyword">from</span> fuzzywuzzy <span class="keyword">import</span> fuzz</span><br><span class="line"><span class="keyword">from</span> fuzzywuzzy <span class="keyword">import</span> process</span><br><span class="line">my_records = [&#123;</span><br><span class="line">    <span class="string">&#x27;favorite_book&#x27;</span>: <span class="string">&#x27;Grapes of Wrath&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;favorite_movie&#x27;</span>: <span class="string">&#x27;Free Willie&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;favorite_show&#x27;</span>: <span class="string">&#x27;Two Broke Girls&#x27;</span>,</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    <span class="string">&#x27;favorite_book&#x27;</span>: <span class="string">&#x27;The Grapes of Wrath&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;favorite_movie&#x27;</span>: <span class="string">&#x27;Free Williy&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;favorite_show&#x27;</span>: <span class="string">&#x27;2 Broke Girls&#x27;</span>,</span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过fuzz模块的ratio函数，接受两个字符串作比较，返回两个字符串序列的相似程度(1-100)。</span></span><br><span class="line"><span class="built_in">print</span>(fuzz.ratio(my_records[<span class="number">0</span>].get(<span class="string">&#x27;favorite_book&#x27;</span>), my_records[<span class="number">1</span>].get(<span class="string">&#x27;favorite_book&#x27;</span>)))</span><br><span class="line"><span class="built_in">print</span>(fuzz.ratio(my_records[<span class="number">0</span>].get(<span class="string">&#x27;favorite_movie&#x27;</span>), my_records[<span class="number">1</span>].get(<span class="string">&#x27;favorite_movie&#x27;</span>)))</span><br><span class="line"><span class="built_in">print</span>(fuzz.ratio(my_records[<span class="number">0</span>].get(<span class="string">&#x27;favorite_show&#x27;</span>), my_records[<span class="number">1</span>].get(<span class="string">&#x27;favorite_show&#x27;</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 返回更加准确的匹配结果（根据子字符串进行匹配），建议采用第一种匹配方法</span></span><br><span class="line"><span class="built_in">print</span>(fuzz.partial_ratio(my_records[<span class="number">0</span>].get(<span class="string">&#x27;favorite_book&#x27;</span>), my_records[<span class="number">1</span>].get(<span class="string">&#x27;favorite_book&#x27;</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment"># token_sort_ratio函数，匹配字符串时，不考虑单词顺序。</span></span><br><span class="line">my_records = [&#123;<span class="string">&#x27;favorite_food&#x27;</span>: <span class="string">&#x27;cheeseburgers with bacon&#x27;</span>,</span><br><span class="line">               <span class="string">&#x27;favorite_drink&#x27;</span>: <span class="string">&#x27;wine, beer, and tequila&#x27;</span>,</span><br><span class="line">               <span class="string">&#x27;favorite_dessert&#x27;</span>: <span class="string">&#x27;cheese or cake&#x27;</span>,</span><br><span class="line">               &#125;,</span><br><span class="line">              &#123;<span class="string">&#x27;favorite_food&#x27;</span>: <span class="string">&#x27;burgers with cheese and bacon&#x27;</span>,</span><br><span class="line">               <span class="string">&#x27;favorite_drink&#x27;</span>: <span class="string">&#x27;beer, wine, and tequila&#x27;</span>,</span><br><span class="line">               <span class="string">&#x27;favorite_dessert&#x27;</span>: <span class="string">&#x27;cheese cake&#x27;</span>,</span><br><span class="line">               &#125;]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(fuzz.token_sort_ratio(my_records[<span class="number">0</span>].get(<span class="string">&#x27;favorite_food&#x27;</span>), my_records[<span class="number">1</span>].get(<span class="string">&#x27;favorite_food&#x27;</span>)))</span><br><span class="line"><span class="built_in">print</span>(fuzz.token_set_ratio(my_records[<span class="number">0</span>].get(<span class="string">&#x27;favorite_food&#x27;</span>), my_records[<span class="number">1</span>].get(<span class="string">&#x27;favorite_food&#x27;</span>)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#对于有限选项的数据的匹配,返回的是最有可能的选项列表</span></span><br><span class="line"><span class="comment">#最佳匹配，通过extractone选择</span></span><br><span class="line">choice = [<span class="string">&#x27;Yes&#x27;</span>,<span class="string">&#x27;No&#x27;</span>,<span class="string">&#x27;Maybe&#x27;</span>,<span class="string">&#x27;N/A&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(process.extract(<span class="string">&#x27;ya&#x27;</span>,choice,limit=<span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(process.extract(<span class="string">&#x27;ya&#x27;</span>,choice))</span><br><span class="line"><span class="built_in">print</span>(process.extract(<span class="string">&#x27;nope&#x27;</span>,choice,limit=<span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(process.extract(<span class="string">&#x27;nope&#x27;</span>,choice))</span><br><span class="line"></span><br></pre></td></tr></table></figure><blockquote><ol><li>正则匹配</li></ol></blockquote><p>\w:匹配任意字母和数字和下划线。\d:匹配数字。\s:匹配任意一个空格。<br>+:匹配一个或多个模式或字符。.:匹配.字符。*:匹配零个或多个字符或模式。<br>|：匹配多个模式中的一个。[]或()：字符类和字符组。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">word = <span class="string">&#x27;\w+&#x27;</span></span><br><span class="line">sentence = <span class="string">&#x27;Here is my sentence&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(re.findall(word,sentence)) <span class="comment">#任意位置开始匹配</span></span><br><span class="line">search_result = re.search(word,sentence) <span class="comment">#任意位置开始匹配</span></span><br><span class="line"><span class="built_in">print</span>(search_result.group())</span><br><span class="line">match_result = re.match(word,sentence) <span class="comment">#从字符串开头匹配</span></span><br><span class="line"><span class="built_in">print</span>(match_result.group())</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;为什么要清洗数据&quot;&gt;&lt;a href=&quot;#为什么要清洗数据&quot; class=&quot;headerlink&quot; title=&quot;为什么要清洗数据&quot;&gt;&lt;/a&gt;为什么要清洗数据&lt;/h4&gt;&lt;p&gt;数据清洗可以让数据更容易存储，搜索和复用。通常我们获取到的数据可能会存在格式不一致的问题，由
+      
+    
+    </summary>
+    
+      <category term="Python数据处理" scheme="http://example.com/categories/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="Python" scheme="http://example.com/tags/Python/"/>
+    
+      <category term="数据处理" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%BD%91%E7%AB%99/"/>
+    <id>http://example.com/wiki/程序技术/Python/机器学习/深度学习/数据集网站/</id>
+    <published>2021-12-15T06:34:25.387Z</published>
+    <updated>2021-12-15T06:34:40.359Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>• UCI 机器学习数据集（<a href="http://archive.ics.uci.edu/ml/）">http://archive.ics.uci.edu/ml/）</a></p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;• UCI 机器学习数据集（&lt;a href=&quot;http://archive.ics.uci.edu/ml/）&quot;&gt;http://archive.ics.uci.edu/ml/）&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+      
+    
+    </summary>
+    
+      <category term="程序技术" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="Python" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/"/>
+    
+      <category term="机器学习" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="深度学习" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Python数据处理-阅读笔记二——数据获取和存储</title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0(%E4%BA%8C)/"/>
+    <id>http://example.com/wiki/程序技术/Python/数据处理/python数据处理-阅读笔记(二)/</id>
+    <published>2021-12-15T05:39:44.566Z</published>
+    <updated>2021-12-15T06:51:41.785Z</updated>
+    
+    <content type="html"><![CDATA[<p>数据处理的先决条件就是找到要研究的数据集。</p><p>数据集因该具备如下几个性质。</p><blockquote><ol><li>可信性</li></ol></blockquote><p>找到的数据集因该是可靠的，可信的。</p><blockquote><ol><li>真实性</li></ol></blockquote><p>找到的数据因该是真实的。</p><blockquote><ol><li>可读性</li></ol></blockquote><p>数据容易获取。</p><blockquote><ol><li>数据寿命</li></ol></blockquote><p>了解数据更新的频率。</p><h4 id="数据的获取方式"><a href="#数据的获取方式" class="headerlink" title="数据的获取方式"></a>数据的获取方式</h4><blockquote><ol><li>政府网站获取</li></ol></blockquote><p>如果需要分析研究某个城市或者某个国家的问题，可以通过政府网站寻找到相关的数据信息。例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">• 开放城市项目（http://www.opencitiesproject.org/）</span><br><span class="line">• 开放尼泊尔（http://data.opennepal.net/）</span><br><span class="line">• 中国国家统计局（http://www.stats.gov.cn/english/）</span><br><span class="line">• 香港开放数据（https://opendatahk.com/）</span><br><span class="line">• 印尼政府开放数据（http://data.go.<span class="built_in">id</span>/</span><br><span class="line">• 加拿大统计数据（http://www.rdc-cdr.ca/datasets-<span class="keyword">and</span>-surveys）</span><br><span class="line">• 加拿大开放数据（http://<span class="built_in">open</span>.canada.ca/en）</span><br></pre></td></tr></table></figure></p><blockquote><ol><li>组织数据或非政府组织数据</li></ol></blockquote><p>如果需要获取某领域的数据，可以查看相关领域的组织机构是否提供了相应的数据。例如气候变化数据，国际商贸数据和全球运输数据等，可以通过国际组织进行信息数据的获取。例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">• 联合国开放数据（http://data.un.org/）</span><br><span class="line">• 联合国发展计划署数据（http://<span class="built_in">open</span>.undp.org/）</span><br><span class="line">• 开放知识基金会（https://okfn.org/）</span><br><span class="line">• 世界银行数据（http://data.worldbank.org/）</span><br><span class="line">• 维基解密（https://wikileaks.org/）</span><br><span class="line">• 国际援助透明度数据集（http://www.iatiregistry.org/）</span><br><span class="line">• DataHub（https://datahub.io/）</span><br><span class="line">• 人口资料局（http://www.prb.org/DataFinder.aspx）</span><br></pre></td></tr></table></figure></p><blockquote><ol><li>教育数据和大学数据</li></ol></blockquote><p>通过世界各地大学和研究生部获取数据集。例如<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">• Lexis Nexis（http://www.lexisnexis.com/）</span><br><span class="line">• 谷歌学术搜索（https://scholar.google.com/）</span><br><span class="line">• 康奈尔大学 arXiv 项目（http://arxiv.org/）</span><br><span class="line">• UCI 机器学习数据集（http://archive.ics.uci.edu/ml/）</span><br><span class="line">• 通用数据集倡议（http://www.commondataset.org/）</span><br></pre></td></tr></table></figure></p><blockquote><ol><li>医学数据和科学数据</li></ol></blockquote><p>通过一些医学研究部门和组织可以获取优质的数据资源。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">• 开放科学数据云（https://www.opensciencedatacloud.org/publicdata/）</span><br><span class="line">• 开放科学目录（http://www.opensciencedirectory.net/）</span><br><span class="line">• 世界卫生组织数据（http://www.who.<span class="built_in">int</span>/gho/database/en/）</span><br><span class="line">• Broad 研究所开放数据（http://www.broadinstitute.org/scientific-community/data）</span><br><span class="line">• 人类连接组项目（神经通路映射）（http://www.humanconnectomeproject.org/）</span><br><span class="line">• UNC 精神病基因组协会（http://www.med.unc.edu/pgc/）</span><br><span class="line">• 社会科学数据集（http://3stages.org/idata/）</span><br><span class="line">• CDC 医学数据（http://www.cdc.gov/nchs/fastats/）</span><br><span class="line"></span><br></pre></td></tr></table></figure></p><blockquote><ol><li>众包数据和API</li></ol></blockquote><p>一些社交网络和论坛能够提供大量的数据记录。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">• Broad 研究所开放数据（http://www.broadinstitute.org/scientific-community/data）</span><br><span class="line">• 人类连接组项目（神经通路映射）（http://www.humanconnectomeproject.org/）</span><br><span class="line">• UNC 精神病基因组协会（http://www.med.unc.edu/pgc/）</span><br><span class="line">• 社会科学数据集（http://3stages.org/idata/）</span><br><span class="line">• CDC 医学数据（http://www.cdc.gov/nchs/fastats/）</span><br><span class="line"></span><br></pre></td></tr></table></figure><h4 id="数据的存储"><a href="#数据的存储" class="headerlink" title="数据的存储"></a>数据的存储</h4><blockquote><ol><li>关系数据库</li></ol></blockquote><p>MySQL和PostgreSQL</p><blockquote><ol><li>非关系数据库</li></ol></blockquote><p>NoSQL和MongoDB</p><blockquote><ol><li>云存储</li></ol></blockquote><p>通过云服务器进行数据存储</p><blockquote><ol><li>其他数据存储</li></ol></blockquote><p>层次型数据格式(HDF)：HDF是基于文件的可扩展数据解决方案，可将大型数据库快速存储至文件系统(本地或其他位置)。</p><p>Hadoop:Hadoop是一个大数据分布式存储系统，可以跨集群存储并处理数据。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;数据处理的先决条件就是找到要研究的数据集。&lt;/p&gt;
+&lt;p&gt;数据集因该具备如下几个性质。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;可信性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;找到的数据集因该是可靠的，可信的。&lt;/p&gt;
+&lt;blockquote&gt;
+
+      
+    
+    </summary>
+    
+      <category term="Python数据处理" scheme="http://example.com/categories/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="Python" scheme="http://example.com/tags/Python/"/>
+    
+      <category term="数据处理" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/%E5%B8%B8%E8%A7%81/"/>
+    <id>http://example.com/wiki/程序技术/BUG集锦/python/常见/</id>
+    <published>2021-12-15T02:55:56.559Z</published>
+    <updated>2021-12-15T02:57:30.633Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="xlrd读取xlsx文件失败-出现xlrd-biffh-XLRDError-Excel-xlsx-file；-not-supported错误"><a href="#xlrd读取xlsx文件失败-出现xlrd-biffh-XLRDError-Excel-xlsx-file；-not-supported错误" class="headerlink" title="xlrd读取xlsx文件失败,出现xlrd.biffh.XLRDError: Excel xlsx file； not supported错误"></a>xlrd读取xlsx文件失败,出现xlrd.biffh.XLRDError: Excel xlsx file； not supported错误</h4><p>原因是最近xlrd更新到了2.0版本，只支持.xls文件。所以读取xlsx需要下载旧版本在cmd中运行：<br>pip uninstall xlrd<br>pip install xlrd==1.2.0</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;xlrd读取xlsx文件失败-出现xlrd-biffh-XLRDError-Excel-xlsx-file；-not-supported错误&quot;&gt;&lt;a href=&quot;#xlrd读取xlsx文件失败-出现xlrd-biffh-XLRDError-Excel-xlsx-f
+      
+    
+    </summary>
+    
+      <category term="程序技术" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="BUG集锦" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/"/>
+    
+      <category term="python" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Python数据处理-阅读笔记一——数据处理介绍</title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0(%E4%B8%80)/"/>
+    <id>http://example.com/wiki/程序技术/Python/数据处理/python数据处理/python数据处理-阅读笔记(一)/</id>
+    <published>2021-12-14T08:55:49.108Z</published>
+    <updated>2021-12-17T01:04:15.832Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h4><p>数据处理是指将杂乱的或未加工的数据源转换成有用的信息。先寻找原始数据源，并判断<br>其价值：这些数据集的数据质量有多好？它们与你的目标是否相关？能否找到更好的数<br>据源？在对数据进行解析与清洗后，数据集变得可用，这时你可以利用工具和方法（如<br>Python 脚本）来帮你分析数据，并以报告的形式展示结果。这样你可以将无人问津的数据<br>变得清晰可用。</p><h4 id="数据处理的作用"><a href="#数据处理的作用" class="headerlink" title="数据处理的作用"></a>数据处理的作用</h4><p>通过编程进行分析数据，得出结论，并将结论清楚的传达给别人。</p><h4 id="数据处理的流程"><a href="#数据处理的流程" class="headerlink" title="数据处理的流程"></a>数据处理的流程</h4><p>分析问题-&gt;收集数据，数据存储-&gt;数据清洗(研究，匹配，格式化，归一化和标准化，脚本化)-&gt;数据分析</p><p><img src="/images/datawranling/数据清洗.PNG" alt="a1"></p><h4 id="常见格式化数据"><a href="#常见格式化数据" class="headerlink" title="常见格式化数据"></a>常见格式化数据</h4><ol><li>CSV数据</li></ol><p>CSV文件是指将数据列用逗号分隔的文件，文件的扩展名是.csv。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CSV数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">csv</span>():</span></span><br><span class="line">    <span class="keyword">import</span> csv</span><br><span class="line">    <span class="comment">#读取csv文件</span></span><br><span class="line">    csvfile = <span class="built_in">open</span>(<span class="string">&#x27;data-text.csv&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line">    reader = csv.reader(csvfile)</span><br><span class="line">    <span class="comment"># 以字典形式读取</span></span><br><span class="line">    reader = csv.DictReader(csvfile)</span><br><span class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> reader:</span><br><span class="line">        <span class="built_in">print</span>(row)</span><br><span class="line">    <span class="comment">#保存csv文件</span></span><br><span class="line">    header = [<span class="string">&#x27;colname&#x27;</span>,<span class="string">&#x27;colname&#x27;</span>]</span><br><span class="line">    content = [(<span class="number">1</span>,<span class="number">2</span>),(<span class="number">2</span>,<span class="number">3</span>)]</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;data-text.csv&#x27;</span>,<span class="string">&#x27;w+&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        csvwrite = csv.writer(f)</span><br><span class="line">        csvwrite.writerow(header)</span><br><span class="line">        csvwrite.writerows(content)</span><br></pre></td></tr></table></figure></p><ol><li>JSON数据</li></ol><p>JSON数据是数据传输最常用的格式之一。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># JSON数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">JSON</span>():</span></span><br><span class="line">    <span class="comment"># JSON数据读取</span></span><br><span class="line">    json_data = <span class="built_in">open</span>(<span class="string">&#x27;data-text.json&#x27;</span>).read()</span><br><span class="line">    data = json.loads(json_data)</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> data:</span><br><span class="line">        <span class="built_in">print</span>(item)</span><br><span class="line">    <span class="comment">#JSON数据保存</span></span><br><span class="line">    datas = []</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;data-text.json&#x27;</span>,<span class="string">&#x27;w+&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        json.dump(datas,f)</span><br></pre></td></tr></table></figure></p><ol><li>XML数据</li></ol><p>XML 是一种标记语言，也就是说，它具有包含格式化数据的文档结构。<br>XML 文档本质上只是格式特殊的数据文件。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#XML数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">XML</span>():</span></span><br><span class="line">    <span class="comment">#读取XML文件</span></span><br><span class="line">    <span class="keyword">from</span> xml.etree <span class="keyword">import</span> ElementTree <span class="keyword">as</span> ET</span><br><span class="line">    tree = ET.parse(<span class="string">&#x27;data-text.xml&#x27;</span>)</span><br><span class="line">    root = tree.getroot()</span><br><span class="line">    data  = root.find(<span class="string">&#x27;data&#x27;</span>)</span><br><span class="line">    all_data = []</span><br><span class="line">    <span class="keyword">for</span> d <span class="keyword">in</span> data:</span><br><span class="line">        record = &#123;&#125;</span><br><span class="line">        <span class="comment">#获取标签属性</span></span><br><span class="line">        <span class="built_in">print</span>(d.attrib.keys()[<span class="number">0</span>])</span><br><span class="line">        <span class="built_in">print</span>(d.attrib[<span class="string">&#x27;key&#x27;</span>])</span><br><span class="line"></span><br></pre></td></tr></table></figure></p><ol><li>Excel文件</li></ol><p>Python解析Excel文件使用的是xlrd库(读取Excel文件),xlwt(向Excel文件写入，并设置格式)。xlutils(一组Excel高级操作工具，需要安装xlrd和xlwt)。</p><p>Excel文件的读取，首先要确定在哪个表(sheet)。然后根据表可以获取表内的数据。</p><blockquote><p>打开Excel文件<br>book = xlrd.open_workbook()<br>获取工作表对象<br>sheet = book.sheet_by_name(表名称)<br>获取数据</p><h1 id="获取工作表的总行数"><a href="#获取工作表的总行数" class="headerlink" title="获取工作表的总行数"></a>获取工作表的总行数</h1><p>print(sheet.nrows)</p><h1 id="遍历工作表的每一行"><a href="#遍历工作表的每一行" class="headerlink" title="遍历工作表的每一行"></a>遍历工作表的每一行</h1><p>for i in range(sheet.nrows):<br>    print(sheet.row_values(i))<br>实例代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#解析Excel文件</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Excel</span>():</span></span><br><span class="line">    <span class="keyword">import</span> xlrd</span><br><span class="line">    <span class="keyword">import</span> xlwt</span><br><span class="line">    <span class="keyword">import</span> xlutils</span><br><span class="line">    <span class="comment">#读取xlsx数据</span></span><br><span class="line">    book = xlrd.open_workbook(<span class="string">&#x27;1.xlsx&#x27;</span>)</span><br><span class="line">    <span class="comment">#Excel工作簿可以有多个标签(tab)或工作表(sheet)</span></span><br><span class="line">    <span class="comment">#所以需要找到包含目标数据的工作表</span></span><br><span class="line">    <span class="comment">#获取工作表名称</span></span><br><span class="line">    <span class="keyword">for</span> sheet <span class="keyword">in</span> book.sheets():</span><br><span class="line">        <span class="built_in">print</span>(sheet.name)</span><br><span class="line">    <span class="comment">#根据工作表名称，获取工作表对象</span></span><br><span class="line">    sheet = book.sheet_by_name(<span class="string">&#x27;Table 9 &#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(sheet)</span><br><span class="line">    <span class="comment">#获取工作表的总行数</span></span><br><span class="line">    <span class="built_in">print</span>(sheet.nrows)</span><br><span class="line">    <span class="comment">#遍历工作表的每一行</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(sheet.nrows):</span><br><span class="line">        <span class="comment">#print(sheet.row_values(i))</span></span><br><span class="line">        row = sheet.row_values(i)</span><br><span class="line">        <span class="comment">#读取列数据</span></span><br><span class="line">        <span class="keyword">for</span> cell <span class="keyword">in</span> row:</span><br><span class="line">            <span class="built_in">print</span>(cell)</span><br></pre></td></tr></table></figure></p></blockquote><ol><li>PDF文件</li></ol><p>通过PyPDF2模块进行读取pdf，但是只能够读取文本。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">PDF</span>():</span></span><br><span class="line">    <span class="keyword">import</span> PyPDF2</span><br><span class="line">    <span class="comment">#读取PDF</span></span><br><span class="line">    pdffile = <span class="built_in">open</span>(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    pdfreader = PyPDF2.PdfFileReader(pdffile)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;页数&#x27;</span>+<span class="built_in">str</span>(pdfreader.pages))</span><br><span class="line">    <span class="built_in">print</span>(pdfreader.getPage(<span class="number">0</span>))<span class="comment">#获取第一页内容</span></span><br><span class="line">    <span class="built_in">print</span>(pdfreader.getPage(<span class="number">0</span>).extractText())<span class="comment">#获取第二页内容</span></span><br><span class="line">    <span class="comment">#写入PDF </span></span><br><span class="line">    pdfwriter = PyPDF2.PdfFileWriter()</span><br><span class="line">    pdfwriter.addPage(<span class="string">&#x27;adadad&#x27;</span>)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;test.pdf&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> wf:</span><br><span class="line">        pdfwriter.write(wf)</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;数据处理&quot;&gt;&lt;a href=&quot;#数据处理&quot; class=&quot;headerlink&quot; title=&quot;数据处理&quot;&gt;&lt;/a&gt;数据处理&lt;/h4&gt;&lt;p&gt;数据处理是指将杂乱的或未加工的数据源转换成有用的信息。先寻找原始数据源，并判断&lt;br&gt;其价值：这些数据集的数据质量有多好？它
+      
+    
+    </summary>
+    
+      <category term="Python数据处理" scheme="http://example.com/categories/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="Python" scheme="http://example.com/tags/Python/"/>
+    
+      <category term="数据处理" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CV2问题集锦</title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/cv2/"/>
+    <id>http://example.com/wiki/程序技术/BUG集锦/python/cv2/</id>
+    <published>2021-12-14T02:26:49.895Z</published>
+    <updated>2021-12-14T02:29:39.514Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="1-关于cv2-imshow不显示，一闪而过的问题"><a href="#1-关于cv2-imshow不显示，一闪而过的问题" class="headerlink" title="1.  关于cv2.imshow不显示，一闪而过的问题"></a>1.  关于cv2.imshow不显示，一闪而过的问题</h4><p>我们在使用cv2显示图片的时候，一定要加上cv2.waitKey进行等待图片，否则会不显示。示例代码如下</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">img = cv.imread(<span class="string">&quot;1.jpg&quot;</span>)  <span class="comment"># 图像读取</span></span><br><span class="line">x,y = img.shape[:<span class="number">2</span>] <span class="comment">#获取图片的高和宽</span></span><br><span class="line"><span class="comment"># 创建一个窗口</span></span><br><span class="line">cv.namedWindow(<span class="string">&#x27;test&#x27;</span>,cv.WINDOW_NORMAL) <span class="comment"># 通过cv.WINDOW_NORMAL可以完整显示图片</span></span><br><span class="line">cv.imshow(<span class="string">&#x27;test&#x27;</span>,img) <span class="comment"># 显示图片</span></span><br><span class="line">cv.waitKey(<span class="number">0</span>) <span class="comment"># 等待键盘输入，0表示无限等待，如果不调用waitKey窗口就会一闪而过，看不到任何图片</span></span><br><span class="line">cv.destroyAllWindows() <span class="comment"># 销毁所有串口</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;1-关于cv2-imshow不显示，一闪而过的问题&quot;&gt;&lt;a href=&quot;#1-关于cv2-imshow不显示，一闪而过的问题&quot; class=&quot;headerlink&quot; title=&quot;1.  关于cv2.imshow不显示，一闪而过的问题&quot;&gt;&lt;/a&gt;1.  关于cv2
+      
+    
+    </summary>
+    
+      <category term="Bug" scheme="http://example.com/categories/Bug/"/>
+    
+    
+      <category term="Bug" scheme="http://example.com/tags/Bug/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/vsnode/"/>
+    <id>http://example.com/wiki/程序技术/BUG集锦/vsnode/</id>
+    <published>2021-12-14T00:54:21.517Z</published>
+    <updated>2021-12-14T00:54:21.517Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="程序技术" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="BUG集锦" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/idea/"/>
+    <id>http://example.com/wiki/程序技术/BUG集锦/idea/</id>
+    <published>2021-12-14T00:54:13.967Z</published>
+    <updated>2021-12-14T00:54:13.967Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="程序技术" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="BUG集锦" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Pycharm问题集锦</title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/Pycharm/"/>
+    <id>http://example.com/wiki/程序技术/BUG集锦/python/Pycharm/</id>
+    <published>2021-12-14T00:54:06.688Z</published>
+    <updated>2021-12-14T02:26:43.462Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="Pycharm误删代码如何恢复"><a href="#Pycharm误删代码如何恢复" class="headerlink" title="Pycharm误删代码如何恢复"></a>Pycharm误删代码如何恢复</h5><p>在误删代码的父文件夹上，点击鼠标右键，找到Local History，点击后即可找到之前的代码，根据情况进行恢复(Revert)。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h5 id=&quot;Pycharm误删代码如何恢复&quot;&gt;&lt;a href=&quot;#Pycharm误删代码如何恢复&quot; class=&quot;headerlink&quot; title=&quot;Pycharm误删代码如何恢复&quot;&gt;&lt;/a&gt;Pycharm误删代码如何恢复&lt;/h5&gt;&lt;p&gt;在误删代码的父文件夹上，点击鼠标右键
+      
+    
+    </summary>
+    
+      <category term="Bug" scheme="http://example.com/categories/Bug/"/>
+    
+    
+      <category term="Bug" scheme="http://example.com/tags/Bug/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/%E7%88%AC%E8%99%AB/"/>
+    <id>http://example.com/wiki/程序技术/BUG集锦/python/爬虫/</id>
+    <published>2021-12-14T00:53:54.425Z</published>
+    <updated>2021-12-14T02:26:43.332Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="程序技术" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="BUG集锦" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/"/>
+    
+      <category term="python" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CV2的常用方法</title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/CV2/"/>
+    <id>http://example.com/wiki/程序技术/Python/图像处理/CV2/</id>
+    <published>2021-12-13T07:33:05.449Z</published>
+    <updated>2021-12-14T02:26:23.639Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="1-图片读取显示"><a href="#1-图片读取显示" class="headerlink" title="1. 图片读取显示"></a>1. 图片读取显示</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">img = cv.imread(<span class="string">&quot;1.jpg&quot;</span>)  <span class="comment"># 图像读取</span></span><br><span class="line">x,y = img.shape[:<span class="number">2</span>] <span class="comment">#获取图片的高和宽</span></span><br><span class="line"><span class="comment"># 创建一个窗口</span></span><br><span class="line">cv.namedWindow(<span class="string">&#x27;test&#x27;</span>,cv.WINDOW_NORMAL) <span class="comment"># 通过cv.WINDOW_NORMAL可以完整显示图片</span></span><br><span class="line">cv.imshow(<span class="string">&#x27;test&#x27;</span>,img) <span class="comment"># 显示图片</span></span><br><span class="line">cv.waitKey(<span class="number">0</span>) <span class="comment"># 等待键盘输入，0表示无限等待，如果不调用waitKey窗口就会一闪而过，看不到任何图片</span></span><br><span class="line">cv.destroyAllWindows() <span class="comment"># 销毁所有串口</span></span><br></pre></td></tr></table></figure><h4 id="2-图片的操作-修改图片大小"><a href="#2-图片的操作-修改图片大小" class="headerlink" title="2. 图片的操作-修改图片大小"></a>2. 图片的操作-修改图片大小</h4><p>通过cv2.resize可以修改图片的大小，指定尺寸size（宽，高）,并且可以指定插入方式，不同插入方式得到的缩放图片的效果不一样。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">img = cv.imread(<span class="string">&quot;1.jpg&quot;</span>)</span><br><span class="line">x, y = img.shape[:<span class="number">2</span>]  <span class="comment"># 获取图片的高和宽</span></span><br><span class="line"><span class="comment"># 输出尺寸为(宽，高)</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">cv2.resize(InputArray src, OutputArray dst, Size, fx, fy, interpolation)</span></span><br><span class="line"><span class="string">InputArray src： 输入图片</span></span><br><span class="line"><span class="string">InputArray src:  输出图片</span></span><br><span class="line"><span class="string">Size: 输出图片尺寸(宽，高)</span></span><br><span class="line"><span class="string">fx,fy:沿x轴，y轴的缩放系数</span></span><br><span class="line"><span class="string">interpolation:插入方式</span></span><br><span class="line"><span class="string">插入方式有如下几种：</span></span><br><span class="line"><span class="string">INTER_NEAREST：最近邻插值</span></span><br><span class="line"><span class="string">INTER_LINEAR：双线性插值（默认设置）</span></span><br><span class="line"><span class="string">INTER_AREA:使用像素区域关系进行重采样。</span></span><br><span class="line"><span class="string">INTER_CUBIC:4x4像素邻域的双三次插值</span></span><br><span class="line"><span class="string">INTER_LANCZOS4:8x8像素邻域的Lanczos插值</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">img1 = cv.resize(img,(<span class="built_in">int</span>(y/<span class="number">4</span>),<span class="built_in">int</span>(x/<span class="number">4</span>))) <span class="comment"># 修改图片大小，缩放为原来的1/4</span></span><br><span class="line"><span class="comment">#cv.namedWindow(&#x27;test&#x27;,cv.WINDOW_NORMAL)</span></span><br><span class="line">cv.imshow(<span class="string">&#x27;test&#x27;</span>,img1)</span><br><span class="line">cv.waitKey(<span class="number">0</span>)</span><br><span class="line">cv.destroyAllWindows()</span><br><span class="line">img2 = cv.resize(img,(<span class="number">0</span>,<span class="number">0</span>),fx=<span class="number">0.25</span>,fy=<span class="number">0.25</span>,interpolation=cv.INTER_AREA)</span><br><span class="line">cv.imshow(<span class="string">&#x27;test&#x27;</span>, img2)</span><br><span class="line">cv.waitKey(<span class="number">0</span>)</span><br><span class="line">cv.destroyAllWindows()</span><br><span class="line"></span><br></pre></td></tr></table></figure><h4 id="3-图片的操作-灰度化"><a href="#3-图片的操作-灰度化" class="headerlink" title="3. 图片的操作-灰度化"></a>3. 图片的操作-灰度化</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">img = cv.imread(<span class="string">&quot;1.jpg&quot;</span>)</span><br><span class="line">img_gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY) <span class="comment"># 灰度化</span></span><br><span class="line">cv.namedWindow(<span class="string">&#x27;test&#x27;</span>, cv.WINDOW_NORMAL)</span><br><span class="line">cv.imshow(<span class="string">&#x27;test&#x27;</span>, img_gray)</span><br><span class="line">cv.waitKey(<span class="number">0</span>)</span><br><span class="line">cv.destroyAllWindows()</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;1-图片读取显示&quot;&gt;&lt;a href=&quot;#1-图片读取显示&quot; class=&quot;headerlink&quot; title=&quot;1. 图片读取显示&quot;&gt;&lt;/a&gt;1. 图片读取显示&lt;/h4&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="http://example.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://example.com/tags/Python/"/>
+    
+      <category term="图像处理" scheme="http://example.com/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>滑块验证码破解</title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/%E6%BB%91%E5%9D%97%E7%A0%B4%E8%A7%A3/"/>
+    <id>http://example.com/wiki/程序技术/Python/爬虫/滑块破解/</id>
+    <published>2021-12-13T07:01:04.559Z</published>
+    <updated>2021-12-14T02:05:21.794Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="滑块验证码破解"><a href="#滑块验证码破解" class="headerlink" title="滑块验证码破解"></a>滑块验证码破解</h4><p>最近在爬虫开发的过程中，遇到了关于滑块验证码，需要进行滑块验证码破解。这里涉及到图像方面的技术，可以借助OpenCV进行解决。</p><h4 id="通过CV2解决滑块验证"><a href="#通过CV2解决滑块验证" class="headerlink" title="通过CV2解决滑块验证"></a>通过CV2解决滑块验证</h4><p>这里通过CV2库进行滑块验证的解决。简单介绍一下滑块验证的几个步骤。</p><h5 id="1-获取图片（不带缺口的图片，带缺口的图片）"><a href="#1-获取图片（不带缺口的图片，带缺口的图片）" class="headerlink" title="1. 获取图片（不带缺口的图片，带缺口的图片）"></a>1. 获取图片（不带缺口的图片，带缺口的图片）</h5><p>根据网页，获取到滑块图片，一般来说分为两个图片，一个是缺口图，也就是缺少缺口的图片。一个是滑块图，也就是缺口图缺少的图片。假设缺口图为img1,滑块图为img2。<br>img1:<br><img src="/images/spider/s1.PNG" alt="img1"></p><p>img2:<br><img src="/images/spider/s2.PNG" alt="img2"></p><h5 id="2-识别缺口位置，计算滑动距离"><a href="#2-识别缺口位置，计算滑动距离" class="headerlink" title="2. 识别缺口位置，计算滑动距离"></a>2. 识别缺口位置，计算滑动距离</h5><p>一般而言，我们通过网页获取到的图片和实际在网页上显示的图片大小是不一致的。读者可以根据自己需要破解的滑块验证码进行校验。查看在网页中的图片大小和下载的图片大小是否一致。如果不一致，那么需要跳转下载的图片的大小。<br>读取图片，然后跳转图片的大小为网页中显示的大小。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">img1 = cv2.imread(缺口图的路径)</span><br><span class="line">img1 = cv2.resize(img1, (网页缺口图实际宽度, 网页缺口图实际高度))</span><br><span class="line">img2 = cv2.imread(缺块图的路径)</span><br><span class="line">img2 = cv2.resize(img2, (网页缺块图实际宽度, 网页缺块图实际高度))</span><br><span class="line"></span><br></pre></td></tr></table></figure></p><p>如果要识别缺口位置，可以借助cv2库的matchTemplate方法来获取缺块距离缺口的位置。实现代码如下所示，一般来说这种方法识别会带有误差，也就是存在失败的情况，这个时候可以在程序中进行设置，进行多次尝试解决滑块验证(可以采用循环处理的办法，重复多次滑块验证解决流程)，以达到解决滑块问题的效果。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">img1_gray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY) # 对图片灰度化处理</span><br><span class="line">img2_gray = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)# 对图片灰度化处理</span><br><span class="line">res = cv2.matchTemplate(img1_gray, img2_gray, cv2.TM_CCOEFF_NORMED) </span><br><span class="line">value = cv2.minMaxLoc(res)  #获取缺口和缺块的距离</span><br><span class="line">value = value[3][0] #value值就是缺块距离缺口的距离</span><br></pre></td></tr></table></figure></p><h5 id="3-模拟运动"><a href="#3-模拟运动" class="headerlink" title="3. 模拟运动"></a>3. 模拟运动</h5><p>我们可以借助selenium进行模拟滑块拖动的过程，但是在模拟滑块的拖动过程中，需要模拟人的速度。人在拖动滑块的时候，正常是先快后慢的过程，这个时候我们可以设置一个先快后慢的过程（可以设置两个运动方程，一段加速度为a1,一段加速度为a2），用于模拟人拖动滑块。示例代码如下所示：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ditance为移动的距离，也就是上面获得的value</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getTrack</span>(<span class="params">self,distance</span>):</span></span><br><span class="line">    <span class="comment">#用于存储每个过程中，拉动滑块的距离</span></span><br><span class="line">    track = []</span><br><span class="line">    <span class="comment"># 当前位移</span></span><br><span class="line">    current = <span class="number">0</span></span><br><span class="line">    <span class="comment"># 当距离超过什么时候，进行减速</span></span><br><span class="line">    mid = distance * <span class="number">4</span> / <span class="number">5</span></span><br><span class="line">    <span class="comment"># 计算间隔</span></span><br><span class="line">    t = <span class="number">0.2</span></span><br><span class="line">    <span class="comment"># 初速度</span></span><br><span class="line">    v = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> current &lt; distance:</span><br><span class="line">        <span class="keyword">if</span> current &lt; mid:</span><br><span class="line">            <span class="comment"># 加速度为正2</span></span><br><span class="line">            a = <span class="number">2</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 加速度为负3</span></span><br><span class="line">            a = -<span class="number">3</span></span><br><span class="line">        <span class="comment"># 初速度v0</span></span><br><span class="line">        v0 = v</span><br><span class="line">        <span class="comment"># 当前速度v = v0 + at</span></span><br><span class="line">        v = v0 + a * t</span><br><span class="line">        <span class="comment"># 移动距离x = v0t + 1/2 * a * t^2</span></span><br><span class="line">        move = v0 * t + <span class="number">1</span> / <span class="number">2</span> * a * t * t</span><br><span class="line">        <span class="comment"># 当前位移</span></span><br><span class="line">        current += move</span><br><span class="line">        <span class="comment"># 加入轨迹</span></span><br><span class="line">        track.append(<span class="built_in">round</span>(move))</span><br><span class="line">    <span class="keyword">return</span> track</span><br></pre></td></tr></table></figure><p>通过selenium模拟运动，可以借助ActionChains来拖拽滑块。首先我们需要获取到滑块元素。<br>这个我们可以通过F12来查看拖拽滑块元素的属性，然后通过driver获取到元素。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ActionChains(driver).click_and_hold(拖拽滑块的元素).perform() <span class="comment"># 点击并且不释放鼠标</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> track:     <span class="comment"># 根据轨迹，移动元素</span></span><br><span class="line">    ActionChains(driver).move_by_offset(xoffset=x, yoffset=<span class="number">0</span>).perform() <span class="comment">#移动元素</span></span><br><span class="line">time.sleep(<span class="number">0.5</span>) </span><br><span class="line">ActionChains(driver).release().perform() <span class="comment">#释放元素</span></span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;滑块验证码破解&quot;&gt;&lt;a href=&quot;#滑块验证码破解&quot; class=&quot;headerlink&quot; title=&quot;滑块验证码破解&quot;&gt;&lt;/a&gt;滑块验证码破解&lt;/h4&gt;&lt;p&gt;最近在爬虫开发的过程中，遇到了关于滑块验证码，需要进行滑块验证码破解。这里涉及到图像方面的技术，可以
+      
+    
+    </summary>
+    
+      <category term="爬虫" scheme="http://example.com/categories/%E7%88%AC%E8%99%AB/"/>
+    
+    
+      <category term="Python" scheme="http://example.com/tags/Python/"/>
+    
+      <category term="爬虫" scheme="http://example.com/tags/%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Web项目部署</title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaWeb/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/"/>
+    <id>http://example.com/wiki/程序技术/Java/JavaWeb/项目部署/</id>
+    <published>2021-12-10T09:31:23.397Z</published>
+    <updated>2021-12-13T01:22:04.658Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>安装Tomcat</li></ol><blockquote><ol><li>通过 tar -zxvf 解压tomcat。</li><li>修改catalina.sh，在脚本开头增加export JAVA_HOME指定jdk路径。</li></ol></blockquote><p>修改Tomcat的端口：<br>将8080，8005，8009修改其它端口即可。<br> <Connector port="8080"               maxThreads="150" minSpareThreads="25" maxSpareThreads="75"               enableLookups="false" redirectPort="8443" acceptCount="100"               connectionTimeout="20000" disableUploadTimeout="true" /></p><Server port="8005" shutdown="SHUTDOWN"><Connector port="8009" protocol="AJP/1.3" redirectPort="8443"/><ol><li>下载jdk</li></ol><p>下载jdk，然后通过tar -zxvf 进行解压jdk</p><ol><li>打包项目</li></ol><p>将项目打包war包，然后放入到tomcat的webapp目录下即可。</p><blockquote><ol><li>访问路径</li></ol></blockquote><p>将War包包放到webapp下之后，访问路径的名称就是war包的名称，假设war包为AAA.war,部署端口为8080.<br>ip地址为xxx.xxx.xxx则访问路径为：<a href="https://xxx.xxx.xxx/AAA。">https://xxx.xxx.xxx/AAA。</a></p><blockquote><ol><li>报错解决</li></ol></blockquote><h3 id="Cannot-find-usr-tomcat-tomcat9-bin-setclasspath-sh"><a href="#Cannot-find-usr-tomcat-tomcat9-bin-setclasspath-sh" class="headerlink" title="Cannot find /usr/tomcat/tomcat9/bin/setclasspath.sh"></a>Cannot find /usr/tomcat/tomcat9/bin/setclasspath.sh</h3><p>执行：unset CATALINA_HOME</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ol&gt;
+&lt;li&gt;安装Tomcat&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;通过 tar -zxvf 解压tomcat。&lt;/li&gt;
+&lt;li&gt;修改catalina.sh，在脚本开头增加export JAVA_HOME指定jdk路径。&lt;/li&gt;
+&lt;/ol&gt;
+
+      
+    
+    </summary>
+    
+      <category term="JavaWeb" scheme="http://example.com/categories/JavaWeb/"/>
+    
+    
+      <category term="JavaWeb" scheme="http://example.com/tags/JavaWeb/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>反爬技巧</title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/%E5%8F%8D%E7%88%AC%E6%8A%80%E5%B7%A7/"/>
+    <id>http://example.com/wiki/程序技术/Python/爬虫/反爬技巧/</id>
+    <published>2021-12-10T08:19:06.344Z</published>
+    <updated>2021-12-10T08:21:56.064Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>这里主要总结了一些爬虫开发过程中的反爬技巧。</p><blockquote><ol><li>正确设置headers</li></ol></blockquote><p>通常我们简单设置一下User-Agent就能够获取到网页内容。但是对于一些网站，通过request获取到的网页内容，通常又和正常访问网页获取到的内容不一致。这里就需要根据网页的Headers来设置request内的headers属性，用于避免被检测。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;这里主要总结了一些爬虫开发过程中的反爬技巧。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;正确设置headers&lt;/li&gt;
+&lt;/ol
+      
+    
+    </summary>
+    
+      <category term="爬虫" scheme="http://example.com/categories/%E7%88%AC%E8%99%AB/"/>
+    
+    
+      <category term="Python" scheme="http://example.com/tags/Python/"/>
+    
+      <category term="爬虫" scheme="http://example.com/tags/%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>debug反爬</title>
+    <link href="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/debug%E5%8F%8D%E7%88%AC/"/>
+    <id>http://example.com/wiki/程序技术/Python/爬虫/debug反爬/</id>
+    <published>2021-12-10T07:01:24.965Z</published>
+    <updated>2021-12-10T07:08:39.363Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="关于解决-function-anonymous-debugger-的问题"><a href="#关于解决-function-anonymous-debugger-的问题" class="headerlink" title="关于解决(function anonymous() {debugger})的问题"></a>关于解决(function anonymous() {debugger})的问题</h4><h5 id="1-实现原理"><a href="#1-实现原理" class="headerlink" title="1. 实现原理"></a>1. 实现原理</h5><p>如何实现无限debugger呢？实现无限debugger就是不断的打断你，页面跳转到source页面，阻止你看内容。<br>写一个不断调用debugger即可。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Date</span>(); <span class="keyword">debugger</span>; <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>() - a &gt; <span class="number">100</span>;&#125;())</span><br><span class="line"></span><br></pre></td></tr></table></figure></p><h5 id="2-问题解决"><a href="#2-问题解决" class="headerlink" title="2. 问题解决"></a>2. 问题解决</h5>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;关于解决-function-anonymous-debugger-的问题&quot;&gt;&lt;a href=&quot;#关于解决-function-anonymous-debugger-的问题&quot; class=&quot;headerlink&quot; title=&quot;关于解决(function anonym
+      
+    
+    </summary>
+    
+      <category term="爬虫" scheme="http://example.com/categories/%E7%88%AC%E8%99%AB/"/>
+    
+    
+      <category term="Python" scheme="http://example.com/tags/Python/"/>
+    
+      <category term="爬虫" scheme="http://example.com/tags/%E7%88%AC%E8%99%AB/"/>
     
   </entry>
   

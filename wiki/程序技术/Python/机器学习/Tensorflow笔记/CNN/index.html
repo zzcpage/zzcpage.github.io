@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>TensorFlow2笔记-CNN(卷积神经网络) | 个人博客</title>
+    
+    
+        <meta name="keywords" content="TensorFlow2,CNN" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="问题介绍如果仅仅依靠全连接神经网络来训练模型，则在实际应用中，输入特征会非常多，参数十分复杂，让训练变得非常庞大。所以在实际应用时，会对原始图像进行特征提取再把提取到的特征送给全连接网络。流程如下所示：     graph LR         原始图片 --&gt; 若干层特征提取         若干层特征提取 --&gt; 全连接网络  卷积计算是一种提取图片特征的有效方法。 卷积计算过程  单通道卷">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow2笔记-CNN(卷积神经网络)">
+<meta property="og:url" content="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/CNN/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="问题介绍如果仅仅依靠全连接神经网络来训练模型，则在实际应用中，输入特征会非常多，参数十分复杂，让训练变得非常庞大。所以在实际应用时，会对原始图像进行特征提取再把提取到的特征送给全连接网络。流程如下所示：     graph LR         原始图片 --&gt; 若干层特征提取         若干层特征提取 --&gt; 全连接网络  卷积计算是一种提取图片特征的有效方法。 卷积计算过程  单通道卷">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/多通道计算.PNG">
+<meta property="og:image" content="http://example.com/images/卷积计算过程.PNG">
+<meta property="og:image" content="http://example.com/images/多通道计算.PNG">
+<meta property="og:image" content="http://example.com/images/选取卷积核.PNG">
+<meta property="og:image" content="http://example.com/images/零填充.PNG">
+<meta property="og:image" content="http://example.com/images/拟标准化.PNG">
+<meta property="og:image" content="http://example.com/images/拟标准-1.PNG">
+<meta property="og:image" content="http://example.com/images/Pooling.PNG">
+<meta property="og:image" content="http://example.com/images/Dropout.PNG">
+<meta property="article:published_time" content="2021-10-29T04:44:21.509Z">
+<meta property="article:modified_time" content="2021-11-01T08:56:31.980Z">
+<meta property="article:author" content="ZZC">
+<meta property="article:tag" content="TensorFlow2">
+<meta property="article:tag" content="CNN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/多通道计算.PNG">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="个人博客" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">个人博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Bug
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/Pycharm/">Pycharm问题集锦</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/cv2/">CV2问题集锦</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaEE
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaWeb/%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%87%BA/">JavaWeb后端数据导出</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaSE
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20introduce/">1. Java介绍</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20basic%20statment/">2. Java基本语法</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20controll%20followe/">3. Java控制流程</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/class/">4. Java对象与类</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaWeb
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaWeb/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/">Web项目部署</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Python
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">Python常见问题</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/CV2/">CV2的常用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Python数据处理
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0(%E4%B8%80)/">Python数据处理-阅读笔记一——数据处理介绍</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0(%E4%BA%8C)/">Python数据处理-阅读笔记二——数据获取和存储</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0(%E4%B8%89)/">Python数据处理-阅读笔记二——数据清洗之匹配与格式化</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E4%BA%8C%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%8C%96%E5%92%8C%E8%84%9A%E6%9C%AC%E5%8C%96/">Python数据处理-阅读笔记二——标准化和脚本化</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E4%B8%89/">Python数据处理-阅读笔记三——数据分析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            抖店
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E6%8A%96%E5%BA%97API%E5%BC%80%E5%8F%91/%E8%AE%A2%E5%8D%95%E5%AF%BC%E5%87%BA/">抖店开发--订单导出之信息获取</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            深度学习
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            TensorFlow2
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file active"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/CNN/">TensorFlow2笔记-CNN(卷积神经网络)</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%BD%91%E7%BB%9C%E5%85%AB%E8%82%A1%E6%89%A9%E5%B1%95/">TensorFlow2笔记-第四讲(网络八股扩展)</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/NN/">TensorFlow2笔记-NN(全连接)</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/%E7%BB%8F%E5%85%B8%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/">TensorFlow2笔记-LeNet(经典卷积网络)</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE/class2/">吴恩达-深度学习——二</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            爬虫
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">Python爬虫与开发项目实战——第一回合</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98-%E7%AC%AC%E4%BA%8C%E5%9B%9E%E5%90%88/">Python爬虫开发与项目实战-第二回合</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB2.1/">Python爬虫开发与项目实战-第二回合（实战）</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB-%E4%B8%AD%E7%BA%A7/">Python爬虫-中级</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/selenium%E5%8F%8D%E7%88%AC/">selenium+Chrome(79版本以上)反爬</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB-Scrapy%E8%BF%9B%E9%98%B6/">Python爬虫-Scrapy进阶</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/debug%E5%8F%8D%E7%88%AC/">debug反爬</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/%E5%8F%8D%E7%88%AC%E6%8A%80%E5%B7%A7/">反爬技巧</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/%E6%BB%91%E5%9D%97%E7%A0%B4%E8%A7%A3/">滑块验证码破解</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98-Scrapy%E5%AE%9E%E6%88%98/">Python爬虫开发与项目实战-Scrapy实战</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            程序技术
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            BUG集锦
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            python
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/%E7%88%AC%E8%99%AB/"></a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/%E5%B8%B8%E8%A7%81/"></a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/idea/"></a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/vsnode/"></a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Git
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Git/%E9%97%AE%E9%A2%98/">Git常见的问题及解决方案</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Java
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JAVA-Json/">Java中对JSON的操作</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Python
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            机器学习
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            吴恩达
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE/class3/">吴恩达-class(三)-如何构建一个神经网络</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            深度学习
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%BD%91%E7%AB%99/"></a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            爬虫
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Untitled-1/"></a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            算法
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Leetcode
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数组
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/36.%E6%9C%89%E6%95%88%E6%95%B0%E7%8B%AC/">36.有效数独</a></li>  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/48.%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84/">48.旋转数组</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            链表
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E9%93%BE%E8%A1%A8/19.%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%BB%93%E7%82%B9/">48.旋转数组</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            经典算法
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/KMP/">KMP算法</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            软件配置
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/hexo/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">hexo使用问题</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            python配置
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/python/Anaconda/">Anaconda配置</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/hello-world/">Hello World</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>archives</span></h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">24</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">12</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>tags</span></h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/" rel="tag">Bug</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">Bug解决方案</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVASE/" rel="tag">JAVASE</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow2/" rel="tag">TensorFlow2</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/" rel="tag">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag">图像处理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">数据处理</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%85%8D%E7%BD%AE/" rel="tag">配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-程序技术/Python/机器学习/Tensorflow笔记/CNN" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/TensorFlow2/">TensorFlow2</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/CNN/" rel="tag">CNN</a>, <a class="tag-link-link" href="/tags/TensorFlow2/" rel="tag">TensorFlow2</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/CNN/">
+            <time datetime="2021-10-29T04:44:21.509Z" itemprop="datePublished">2021-10-29</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/raw/writing/source/_posts/程序技术/Python/机器学习/Tensorflow笔记/CNN.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/edit/writing/source/_posts/程序技术/Python/机器学习/Tensorflow笔记/CNN.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/commits/writing/source/_posts/程序技术/Python/机器学习/Tensorflow笔记/CNN.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            TensorFlow2笔记-CNN(卷积神经网络)
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <p><img src="/images/多通道计算.PNG" alt="aaa"></p>
+<h3 id="问题介绍"><a href="#问题介绍" class="headerlink" title="问题介绍"></a>问题介绍</h3><p>如果仅仅依靠全连接神经网络来训练模型，则在实际应用中，输入特征会非常多，参数十分复杂，让训练变得非常庞大。所以在实际应用时，会对原始图像进行特征提取再把提取到的特征送给全连接网络。流程如下所示：</p>
+<pre class="mermaid">    graph LR
+        原始图片 --> 若干层特征提取
+        若干层特征提取 --> 全连接网络</pre>
+
+<p>卷积计算是一种提取图片特征的有效方法。</p>
+<h3 id="卷积计算过程"><a href="#卷积计算过程" class="headerlink" title="卷积计算过程"></a>卷积计算过程</h3><blockquote>
+<blockquote>
+<p>单通道卷积计算<br><img src="/images/卷积计算过程.PNG" alt="aaa"></p>
+</blockquote>
+<p>从上图可以看出,卷积神经网络计算的过程实际上就是将大的数据，根据区域提取其相关特征，减少了特征数目。从 5x5x1 的参数，经过 3x3x1的卷积核卷积计算后，转化为3x3x1的参数网络。<br>&gt;</p>
+<blockquote>
+<p>多通道卷积计算<br><img src="/images/多通道计算.PNG" alt="bb"><br>从图中可以看出，对于输入特征是多通道的，每个通道都通过卷积层计算相应的调整值。从图片看从5×5×3经过3×3×3的卷积核计算，对每个通道的重合区域，经过对应通道 的卷积核计算的结果作为输出调整图中的一个像素点。</p>
+</blockquote>
+<p>总结<br>对于卷积神经网络的计算过程，就是从左到右，从上到下，根据卷积核重叠的区域，依次计算结果，作为输出特征图的一个像素点。</p>
+</blockquote>
+<h3 id="用CNN实现离散数据的分类-以图像分类为例"><a href="#用CNN实现离散数据的分类-以图像分类为例" class="headerlink" title="用CNN实现离散数据的分类(以图像分类为例)"></a>用CNN实现离散数据的分类(以图像分类为例)</h3><h4 id="1-感受野-Receptive-Field"><a href="#1-感受野-Receptive-Field" class="headerlink" title="1. 感受野(Receptive Field)"></a>1. 感受野(Receptive Field)</h4><p>感受野：卷积神经网络各输出特征图中的每个像素点，在原始输入图片上映射区域的大小。</p>
+<p>这里可以参考一下卷积神经网络的计算过程中，5×5×1 经过 3×3×1 卷积后得到一张3×3的特征图，那么最终3×3特征图中的一个像素点所对应在5×5×1输入特征图的区域大小，（大小只取正方形区域边的大小），称之为感受野，从图上可以看出对应的感受野为3。</p>
+<blockquote>
+<p>如果输出特征图的感受野都是一样的,但是选取的卷积核不一样（如刚刚的5×5×1的输入特征可以经过两层3×3×1的卷积核得到1的输出特征图，同样可以经过一层5×5×1的卷积核得到1的输出特征图，二者的感受野都是5）。</p>
+</blockquote>
+<p>这里就需要考虑选取不同的卷积核所带来的计算代价，计算越少越好。<br><img src="/images/选取卷积核.PNG" alt="ccc"></p>
+<blockquote>
+<p>对计算量的计算步骤，以两层3×3×1为例，对于输入特征图经过第一层卷积核的计算量-&gt;首先每次计算共有9次乘法运算，卷积核总共扫描的区域数很容易得出为(x-3+1)(x-3+1),总的计算数为9×(x-2)×(x-2)。同理经过第一层卷积核的输出特征图经过第二个卷积核的计算量为9×(x-2-3+1)×(x-2-3+1)。将两个卷积核计算量相加得到总的计算量：18$x^2$-108x+180</p>
+</blockquote>
+<h4 id="2-全零填充-Padding"><a href="#2-全零填充-Padding" class="headerlink" title="2. 全零填充(Padding)"></a>2. 全零填充(Padding)</h4><p>为了保证输入特征图的尺寸不变，通过0进行填充，在输入特征图周围填充0，如原来的5×5×1经过3×3×1后仍然还是5×5×1。</p>
+<blockquote>
+<p>填充公式(卷积输出特征图维度计算公式)</p>
+</blockquote>
+<script type="math/tex; mode=display">padding=\left\{ 
+    \begin{aligned}SAME(全0填充)\frac{入长}{步长} & ,(向上取整)
+    \\
+    VALID(不全0填充) \frac{入长-核长+1}{步长}&,(向上取整)
+    \end{aligned}
+    \right.</script><p>TF描述全0填充，用参数padding=’SAME’或padding=’VALID’表示。<br><img src="/images/零填充.PNG" alt="ccc"></p>
+<h4 id="3-Tensorflow2描述卷积层"><a href="#3-Tensorflow2描述卷积层" class="headerlink" title="3. Tensorflow2描述卷积层"></a>3. Tensorflow2描述卷积层</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### TF描述卷积层的代码</span></span><br><span class="line"><span class="comment"># tf.keras.layers.Conv2D(</span></span><br><span class="line"><span class="comment">#     filters=卷积核个数,</span></span><br><span class="line"><span class="comment">#     kernel_size=卷积核尺寸,#正方形写核长整数,或（核高h,核宽w）</span></span><br><span class="line"><span class="comment">#     strides = 滑动步长,#横纵向相同写步长整数，或（纵向步长h，横向步长w）,默认1</span></span><br><span class="line"><span class="comment">#     padding = &quot;same&quot; or &quot;valid&quot;,#使用全0填充是same，不使用是valid(默认)</span></span><br><span class="line"><span class="comment">#     activation=&quot;relu&quot;or&quot;sigmoid&quot;or&quot;tanh&quot;or&quot;softmax&quot;等,#如有BN此处不写</span></span><br><span class="line"><span class="comment">#     input_shape=(高，宽，通道数) #输入特征图维度，可省略</span></span><br><span class="line"><span class="comment"># )</span></span><br><span class="line">model = tf.keras.models.Sequential([</span><br><span class="line">    Conv2D(<span class="number">6</span>,<span class="number">5</span>,padding=<span class="string">&#x27;valid&#x27;</span>,activation=<span class="string">&#x27;sigmoid&#x27;</span>),</span><br><span class="line">    MaxPool2D(<span class="number">2</span>,<span class="number">2</span>),</span><br><span class="line">    Conv2D(<span class="number">6</span>,(<span class="number">5</span>,<span class="number">5</span>),padding=<span class="string">&#x27;valid&#x27;</span>,activation=<span class="string">&#x27;sigmoid&#x27;</span>),</span><br><span class="line">    MaxPool2D(<span class="number">2</span>,(<span class="number">2</span>,<span class="number">2</span>)),</span><br><span class="line">    Conv2D(filters=<span class="number">6</span>,kernel_size=(<span class="number">5</span>,<span class="number">5</span>),padding=<span class="string">&#x27;valid&#x27;</span>,activation=<span class="string">&#x27;sigmoid&#x27;</span>),</span><br><span class="line">    MaxPool2D(pool_size=(<span class="number">2</span>,<span class="number">2</span>),strides=<span class="number">2</span>),</span><br><span class="line">    Flatten(),</span><br><span class="line">    Dense(<span class="number">10</span>,activation=<span class="string">&#x27;softmax&#x27;</span>)</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<h4 id="4-批标准化-Batch-Normalization-BN"><a href="#4-批标准化-Batch-Normalization-BN" class="headerlink" title="4. 批标准化(Batch Normalization , BN)"></a>4. 批标准化(Batch Normalization , BN)</h4><p>神经网络对0附件的数据更敏感。</p>
+<p>标准化：使数据符合0均值，1为标准差的分布<br>批标准化：对一小批数据（batch），做标准化处理。<br>批标准化，第K个卷积核的输出特征图(feature map)中第i个像素点。</p>
+<p><img src="/images/拟标准化.PNG" alt="a4"></p>
+<blockquote>
+<p>$H_{i}^{‘k}$ = $\frac{H_{i}^{k}-u_{batch}^{k}} {\sigma_{batch}^{k}}$<br>$H_{i}^{k}$：批标准化前，第K个卷积核，输出特征图中第i个像素点。<br>$u_{batch}^{k}$：批量化前，第k个卷积核，batch张输出特征图中所有像素点平均值。</p>
+</blockquote>
+<p>$u_{batch}^{k}$ = $\frac{1} {m} \displaystyle \sum^{m}_{i=1} H_{i}^{k}$</p>
+<blockquote>
+<p>$\sigma_{batch}^{k}$：批标准化前，第k个卷积核，batch张输出特征图中所有像素点标准差。</p>
+</blockquote>
+<p>$\sigma_{batch}^{k}$ = $\sqrt{\delta+\frac{1}{m}\displaystyle \sum^m_{i = 1}(H_i^k-u_{batch}^k)^2}$</p>
+<p>通过BN操作，将数据标准化到0均值。如下图所示：<br><img src="/images/拟标准-1.PNG" alt="a41"></p>
+<p>通过标准化使得输入特征的微小变化也能使得激活函数有明显的变化，提升激活函数对输入数据的区分力。</p>
+<p>从图中可以看出，经过标准化的Sigmoid函数，特征数据$H_i^{‘k}$集中在0附近，但是从图中可以看出，Sigmoid函数在0区域附近的曲线接近线性函数，所以这样会导致激活函数的非线性特性丧失。为了解决这个问题，需要为每个卷积核引入可训练参数$\gamma$（缩放因子）和$\beta$（偏移因子）,用于调整归一化的力度,优化特征数据分布的宽窄和偏移量，保证了网络的非线性表达力。<br>调整后的数据$x_i^k$ = $\gamma_{k}H_{i}^{‘k}+\beta_k$。</p>
+<p>从上面可以看出，BN层用于对数据的标准化处理，可以缓解梯度消失，所以BN层位于卷积层之后，激活层之前。</p>
+<blockquote>
+<p>TensorFlow描述批标准化的代码如下</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    TF通过tf.keras.layers.BatchhNormalization()描述BN层</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">model = tf.keras.models.Sequential([</span><br><span class="line">   Conv2D(padding=<span class="string">&#x27;same&#x27;</span>,kernel_size=(<span class="number">5</span>,<span class="number">5</span>),filters=<span class="number">6</span>),</span><br><span class="line">    BatchNormalization(),<span class="comment">#BN层</span></span><br><span class="line">    Activation(<span class="string">&#x27;relu&#x27;</span>),<span class="comment">#激活层</span></span><br><span class="line">    MaxPool2D(pool_size=(<span class="number">2</span>,<span class="number">2</span>),strides=<span class="number">2</span>,padding=<span class="string">&#x27;same&#x27;</span>),</span><br><span class="line">    Dropout(<span class="number">0.2</span>),<span class="comment">#droupt层</span></span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<h3 id="5-池化-Pooling"><a href="#5-池化-Pooling" class="headerlink" title="5. 池化(Pooling)"></a>5. 池化(Pooling)</h3><p>池化用于减少特征数据量。池化包含最大值池化和均值池化。最大值池化可以提取图片纹理，均值池化可以保留背景特征。</p>
+<p>两种池化的计算如下图所示。<br><img src="/images/Pooling.PNG" alt="a6"><br>用池大小为2×2，步长为2的池进行处理。<br>从图中可以看出二者的计算过程。</p>
+<blockquote>
+<p>最大值池化</p>
+</blockquote>
+<p>选择被池包含区域内最大的特征值作为输出结果。</p>
+<blockquote>
+<p>均值池化</p>
+</blockquote>
+<p>选择被池包含区域内特征值的平均值作为输出结果。</p>
+<blockquote>
+<p>TensorFlow描述池化的代码如下</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        tf.keras.MaxPool2D(</span></span><br><span class="line"><span class="string">            pool_size=池化核尺寸,#正方形写核长整数，或用元组给出核的高和宽(核高h,核宽w)</span></span><br><span class="line"><span class="string">            strides=池化步长,#步长整数，或(纵向步长h，横向步长w),默认为pool_size</span></span><br><span class="line"><span class="string">            padding=&#x27;valid&#x27;or&#x27;same&#x27;#q全0填充是same,否则是&#x27;valid</span></span><br><span class="line"><span class="string">        )</span></span><br><span class="line"><span class="string">        tf.keras.AveragePooling2D(</span></span><br><span class="line"><span class="string">        pool_size=池化核尺寸,#正方形写核长整数，或用元组给出核的高和宽(核高h,核宽w)</span></span><br><span class="line"><span class="string">            strides=池化步长,#步长整数，或(纵向步长h，横向步长w),默认为pool_size</span></span><br><span class="line"><span class="string">            padding=&#x27;valid&#x27;or&#x27;same&#x27;#q全0填充是same,否则是&#x27;valid</span></span><br><span class="line"><span class="string">        )</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    model = tf.keras.models.Sequential([</span><br><span class="line">        Conv2D(padding=<span class="string">&#x27;same&#x27;</span>,kernel_size=(<span class="number">5</span>,<span class="number">5</span>),filters=<span class="number">6</span>),<span class="comment">#卷积层</span></span><br><span class="line">        BatchNormalization(),<span class="comment">#BN层</span></span><br><span class="line">        Activation(<span class="string">&#x27;relu&#x27;</span>),<span class="comment">#激活层</span></span><br><span class="line">        MaxPool2D(pool_size=(<span class="number">2</span>,<span class="number">2</span>),strides=<span class="number">2</span>,padding=<span class="string">&#x27;same&#x27;</span>),<span class="comment">#池化层</span></span><br><span class="line">        Dropout(<span class="number">0.2</span>),<span class="comment">#droupt层</span></span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<h3 id="6-舍弃（Dropout）"><a href="#6-舍弃（Dropout）" class="headerlink" title="6. 舍弃（Dropout）"></a>6. 舍弃（Dropout）</h3><p>舍弃是为了缓解神经网络过拟合。舍弃也就是在神经网络训练的过程中，将一部分神经元按照一定概率从神经网络中暂时舍弃。神经网络使用时，被舍弃的神经元恢复链接。（也就是说在神经网络训练的过程中，一些神经元会被暂时踢出训练，等最后在加入到神经网络中。）。舍弃过程如图所示：<br><img src="/images/Dropout.PNG" alt="a7"></p>
+<p>在训练的过程中，将一部分神经元暂时舍弃(类似于神经元死亡，也就是神经元的参数不再更新)。</p>
+<blockquote>
+<p>TensorFlow描述舍弃（Dropout）</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    tf描述舍弃：tf.keras.layers.Dropout(舍弃的概率)</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">    model = tf.keras.models.Sequential([</span><br><span class="line">        Conv2D(padding=<span class="string">&#x27;same&#x27;</span>,kernel_size=(<span class="number">5</span>,<span class="number">5</span>),filters=<span class="number">6</span>),<span class="comment">#卷积层</span></span><br><span class="line">        BatchNormalization(),<span class="comment">#BN层</span></span><br><span class="line">        Activation(<span class="string">&#x27;relu&#x27;</span>),<span class="comment">#激活层</span></span><br><span class="line">        MaxPool2D(pool_size=(<span class="number">2</span>,<span class="number">2</span>),strides=<span class="number">2</span>,padding=<span class="string">&#x27;same&#x27;</span>),<span class="comment">#池化层</span></span><br><span class="line">        Dropout(<span class="number">0.2</span>),<span class="comment">#droupt层，随机舍弃掉20%的神经元</span></span><br><span class="line">    ])</span><br></pre></td></tr></table></figure>
+<h3 id="7-总结"><a href="#7-总结" class="headerlink" title="7. 总结"></a>7. 总结</h3><p>从上面介绍可以看出，卷积的过程就是对特征值的特征进行提取，来减少特征值的数量（卷积，池化）。通过用一个输出像素点来反映一块区域内像素点的特征。通过这样的方式有效的减少了特征值的数量。</p>
+<blockquote>
+<p>卷积神经网络的主要组成模块,卷积层，BN层，激活层，池化层,舍弃层(dropout层)，全连接层（Fully Connected）。<br>卷积层，BN层，激活层，池化层这四层用于对输入特征进行特征提取。</p>
+</blockquote>
+<pre class="mermaid">    graph LR
+        A("卷积&#40;Convolutional&#41;") --> B("批标准化&#40;BN&#41;") 
+        B --> C("激活&#40;Activation&#41;") 
+        C --> D("池化&#40;Pooling&#41;") 
+        D --> F("舍弃层&#40;Dropout&#41;")
+        F --> E("全连接&#40;FC&#41;")</pre>
+
+<blockquote>
+<p>卷积是什么？</p>
+</blockquote>
+<p>卷积就是<font color=red>特征提取器</font>,就是CBAPD(D表示的是舍弃，Dropout)</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%BD%91%E7%BB%9C%E5%85%AB%E8%82%A1%E6%89%A9%E5%B1%95/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    TensorFlow2笔记-第四讲(网络八股扩展)
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/KMP/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">KMP算法</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    
+        <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+        <script>
+            if (window.mermaid) {
+                mermaid.initialize({
+                    theme: 'forest'
+                });
+            }
+        </script>
+        
+            <div class="outer">
+                <div id="footer-info" class="inner">
+                    ZZC &copy;
+                        2022
+                            <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+                            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a target="_blank" rel="noopener" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+                            
+                                <br>
+                                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                                &nbsp;|&nbsp;
+                                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+                                
+                </div>
+            </div>
+</footer>
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [ ["$","$"], ["\\(","\\)"] ], skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'], processEscapes: true, TeX: { equationNumbers: { autoNumber: 'AMS' } } } }); MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(); for (var i = 0; i
+    < all.length; ++i) all[i].SourceElement().parentNode.className +=' has-jax' ; }); </script>
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <!-- <script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>

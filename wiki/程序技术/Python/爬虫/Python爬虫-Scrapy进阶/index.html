@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Python爬虫-Scrapy进阶 | 个人博客</title>
+    
+    
+        <meta name="keywords" content="Python,爬虫" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="1.Spider模块2.Item Loader3.请求与响应深入Scrapy爬虫框架1. Spider模块Spider模块是定义爬虫的动作及分析网页结构的地方，我们容易看出，在这里给出了解析网页获取元素，并进行是否继续爬取下一个网页的操作(也就是爬虫的动作)。Spider的执行流程   从入口URL初始化Request并设置回调函数。这个Reuquest下载完毕返回Response，并作为参数传送">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python爬虫-Scrapy进阶">
+<meta property="og:url" content="http://example.com/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB-Scrapy%E8%BF%9B%E9%98%B6/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="1.Spider模块2.Item Loader3.请求与响应深入Scrapy爬虫框架1. Spider模块Spider模块是定义爬虫的动作及分析网页结构的地方，我们容易看出，在这里给出了解析网页获取元素，并进行是否继续爬取下一个网页的操作(也就是爬虫的动作)。Spider的执行流程   从入口URL初始化Request并设置回调函数。这个Reuquest下载完毕返回Response，并作为参数传送">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/spider/request-meta.PNG">
+<meta property="og:image" content="http://example.com/images/spider_kz1.PNG">
+<meta property="og:image" content="http://example.com/images/spider_kz2.PNG">
+<meta property="og:image" content="http://example.com/images/spider_kz3.PNG">
+<meta property="article:published_time" content="2021-12-09T09:00:55.657Z">
+<meta property="article:modified_time" content="2022-01-04T02:59:35.017Z">
+<meta property="article:author" content="ZZC">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/spider/request-meta.PNG">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="个人博客" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">个人博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Bug
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/Pycharm/">Pycharm问题集锦</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/cv2/">CV2问题集锦</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaEE
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaWeb/%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%87%BA/">JavaWeb后端数据导出</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaSE
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20introduce/">1. Java介绍</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20basic%20statment/">2. Java基本语法</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E4%B8%89%E7%AB%A0-Java%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/java%20controll%20followe/">3. Java控制流程</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaSE/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/class/">4. Java对象与类</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JavaWeb
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JavaWeb/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/">Web项目部署</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Python
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">Python常见问题</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/CV2/">CV2的常用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Python数据处理
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0(%E4%B8%80)/">Python数据处理-阅读笔记一——数据处理介绍</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0(%E4%BA%8C)/">Python数据处理-阅读笔记二——数据获取和存储</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0(%E4%B8%89)/">Python数据处理-阅读笔记二——数据清洗之匹配与格式化</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E4%BA%8C%E2%80%94%E2%80%94%E6%A0%87%E5%87%86%E5%8C%96%E5%92%8C%E8%84%9A%E6%9C%AC%E5%8C%96/">Python数据处理-阅读笔记二——标准化和脚本化</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E4%B8%89/">Python数据处理-阅读笔记三——数据分析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            抖店
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E6%8A%96%E5%BA%97API%E5%BC%80%E5%8F%91/%E8%AE%A2%E5%8D%95%E5%AF%BC%E5%87%BA/">抖店开发--订单导出之信息获取</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            深度学习
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            TensorFlow2
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/CNN/">TensorFlow2笔记-CNN(卷积神经网络)</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%BD%91%E7%BB%9C%E5%85%AB%E8%82%A1%E6%89%A9%E5%B1%95/">TensorFlow2笔记-第四讲(网络八股扩展)</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/NN/">TensorFlow2笔记-NN(全连接)</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow%E7%AC%94%E8%AE%B0/%E7%BB%8F%E5%85%B8%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/">TensorFlow2笔记-LeNet(经典卷积网络)</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE/class2/">吴恩达-深度学习——二</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            爬虫
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">Python爬虫与开发项目实战——第一回合</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98-%E7%AC%AC%E4%BA%8C%E5%9B%9E%E5%90%88/">Python爬虫开发与项目实战-第二回合</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB2.1/">Python爬虫开发与项目实战-第二回合（实战）</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB-%E4%B8%AD%E7%BA%A7/">Python爬虫-中级</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/selenium%E5%8F%8D%E7%88%AC/">selenium+Chrome(79版本以上)反爬</a></li>  <li class="file active"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB-Scrapy%E8%BF%9B%E9%98%B6/">Python爬虫-Scrapy进阶</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/debug%E5%8F%8D%E7%88%AC/">debug反爬</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/%E5%8F%8D%E7%88%AC%E6%8A%80%E5%B7%A7/">反爬技巧</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/%E6%BB%91%E5%9D%97%E7%A0%B4%E8%A7%A3/">滑块验证码破解</a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E4%B8%8E%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98-Scrapy%E5%AE%9E%E6%88%98/">Python爬虫开发与项目实战-Scrapy实战</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            程序技术
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            BUG集锦
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            python
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/%E7%88%AC%E8%99%AB/"></a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/python/%E5%B8%B8%E8%A7%81/"></a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/idea/"></a></li>  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/BUG%E9%9B%86%E9%94%A6/vsnode/"></a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Git
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Git/%E9%97%AE%E9%A2%98/">Git常见的问题及解决方案</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Java
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Java/JAVA-Json/">Java中对JSON的操作</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Python
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            机器学习
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            吴恩达
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE/class3/">吴恩达-class(三)-如何构建一个神经网络</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            深度学习
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%BD%91%E7%AB%99/"></a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            爬虫
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Untitled-1/"></a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            算法
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Leetcode
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数组
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/36.%E6%9C%89%E6%95%88%E6%95%B0%E7%8B%AC/">36.有效数独</a></li>  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E6%95%B0%E7%BB%84/48.%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84/">48.旋转数组</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            链表
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E9%93%BE%E8%A1%A8/19.%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%BB%93%E7%82%B9/">48.旋转数组</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            经典算法
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E7%AE%97%E6%B3%95/Leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/KMP/">KMP算法</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            软件配置
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/hexo/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">hexo使用问题</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            python配置
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/python/Anaconda/">Anaconda配置</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/hello-world/">Hello World</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>archives</span></h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">24</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">12</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>tags</span></h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/" rel="tag">Bug</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">Bug解决方案</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVASE/" rel="tag">JAVASE</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow2/" rel="tag">TensorFlow2</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/" rel="tag">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag">图像处理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">数据处理</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%85%8D%E7%BD%AE/" rel="tag">配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-程序技术/Python/爬虫/Python爬虫-Scrapy进阶" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E7%88%AC%E8%99%AB/">爬虫</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Python/" rel="tag">Python</a>, <a class="tag-link-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/Python%E7%88%AC%E8%99%AB-Scrapy%E8%BF%9B%E9%98%B6/">
+            <time datetime="2021-12-09T09:00:55.657Z" itemprop="datePublished">2021-12-09</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/raw/writing/source/_posts/程序技术/Python/爬虫/Python爬虫-Scrapy进阶.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/edit/writing/source/_posts/程序技术/Python/爬虫/Python爬虫-Scrapy进阶.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/commits/writing/source/_posts/程序技术/Python/爬虫/Python爬虫-Scrapy进阶.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Python爬虫-Scrapy进阶
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h3 id="1-Spider模块"><a href="#1-Spider模块" class="headerlink" title="1.Spider模块"></a><a href="#one">1.Spider模块</a></h3><h3 id="2-Item-Loader"><a href="#2-Item-Loader" class="headerlink" title="2.Item Loader"></a><a href="#two">2.Item Loader</a></h3><h3 id="3-请求与响应"><a href="#3-请求与响应" class="headerlink" title="3.请求与响应"></a><a href="#three">3.请求与响应</a></h3><h2 id="深入Scrapy爬虫框架"><a href="#深入Scrapy爬虫框架" class="headerlink" title="深入Scrapy爬虫框架"></a>深入Scrapy爬虫框架</h2><h3 id="1-Spider模块-1"><a href="#1-Spider模块-1" class="headerlink" title="1. Spider模块"></a><a id="one"></a>1. Spider模块</h3><p>Spider模块是定义爬虫的动作及分析网页结构的地方，我们容易看出，在这里给出了解析网页获取元素，并进行是否继续爬取下一个网页的操作(也就是爬虫的动作)。Spider的执行流程</p>
+<blockquote>
+<ol>
+<li><p>从入口URL初始化Request并设置回调函数。这个Reuquest下载完毕返回Response，并作为参数传送给回调函数，Spider初始的Request是通过调用start_requests()方法获取。start_requests()读取start_urls中的URL，并以parse为回调函数生成Request。也就是说初始的URL，只需要在start_urls加入，系统会自动的获取response，并以parse()为解析函数。</p>
+</li>
+<li><p>在回调函数分析Response，返回Item对象，dict,ruquest或者一个包括三者的可迭代容器。其中返回的Request对象会经过Scrapy处理，下载相应内容，并调用设置相应的解析函数。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">request = scrapy.Request(url=url,callback=self.parse_body) <span class="comment">#调用Request方法，并设置解析函数</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在解析函数内，可以使用页面解析技术，对页面元素进行解析，可以用BeautifuleSoup等等技术。通过response可以获取到响应的内容。将分析的数据生成item</p>
+</li>
+<li><p>由spider返回item,可以经过Item Pipeline被存到数据库或使用Feed exports存入到文件中。</p>
+</li>
+</ol>
+</blockquote>
+<h5 id="Spider类的成员变量"><a href="#Spider类的成员变量" class="headerlink" title="Spider类的成员变量"></a>Spider类的成员变量</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string"> @:param name 定义spider名字的字符串，名字必须唯一。可以生成多个相同的spider实例</span></span><br><span class="line"><span class="string"> 通常可以用网站域名命名spider</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> @:param allowed_domains: 包含了spder允许爬取的域名列表。</span></span><br><span class="line"><span class="string"> 当OffsiteMiddleware组件启用时，域名不在列表中的URL不会被跟进。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> @:param statr_urls:URL列表，当没有配置statr_requests9）f方法的时候，spider会从该列表开始进行爬取。也就是说爬虫开始爬取的</span></span><br><span class="line"><span class="string"> URL就是从start_urls中获取。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> @:param custom_setting：该设置是一个dict,当启动spider时，该设置将会覆盖项目级的设置。也就是</span></span><br><span class="line"><span class="string"> 说可以在这里对spider单独定义。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> @:param crawler 该属性在初始化class后，由类方法from_crawler()设置。并且链接了</span></span><br><span class="line"><span class="string"> 本spider实例羽Crawler对象。</span></span><br><span class="line"><span class="string"> &#x27;&#x27;&#x27;</span></span><br><span class="line"> name = <span class="string">&#x27;myspider&#x27;</span></span><br><span class="line"> allowed_domains = [<span class="string">&quot;www.baidu.com&quot;</span>]</span><br><span class="line"> start_urls = [</span><br><span class="line">     <span class="string">&quot;https://www.baidu.com&quot;</span></span><br><span class="line"> ]</span><br><span class="line"> custom_settings = &#123;&#125;</span><br><span class="line"> crawler = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="Spider类的方法"><a href="#Spider类的方法" class="headerlink" title="Spider类的方法"></a>Spider类的方法</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 常用的Spider方法</span></span><br><span class="line"><span class="comment"># 该方法必须返回一个可迭代对象，对象包含spider用于爬虫的第一个request。</span></span><br><span class="line"><span class="comment"># 也就是说 start_requests是项目启动的开始，是根据start_url作为项目启动URL</span></span><br><span class="line"><span class="comment"># 如果没有设置start_requests方法，就会默认从start_urls的url生成Request。</span></span><br><span class="line"><span class="comment"># 如果需要定制最初爬取的Request对象，可以重写方法。</span></span><br><span class="line"><span class="comment"># 例如通过POST登录</span></span><br><span class="line"><span class="comment"># 总结来说：strt_request就是整个程序的入口，如果不指定就是直接从start_ruls中获取url，以parse()为回调函数进行解析。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">start_requests</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">return</span> [scrapy.FormRequest(<span class="string">&quot;http://www.example.com/login&quot;</span>,formdata=&#123;</span><br><span class="line">        <span class="string">&#x27;user&#x27;</span>:<span class="string">&#x27;john&#x27;</span>,<span class="string">&#x27;pass&#x27;</span>:<span class="string">&#x27;secret&#x27;</span></span><br><span class="line">    &#125;,callback=self.login)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># start_requests对url请求后的响应，会通过login进行处理</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span>(<span class="params">self,response</span>):</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_requests_from_url</span>(<span class="params">self, url</span>):</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    接受一个URL并返回用于爬取的Request对象</span></span><br><span class="line"><span class="string">    :param url:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response, **kwargs</span>):</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    用于解析网页内容，一般作为初始URL解析的回调函数</span></span><br><span class="line"><span class="string">    :param response:</span></span><br><span class="line"><span class="string">    :param kwargs:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">close</span>(<span class="params">spider, reason</span>):</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    当Spider关闭时，该函数被调用。可以用来在spider关闭时，释放占用的资源。</span></span><br><span class="line"><span class="string">    :param reason:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>Scrapy除了Spider类作为基类进行扩展，还提供了CrawlSpider，XMLFeedSpider,CSVFeedSpider和SitemapSpider等类来实现不同的爬虫任务。</p>
+<h6 id="CrawlSpider"><a href="#CrawlSpider" class="headerlink" title="CrawlSpider"></a>CrawlSpider</h6><p>CrawlSpider类常用于爬取一般的网站。其中定义了一些规则(rule)来提供跟进链接功能。<br>CrawlSpider提供了新的属性rules。rules包含一个或多个Rule对象的集合。每个Rule对爬取网站的动作定义了特定的规则。如果多个Rule匹配相同的链接，则先定义的被调用。<br>CrawlSpider提供的初始URL解析方法，parse_start_url(response)。该方法返回一个Item对象或者一个Request对象或者包含二者的对象。使用示例如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyCrawlSpider</span>(<span class="params">CrawlSpider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;crawlSpider&#x27;</span></span><br><span class="line">    allowed_domains = [<span class="string">&quot;cnblogs.com&quot;</span>]<span class="comment">#域名</span></span><br><span class="line">    start_urls = [</span><br><span class="line">        <span class="string">&quot;http://www.cnblogs.com/qiyeboy/default.html?page=1&quot;</span></span><br><span class="line">    ]</span><br><span class="line">    <span class="comment"># Rule原型</span></span><br><span class="line">    <span class="comment"># scrapy.contrib.spiders.Rule(link_exactor,callback=None,cb_kwargs=None,</span></span><br><span class="line">    <span class="comment"># follow=None,process_links=None,process_request=None)</span></span><br><span class="line">    rules = (</span><br><span class="line">        Rule(LinkExtractor(allow=(<span class="string">&quot;/qiyeboy/default.html\?page=\d&#123;1,&#125;&quot;</span>,)),</span><br><span class="line">                    follow=<span class="literal">True</span>,</span><br><span class="line">                    callback=<span class="string">&#x27;parse_item&#x27;</span></span><br><span class="line">                           ),</span><br><span class="line">    )</span><br><span class="line">    <span class="comment"># LinkExtractor对象的构造</span></span><br><span class="line">    <span class="comment"># allow: 用于匹配满足正则表达式的链接</span></span><br><span class="line">    <span class="comment"># deny: 排除正则表达式匹配的链接，优先级高于allow</span></span><br><span class="line">    <span class="comment"># allow_domains：允许的域名，可以是list或str</span></span><br><span class="line">    <span class="comment"># deny_domains:排除的域名</span></span><br><span class="line">    <span class="comment"># restrict_xpaths:提取满足Xpath选择条件的链接。</span></span><br><span class="line">    <span class="comment"># restrict_css:xxxCSSxxx的链接</span></span><br><span class="line">    <span class="comment"># tags: 提取指定标签下的链接。</span></span><br><span class="line">    <span class="comment"># unique:链接是否去重</span></span><br><span class="line">    <span class="comment"># process_value:值处理函数。</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response, **kwargs</span>):</span></span><br><span class="line">        papers = response.xpath(<span class="string">&quot;.//*[@class=&#x27;day&#x27;]&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> paper <span class="keyword">in</span> papers:</span><br><span class="line">            url = paper.xpath(<span class="string">&quot;.//*[@class=&#x27;postTitle&#x27;]/a/@href&quot;</span>).extract()[<span class="number">0</span>]</span><br><span class="line">            title = paper.xpath(<span class="string">&quot;.//*[@class=&#x27;postTitle&#x27;]/a/text()&quot;</span>).extract()[<span class="number">0</span>]</span><br><span class="line">            time = paper.xpath(<span class="string">&quot;.//*[@class=&#x27;dayTitle&#x27;]/a/text()&quot;</span>).extract()[<span class="number">0</span>]</span><br><span class="line">            content = paper.xpath(<span class="string">&quot;.//*[@class=&#x27;postTitle&#x27;]/a/text()&quot;</span>).extract()[<span class="number">0</span>]</span><br><span class="line">            item = MyCrawlSpider(url=url, title=title, time=time, content=content)</span><br><span class="line">            request = scrapy.Request(url=url, callback=self.parse_body)  <span class="comment"># 调用Request方法，并设置解析函数</span></span><br><span class="line">            request.meta[<span class="string">&#x27;item&#x27;</span>] = item  <span class="comment"># 将item暂存</span></span><br><span class="line">        <span class="keyword">yield</span> request</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_body</span>(<span class="params">self,response</span>):</span></span><br><span class="line">        item = response.meta[<span class="string">&#x27;item&#x27;</span>]</span><br><span class="line">        body = response.xpath(<span class="string">&quot;.//*[@class=&#x27;postBody&#x27;]&quot;</span>)</span><br><span class="line">        item[<span class="string">&#x27;cimage_urls&#x27;</span>] = body.xpath(<span class="string">&#x27;.//img//@src&#x27;</span>).extract()<span class="comment"># 提取图片链接</span></span><br><span class="line">        <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
+<h6 id="XMLFeedSpider"><a href="#XMLFeedSpider" class="headerlink" title="XMLFeedSpider"></a>XMLFeedSpider</h6><p>XMLFeedSpider被设计用于通过迭代各个节点来分析XML源。迭代器可以从Iternodes,XML,HTML中选择。在XMLFeedSpider中，需要定义下列类属性来设置迭代器及标记名称。</p>
+<ol>
+<li>iterator</li>
+</ol>
+<p>用于确定使用哪个迭代器string,默认为iternodes，可选项有(1. iternodes, 2. html , 3. html)</p>
+<ol>
+<li><p>itertag</p>
+<p>itertag为一个包含开始迭代的节点名string</p>
+</li>
+<li><p>namespaces</p>
+<p> 称为命名空间，由(prefix,url),元组(tuple)所组成的list。这里定义了在文档中会被spider处理可用的namespace,prefix和url会被自动调用。由register_namespace()方法生成namespace。</p>
+</li>
+</ol>
+<p>示例代码如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyXMLFeedSpider</span>(<span class="params">XMLFeedSpider</span>):</span></span><br><span class="line"></span><br><span class="line">    name = <span class="string">&quot;myxmlfeed&quot;</span></span><br><span class="line">    allowed_domains = [<span class="string">&#x27;cnblogs.com&#x27;</span>]</span><br><span class="line">    start_urls = [<span class="string">&quot;https://feed.cnblogs.com/blog/u/269038/rss&quot;</span>]</span><br><span class="line">    namespaces = [&#123;<span class="string">&#x27;n&#x27;</span>,<span class="string">&#x27;http://www.sitemaps.org/schemas/sitemap/0.9&#x27;</span>&#125;]</span><br><span class="line">    iterator = <span class="string">&#x27;html&#x27;</span> <span class="comment"># 用于定义解析方式</span></span><br><span class="line">    itertag = <span class="string">&#x27;entry&#x27;</span></span><br><span class="line">    <span class="comment">#XMLFeedSpider方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">adapt_response</span>(<span class="params">self, response</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        这个方法在页面解析前和页面下载后之间被调用。可以用于修改Response内容，并再返回。</span></span><br><span class="line"><span class="string">        :param response:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">return</span>  response</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_node</span>(<span class="params">self, response, selector</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">            当节点符合itertag时，该方法被调用。接收到的response以及相对应的Selector作为参数传递给该方法。</span></span><br><span class="line"><span class="string">            需要返回一个Item对象或Request对象，或包含二者的可迭代对象</span></span><br><span class="line"><span class="string">        :param response:</span></span><br><span class="line"><span class="string">        :param selector:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="built_in">print</span>(selector.xpath(<span class="string">&#x27;id/text()&#x27;</span>).extract()[<span class="number">0</span>])</span><br><span class="line">        <span class="built_in">print</span>(selector.xpath(<span class="string">&#x27;title/text()&#x27;</span>).extract()[<span class="number">0</span>])</span><br><span class="line">        <span class="built_in">print</span>(selector.xpath(<span class="string">&#x27;summary/text()&#x27;</span>).extract()[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_results</span>(<span class="params">self, response, results</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        在页面解析后，数据返回前进行处理。主要是对返回数据的最后处理。修改Item的内容</span></span><br><span class="line"><span class="string">        :param response:</span></span><br><span class="line"><span class="string">        :param results:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> [response,results]</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-Item-Loader模块"><a href="#2-Item-Loader模块" class="headerlink" title="2. Item Loader模块"></a><a id="two"></a>2. Item Loader模块</h3><blockquote>
+<h5 id="Item-Loader是什么？"><a href="#Item-Loader是什么？" class="headerlink" title="Item Loader是什么？"></a>Item Loader是什么？</h5></blockquote>
+<p>Item Loader提供了一种边界的方式填充抓到的Items。Item Loader可以直接对Item分析，并提取出想要的数据保存到容器中，而Item则是机械的根据键值对对应，返回数据。所以Item Loader更加灵活，高效。</p>
+<p>Item Loader负责数据的收集，处理和填充。Item Loader包含两个重要的组件：输入处理器(input processors)和输出处理器(output processors)。</p>
+<ol>
+<li>Item Loader的每个字段都包含了一个输入处理器和输出处理器。</li>
+<li>输入处理器接收到response后，通过add_xpath,add_css,add_value等方法提取数据，并将数据保存到Item Loader中。</li>
+<li>收集完成数据之后，通过ItemLoader.load_item()方法来填充并返回Item对象。load_item()方法内部先调用输出处理器来处理收集到的数据，结果保存到最终的Item中。</li>
+</ol>
+<blockquote>
+<h5 id="Item-Loader使用方法"><a href="#Item-Loader使用方法" class="headerlink" title="Item Loader使用方法"></a>Item Loader使用方法</h5></blockquote>
+<p>在Item中声明输入输出处理器<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在Item中声明输入和输出处理器</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">filter_price</span>(<span class="params">value</span>):</span></span><br><span class="line">    <span class="keyword">if</span> value.isdigit():</span><br><span class="line">        <span class="keyword">return</span> value</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span>(<span class="params">scrapy.Item</span>):</span></span><br><span class="line"></span><br><span class="line">    name = scrapy.Field(</span><br><span class="line">        input_processor=MapCompose(remove_tags),</span><br><span class="line">        output_processor=Join(),</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    price = scrapy.Field(</span><br><span class="line">        input_processor=MapCompose(remove_tags,filter_price),</span><br><span class="line">        output_processor=TakeFirst(),</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    stock = scrapy.Field()</span><br><span class="line">    last_updated = scrapy.Field(serializer=<span class="built_in">str</span>)</span><br></pre></td></tr></table></figure></p>
+<p>在Item Loader类中声明类似field_in和field_out的属性。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ItemLoader</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductLoadr</span>(<span class="params">ItemLoader</span>):</span></span><br><span class="line">    default_output_processor = TakeFirst()</span><br><span class="line">    <span class="comment"># 声明输入输出处理器</span></span><br><span class="line">    <span class="comment">#输入处理器</span></span><br><span class="line">    name_in = MapCompose(unicode.title)</span><br><span class="line">    <span class="comment">#输出处理器</span></span><br><span class="line">    name_out = Join()</span><br><span class="line">    price_in =  MapCompose(unicode.price)</span><br><span class="line">    price_out = Join()</span><br><span class="line">    stock_in = MapCompose(unicode.stock)</span><br><span class="line">    stock_out = Join()</span><br><span class="line">    last_updated_in = MapCompose(unicode.last_updated)</span><br><span class="line">    last_updated_out = Join()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<h5 id="Item-Loader-Context"><a href="#Item-Loader-Context" class="headerlink" title="Item Loader Context"></a>Item Loader Context</h5></blockquote>
+<p>Item Loader Context是一个任意的键值对字典。能够被Item Loader中的输入输出处理器所共享。<br>可以用于调整输入输出处理器的行为。<br>使用Item Loader Context就是为了能够提高代码复用，便于扩展。如下代码所示，可以在原有的Item Loader基础上，对属性进行解析。如果对于不同的解析，只需要设置解析方法即可，增加了可复用性。就不需要再单独设置一个Loader ，可以复用Loader。</p>
+<p>对于输入处理器，我们可以借助方法进行扩展。对于输出处理器，通常是再Item字段元数据进行声明。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Item Loader Context</span></span><br><span class="line"><span class="comment"># 通过接收loader_context,能告诉Item loader自己能够接收Item Loader context ,</span></span><br><span class="line"><span class="comment"># 所以方法被调用的时候能将当前的active Context传递给该方法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_length</span>(<span class="params">text, loader_context</span>):</span></span><br><span class="line">    unit = loader_context.get(<span class="string">&#x27;unit&#x27;</span>, <span class="string">&#x27;m&#x27;</span>)</span><br><span class="line">    <span class="comment"># 获取长度</span></span><br><span class="line">    parsed_length = <span class="built_in">len</span>(unit)</span><br><span class="line">    <span class="keyword">return</span> parsed_length</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductLoadr</span>(<span class="params">ProductLoader</span>):</span></span><br><span class="line">    <span class="comment"># 定义修改context</span></span><br><span class="line">    length_out = MapCompose(parse_length, unit=<span class="string">&#x27;cm&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<h5 id="Item-Loader-内置的处理器"><a href="#Item-Loader-内置的处理器" class="headerlink" title="Item Loader 内置的处理器"></a>Item Loader 内置的处理器</h5></blockquote>
+<h5 id="1-MapCompose"><a href="#1-MapCompose" class="headerlink" title="1. MapCompose"></a>1. MapCompose</h5><p>输入处理器，将多个方法的执行结果按顺序组合产出最终的输出。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#MapCompose</span></span><br><span class="line"><span class="comment">#和Compose类似，但是这个方法对输入是：每个元素单独传入第一个函数处理，然后将结果又作为</span></span><br><span class="line"><span class="comment">#整个迭代对象传入到后面的函数进行处理。</span></span><br><span class="line"><span class="comment">#如果输入是None会被自动忽略</span></span><br><span class="line"><span class="comment">#相当于这个方法会对每个元素单独处理</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">filter_world</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span> <span class="keyword">if</span> x ==<span class="string">&#x27;world&#x27;</span> <span class="keyword">else</span> x</span><br><span class="line">proc = MapCompose(filter_world,unicode.upper)</span><br><span class="line"><span class="built_in">print</span>(proc([<span class="string">u&#x27;hello&#x27;</span>,<span class="string">u&#x27;world&#x27;</span>,<span class="string">u&#x27;this&#x27;</span>,<span class="string">u&#x27;is&#x27;</span>,<span class="string">u&#x27;scrapy&#x27;</span>]))</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h5 id="2-Identity"><a href="#2-Identity" class="headerlink" title="2. Identity"></a>2. Identity</h5><p>最简单的处理器，不做任何处理，直接返回原来的数据，无参数。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Identity ：简单的处理器，不做任何处理，直接返回原来的数据</span></span><br><span class="line">identity = Identity()</span><br><span class="line"><span class="built_in">print</span>(identity([<span class="string">&quot;1231&quot;</span>,<span class="string">&quot;321&quot;</span>]))</span><br></pre></td></tr></table></figure></p>
+<h5 id="3-TakeFirst"><a href="#3-TakeFirst" class="headerlink" title="3. TakeFirst"></a>3. TakeFirst</h5><p>返回第一个非空值，常用于单值字段的输出处理器，无参数。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># TakeFirst:输出处理器</span></span><br><span class="line"><span class="comment"># TakeFirst用于返回第一个非空值，常用于单值字段的输出处理。</span></span><br><span class="line">proc = TakeFirst()</span><br><span class="line"><span class="built_in">print</span>(proc([<span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;three&#x27;</span>]))</span><br></pre></td></tr></table></figure></p>
+<h5 id="4-Compose"><a href="#4-Compose" class="headerlink" title="4. Compose"></a>4. Compose</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Compose</span></span><br><span class="line"><span class="comment">#用于将给定的多个方法的组合构造处理器</span></span><br><span class="line"><span class="comment">#每个输入值传递到第一个方法，然后将结果传递到第二个方法以此类推，最后一个方法的返回值作为输出</span></span><br><span class="line"><span class="comment">#如果需要当遇到None值时候停止处理，可以通过传递stop_on_one=False设定。</span></span><br><span class="line">proc = Compose(<span class="keyword">lambda</span> v:v[<span class="number">0</span>],<span class="built_in">str</span>.upper)</span><br><span class="line"><span class="built_in">print</span>(proc([<span class="string">&#x27;hello&#x27;</span>,<span class="string">&#x27;world&#x27;</span>]))</span><br></pre></td></tr></table></figure>
+<h5 id="5-Join"><a href="#5-Join" class="headerlink" title="5. Join"></a>5. Join</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Join</span></span><br><span class="line"><span class="comment">#返回用分隔符separator连接后的值，separator默认为空格，不接受loader contexts/</span></span><br><span class="line">proc = Join()</span><br><span class="line"><span class="built_in">print</span>(proc([<span class="string">&#x27;one&#x27;</span>,<span class="string">&#x27;two&#x27;</span>,<span class="string">&#x27;three&#x27;</span>]))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="6-SelectJmes"><a href="#6-SelectJmes" class="headerlink" title="6.SelectJmes"></a>6.SelectJmes</h5><p>指定json_path查询并返回值，需要jmespath的支持，每次只接收一个输入。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#SelectJmes</span></span><br><span class="line"><span class="comment">#指定json_path查询并返回值，需要jmespath的支持</span></span><br><span class="line">proc = SelectJmes(<span class="string">&quot;foo&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(proc(&#123;<span class="string">&#x27;foo&#x27;</span>:<span class="string">&#x27;bar&#x27;</span>&#125;))</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<h4 id="3-Item-Pipeline模块"><a href="#3-Item-Pipeline模块" class="headerlink" title="3.Item Pipeline模块"></a><a id="two"></a>3.Item Pipeline模块</h4><p>完整的Item Pipeline的demo:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 完整的Item Pipeline</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MongoPipeline</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    coolection_name = <span class="string">&#x27;scrapy_items&#x27;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,mongo_uri,mongo_db</span>):</span></span><br><span class="line">        self.mongo_uri = mongo_uri</span><br><span class="line">        self.mongo_db = mongo_db</span><br><span class="line"></span><br><span class="line">    <span class="comment">#crawler是一个Crawler对象</span></span><br><span class="line">    <span class="comment">#从Crawl属性中，创建一个pipeline示例，Crawler对象能够接触所有Scrapy的核心组件如seetings，singnals。</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_crawler</span>(<span class="params">cls,crawler</span>):</span></span><br><span class="line">        <span class="keyword">return</span> cls(</span><br><span class="line">            mongo_uri=crawler.settings.get(<span class="string">&#x27;MONGO_URI&#x27;</span>),</span><br><span class="line">            mongo_db=crawler.settings.get(<span class="string">&#x27;MONGO_DATABASE&#x27;</span>,<span class="string">&#x27;items&#x27;</span>)</span><br><span class="line">        )</span><br><span class="line">    <span class="comment"># 参数spider表示一个Spider对象，表示被开启的Spider</span></span><br><span class="line">    <span class="comment"># 当spider被开启的时候，这个方法会被调用</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span>(<span class="params">self,spider</span>):</span></span><br><span class="line">        self.client = pymongo.MongoClient(self.mongo_uri)</span><br><span class="line">        self.db = self.client[self.mongo_db]</span><br><span class="line"></span><br><span class="line">    <span class="comment">#当spider被关闭的时候，这个方法会被调用</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span>(<span class="params">self,spider</span>):</span></span><br><span class="line">        self.client.close()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self,item,spider</span>):</span></span><br><span class="line">        self.db[self.coolection_name].insert(<span class="built_in">dict</span>(item))</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="3-请求与响应-1"><a href="#3-请求与响应-1" class="headerlink" title="3. 请求与响应"></a><a id="three"></a>3. 请求与响应</h3><blockquote>
+<h4 id="1-Request对象"><a href="#1-Request对象" class="headerlink" title="1. Request对象"></a>1. Request对象</h4></blockquote>
+<ol>
+<li>Request对象</li>
+</ol>
+<p>Request对象相当于一个HTTP请求。通常在Spider产生，传递给下载器，最后返回一个响应。<br>Request(url[,callback,method=’GET’,headers,body,cookies,meta,encoding=’utf-8’,priority=0,dont_filter=False,errback])。<br>url:请求链接。callback:指定用于解析请求响应的方法，如果没有指定，默认使用spider的parse方法。<br>method:HTTP请求方式。body:请求的body。headers:请求头。cookies（dict or list）：请求的cookie信息。<br>encoding:请求的编码。priority:请求的优先级，默认为0。dont_filter:标明该请求不应由调度器过滤，适用于多次执行相同请求。<br>errback:如果请求出现异常，该方法将被调用。<br>meta的参数如下所示：<br><img src="/images/spider/request-meta.PNG" alt="31"><br>示例代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">request_with_cookies = scrapy.Request(url=<span class="string">&#x27;http://www.example.com&#x27;</span>,</span><br><span class="line">                                              cookies=&#123;<span class="string">&#x27;currency&#x27;</span>:<span class="string">&#x27;USD&#x27;</span>,<span class="string">&#x27;country&#x27;</span>:<span class="string">&#x27;UY&#x27;</span>&#125;)</span><br><span class="line"><span class="comment">#使用字典列表发送</span></span><br><span class="line">request_with_cookies = scrapy.Request(url=<span class="string">&#x27;http://www.example.com&#x27;</span>,</span><br><span class="line">                                     cookies=[&#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&#x27;currency&#x27;</span>,<span class="string">&#x27;value&#x27;</span>:<span class="string">&#x27;USD&#x27;</span>,</span><br><span class="line">                                               <span class="string">&#x27;domain&#x27;</span>:<span class="string">&#x27;example.com&#x27;</span>,<span class="string">&#x27;path&#x27;</span>:<span class="string">&#x27;/currency&#x27;</span>&#125;])</span><br><span class="line"><span class="comment">#meta(dont_merge_cookies属性)可以用于当请求发送后，不将返回的cookie信息和现有cookie合并</span></span><br><span class="line"></span><br><span class="line">request_with_cookies = scrapy.Request(url=<span class="string">&#x27;http://www.example.com&#x27;</span>,</span><br><span class="line">                                     cookies=[&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;currency&#x27;</span>, <span class="string">&#x27;value&#x27;</span>: <span class="string">&#x27;USD&#x27;</span>,</span><br><span class="line">                                               <span class="string">&#x27;domain&#x27;</span>: <span class="string">&#x27;example.com&#x27;</span>, <span class="string">&#x27;path&#x27;</span>: <span class="string">&#x27;/currency&#x27;</span>&#125;],</span><br><span class="line">                                     meta=&#123;<span class="string">&#x27;dont_merge_cookies&#x27;</span>:<span class="literal">True</span>&#125;)</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>FormRequest</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#FromRequest提供了一个类方法from_response</span></span><br><span class="line"><span class="comment">#from_response(response[,formname=None,formnumber=0,formdata=None,formxpath=None,</span></span><br><span class="line"><span class="comment"># clickdata=None,dont_click=False])</span></span><br><span class="line"><span class="comment"># response: 一个包含HTML表单的响应页面，formname:表单的name属性，formnumber:用于指定第几个表单</span></span><br><span class="line"><span class="comment"># formdata(dict):用于填充表单中属性的值</span></span><br><span class="line"><span class="comment"># formxpath:通过xpath定位表单，第一个匹配的将会被操作</span></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">scrapy.FormRequest.from_response(</span><br><span class="line">   response,</span><br><span class="line">   formdata=&#123;<span class="string">&#x27;username&#x27;</span>: <span class="string">&#x27;john&#x27;</span>, <span class="string">&#x27;password&#x27;</span>: <span class="string">&#x27;secret&#x27;</span>&#125;,</span><br><span class="line">   callback=self.after_login</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>使用实例如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoginSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;example.com&#x27;</span></span><br><span class="line">    start_url = [<span class="string">&#x27;http://www.example.com/users/login.php&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response, **kwargs</span>):</span></span><br><span class="line">        <span class="keyword">return</span> scrapy.FormRequest.from_response(</span><br><span class="line">            response,</span><br><span class="line">            formdata=&#123;<span class="string">&#x27;username&#x27;</span>:<span class="string">&#x27;john&#x27;</span>,<span class="string">&#x27;password&#x27;</span>:<span class="string">&#x27;secret&#x27;</span>&#125;,</span><br><span class="line">            callback=self.after_login</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">after_login</span>(<span class="params">self,response</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&quot;authentication failed&quot;</span> <span class="keyword">in</span> response.body:</span><br><span class="line">            self.logger.error(<span class="string">&quot;Login failed&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<h4 id="2-Response对象"><a href="#2-Response对象" class="headerlink" title="2. Response对象"></a>2. Response对象</h4></blockquote>
+<p>Response就是页面请求后返回的内容。<br>Response的子类TextResponse可以在Response的基础上添加智能编码的功能。</p>
+<h3 id="4-下载器中间件"><a href="#4-下载器中间件" class="headerlink" title="4. 下载器中间件"></a><a id="four"></a>4. 下载器中间件</h3><p>下载器中间件是位于request/response处理的钩子框架。用于全局修改request和response，可以用于定制爬虫系统。</p>
+<blockquote>
+<ol>
+<li>激活下载器中间件</li>
+</ol>
+</blockquote>
+<p>在Settings.py中，设置DOWNLOADER_MIDDLEWARES的属性。将下载器添加到字典内（类路径，序号），并设定执行顺序。<br>如果要禁用组件，只要把值设置为None</p>
+<blockquote>
+<ol>
+<li>编写中间件</li>
+</ol>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 以产生User-Agent为例</span></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomUserAgent</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,agents</span>):</span></span><br><span class="line">        self.agents = agents</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_crawler</span>(<span class="params">cls,crawler</span>):</span></span><br><span class="line">        <span class="comment">#这里用于创建一个实例</span></span><br><span class="line">        <span class="comment">#从Setting载入USER_AGENTS,返回一个实例</span></span><br><span class="line">        <span class="keyword">return</span> cls(crawler.settings.getlist(<span class="string">&#x27;USER_AGENTS&#x27;</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span>(<span class="params">self,request,spider</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        用于处理网页请求，当request经过这个组件时候，这个方法会被调用。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        :param spider:</span></span><br><span class="line"><span class="string">        :return: None或者response或者request对象</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="comment"># 在process_request中设置User_Agent</span></span><br><span class="line">        request.headers.setdefault(<span class="string">&#x27;User-Agent&#x27;</span>,random.choice(self.agents))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_response</span>(<span class="params">self,request,response, spider</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        用于处理响应。返回Response则被其它中间件处理，返回request则重新执行中间链。</span></span><br><span class="line"><span class="string">        :param request:</span></span><br><span class="line"><span class="string">        :param response:</span></span><br><span class="line"><span class="string">        :param spider:</span></span><br><span class="line"><span class="string">        :return: response或者request对象</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_exception</span>(<span class="params">self,request, exception,spider</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        用于处理异常。返回None则由其它中间件继续处理异常。</span></span><br><span class="line"><span class="string">        返回Response则中间链的response方法被调用</span></span><br><span class="line"><span class="string">        返回Request对象，则返回的request将被重新调用下载。</span></span><br><span class="line"><span class="string">        :param request:</span></span><br><span class="line"><span class="string">        :param exception:</span></span><br><span class="line"><span class="string">        :param spider:</span></span><br><span class="line"><span class="string">        :return: None或者response或者request对象</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="5-Spider中间件"><a href="#5-Spider中间件" class="headerlink" title="5. Spider中间件"></a><a id="five"></a>5. Spider中间件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.request <span class="keyword">import</span> Request</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> w3lib.url <span class="keyword">import</span> canonicalize_url</span><br><span class="line"></span><br><span class="line"><span class="comment"># spider中间件</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UrlCanonicalizerMiddleware</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_spider_input</span>(<span class="params">self,response,spider</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        response经过spider中间件时，该方法被调用，用于处理response</span></span><br><span class="line"><span class="string">        :param response:</span></span><br><span class="line"><span class="string">        :param spider:</span></span><br><span class="line"><span class="string">        :return: None（Scrapy继续处理该response）或异常</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_spider_output</span>(<span class="params">self,response,result,spider</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        处理Response返回result。result包含Request,Dict或Item的可迭代对象</span></span><br><span class="line"><span class="string">        :param response:</span></span><br><span class="line"><span class="string">        :param result:</span></span><br><span class="line"><span class="string">        :param spider:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_spider_exception</span>(<span class="params">self,response,spider</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        用于处理process_spider_input抛出的异常。</span></span><br><span class="line"><span class="string">        :param response:</span></span><br><span class="line"><span class="string">        :param spider:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_start_requests</span>(<span class="params">self,start_requests,spider</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        以spider启动的request为参数。必须返回包含Reuest对象的可迭代对象。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        :param start_requests:</span></span><br><span class="line"><span class="string">        :param spider:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_spider_output</span>(<span class="params">self,response,result,spider</span>):</span></span><br><span class="line">        <span class="keyword">for</span> r <span class="keyword">in</span> result:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">isinstance</span>(r,Request):</span><br><span class="line">                curl = canonicalize_url(r.url)</span><br><span class="line">                <span class="keyword">if</span> curl != r.url:</span><br><span class="line">                    r = r.replace(url=curl)</span><br><span class="line">            <span class="comment"># yield类似于递归返回一样，返回之后，还会回到这里，继续执行剩下代码</span></span><br><span class="line">            <span class="keyword">yield</span> r</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="6-扩展"><a href="#6-扩展" class="headerlink" title="6. 扩展"></a><a id="six"></a>6. 扩展</h3><p>扩展就是将自定义功能绑定到Scrapy中。</p>
+<blockquote>
+<ol>
+<li>配置扩展</li>
+</ol>
+</blockquote>
+<p>将扩展的类路径和序号值添加到在settings的EXTENSIONS中。扩展的实例化代码必须要在构造函数中执行。</p>
+<p>扩展有三个状态，可用的，开启的，禁用的。如果要禁用一个扩展，只需要设置序号为None.</p>
+<blockquote>
+<ol>
+<li>定制扩展</li>
+</ol>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 扩展就是将自定义功能绑定到Scrapy中。</span></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> scrapy <span class="keyword">import</span> signals</span><br><span class="line"><span class="keyword">from</span> scrapy.exceptions <span class="keyword">import</span> NotConfigured</span><br><span class="line"></span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SpiderOpenCloseLogging</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,item_count</span>):</span></span><br><span class="line">        self.item_count = item_count</span><br><span class="line">        self.items_scraped = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过Crawler实例，我们可以访问到settings，signals，stats以便控制爬虫的行为。</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_crawler</span>(<span class="params">cls,crawler</span>):</span></span><br><span class="line">        <span class="comment"># 首先检查配置</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> crawler.settings.getbool(<span class="string">&#x27;MYEXT_ENABLED&#x27;</span>):</span><br><span class="line">            <span class="keyword">raise</span> NotConfigured</span><br><span class="line">        <span class="comment">#从setting中获取MYEXT_ITEMCOUNT的值</span></span><br><span class="line">        item_count = crawler.settings.getint(<span class="string">&#x27;MYEXT_ITEMCOUNT&#x27;</span>,<span class="number">1000</span>)</span><br><span class="line">        <span class="comment">#初始化扩展实例</span></span><br><span class="line">        ext = cls(item_count)</span><br><span class="line">        <span class="comment"># 将扩展的spider_opened,spider_closed和item_scraped连接到相应的信号处，进行除法。</span></span><br><span class="line">        crawler.signals.connect(ext.spider_opened,signal=signals.spider_opened)</span><br><span class="line"></span><br><span class="line">        crawler.signals.connect(ext.spider_closed,signal=signals.spider_closed)</span><br><span class="line"></span><br><span class="line">        crawler.signals.connect(ext.items_scraped,signal=signals.item_scraped)</span><br><span class="line">        <span class="comment">#返回实例</span></span><br><span class="line">        <span class="keyword">return</span> ext</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">spider_opened</span>(<span class="params">self,spider</span>):</span></span><br><span class="line">        logger.info(<span class="string">&#x27;opened spider %s&#x27;</span>,spider.name)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">spider_closed</span>(<span class="params">self,spider</span>):</span></span><br><span class="line">        logger.info(<span class="string">&#x27;closed spider %s&#x27;</span>,spider.name)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">item_scraped</span>(<span class="params">self,item,spider</span>):</span></span><br><span class="line">        self.items_scraped +=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> self.items_scraped % self.item_count == <span class="number">0</span> :</span><br><span class="line">            logger.info(<span class="string">&#x27;scraped %s items&#x27;</span>,self.items_scraped)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>spder的信号量。</p>
+<p><img src="/images/spider_kz1.PNG" alt="a1a"><br><img src="/images/spider_kz2.PNG" alt="a1a"><br><img src="/images/spider_kz3.PNG" alt="a1a"></p>
+<h3 id="7-反爬"><a href="#7-反爬" class="headerlink" title="7. 反爬"></a><a id="seven"></a>7. 反爬</h3><p>反爬主要包含：基于验证码，基于Headers,基于用户行为，基于动态页面的反爬措施。<br>对于验证码的反爬，可根据具体验证码类型进行破解。对于Headers的反爬则根据需要访问的网址的User-Agent和Referer字段进行检测。<br>对于基于用户行为的反爬，通过构建Cookie池或IP池进行绕过，或对访问频率进行限制。对于动态页面的反爬，则通过selenium进行模拟发送获取数据。</p>
+<blockquote>
+<ol>
+<li>Scrapy设置下载延时和自动限速</li>
+</ol>
+<blockquote>
+<ol>
+<li>设置下载延时<blockquote>
+<p>在settings中设置DOWNLOAD_DELAY,例如DOWNLOAD_DELAY=2,进行设置。</p>
+</blockquote>
+</li>
+<li>设置随机下载延时<blockquote>
+<p>设置RANDOMIZE_DOWNLOAD_DELAY=True</p>
+</blockquote>
+</li>
+<li>设置自动限速扩展<blockquote>
+<p>设置AUTOTHROTILE_ENABLED=True,AUTOTHROTILE_START_DELAY=初始下载时延，AUTOTHROTILE_MAX_DELAY=最高延迟.</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<ol>
+<li>代理VPN</li>
+</ol>
+</blockquote>
+<p>可以了解一下Tor代理。</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E7%88%AC%E8%99%AB/debug%E5%8F%8D%E7%88%AC/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    debug反爬
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/Python/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Python常见问题</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    
+        <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+        <script>
+            if (window.mermaid) {
+                mermaid.initialize({
+                    theme: 'forest'
+                });
+            }
+        </script>
+        
+            <div class="outer">
+                <div id="footer-info" class="inner">
+                    ZZC &copy;
+                        2022
+                            <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+                            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a target="_blank" rel="noopener" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+                            
+                                <br>
+                                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                                &nbsp;|&nbsp;
+                                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+                                
+                </div>
+            </div>
+</footer>
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [ ["$","$"], ["\\(","\\)"] ], skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'], processEscapes: true, TeX: { equationNumbers: { autoNumber: 'AMS' } } } }); MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(); for (var i = 0; i
+    < all.length; ++i) all[i].SourceElement().parentNode.className +=' has-jax' ; }); </script>
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <!-- <script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
